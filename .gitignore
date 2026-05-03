@@ -1,0 +1,24 @@
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Dependencies (only relevant if we ever add tooling)
+node_modules/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Claude per-machine project overrides (the rest of .claude/ is tracked)
+.claude/settings.local.json
+
+# Scratch directory — local notes, drafts, exports, generators
+temp/
