@@ -20,5 +20,5 @@ node_modules/
 # Claude per-machine project overrides (the rest of .claude/ is tracked)
 .claude/settings.local.json
 
-# Scratch directory — local notes, drafts, exports, generators
+# Scratch directory &mdash; local notes, drafts, exports, generators
 temp/

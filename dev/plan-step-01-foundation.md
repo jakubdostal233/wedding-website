@@ -1,6 +1,6 @@
-# Step 01 — Foundation
+# Step 01 &mdash; Foundation
 
-First implementation step. Goal: a working `index.html` that proves the technical foundation is sound — directory structure, fonts, palette, base CSS, and the shared header/footer pattern.
+First implementation step. Goal: a working `index.html` that proves the technical foundation is sound &mdash; directory structure, fonts, palette, base CSS, and the shared header/footer pattern.
 
 ## Table of contents
 
@@ -14,7 +14,7 @@ First implementation step. Goal: a working `index.html` that proves the technica
 
 ## Goal
 
-By the end of this step, opening `index.html` in a browser shows a styled hero matching the design mockup: serif "Jakub & [J]" name, sans-serif date "10 · 7 · 2026", "Praha" subtitle, ivory background, charcoal text, sage accent. The site nav (header) and footer are present and link to placeholder URLs for the other pages (404 is fine — those pages don't exist yet).
+By the end of this step, opening `index.html` in a browser shows a styled hero matching the design mockup: serif "Jakub & [J]" name, sans-serif date "10 · 7 · 2026", "Praha" subtitle, ivory background, charcoal text, sage accent. The site nav (header) and footer are present and link to placeholder URLs for the other pages (404 is fine &mdash; those pages don't exist yet).
 
 ## Tasks
 
@@ -51,14 +51,14 @@ Add to the `<head>` of every page:
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&display=swap">
 ```
 
-`display=swap` shows fallback text immediately, swaps in the custom font once loaded — better than invisible-text-while-loading.
+`display=swap` shows fallback text immediately, swaps in the custom font once loaded &mdash; better than invisible-text-while-loading.
 
 ### 4. Write `assets/css/main.css`
 
 Sections, in order:
 
-1. **Reset** — minimal modern reset (`*, *::before, *::after { box-sizing: border-box; }`, `body { margin: 0; }`, etc.)
-2. **Custom properties** — palette, type tokens, spacing scale, max-width tokens
+1. **Reset** &mdash; minimal modern reset (`*, *::before, *::after { box-sizing: border-box; }`, `body { margin: 0; }`, etc.)
+2. **Custom properties** &mdash; palette, type tokens, spacing scale, max-width tokens
 
    ```css
    :root {
@@ -80,9 +80,9 @@ Sections, in order:
    }
    ```
 
-3. **Base typography** — `body`, `h1`–`h3`, `p`, `a`
-4. **Layout primitives** — centered container, header bar, footer bar
-5. **Hero block** — for the index page
+3. **Base typography** &mdash; `body`, `h1`–`h3`, `p`, `a`
+4. **Layout primitives** &mdash; centered container, header bar, footer bar
+5. **Hero block** &mdash; for the index page
 
 ### 5. Build `index.html`
 
@@ -106,10 +106,10 @@ After acceptance criteria pass, commit with a descriptive message. Use the `jd:g
 
 ## Acceptance criteria
 
-- [ ] `index.html` renders with the modern minimalist look — ivory bg, charcoal text, sage accent, Cormorant Garamond for display, Inter for body
-- [ ] Site header shows nav with all 7 pages (other links 404 for now — fine)
+- [ ] `index.html` renders with the modern minimalist look &mdash; ivory bg, charcoal text, sage accent, Cormorant Garamond for display, Inter for body
+- [ ] Site header shows nav with all 7 pages (other links 404 for now &mdash; fine)
 - [ ] Site footer present
-- [ ] Mobile layout works (375px viewport — resize in browser)
+- [ ] Mobile layout works (375px viewport &mdash; resize in browser)
 - [ ] No console errors
 - [ ] HTML validates as HTML5 (paste source into validator.w3.org)
 - [ ] Works in Chrome and Firefox
@@ -122,9 +122,9 @@ After acceptance criteria pass, commit with a descriptive message. Use the `jd:g
 
 ## Risks
 
-- **FOUT (flash of unstyled text)** — brief moment of fallback font before Cormorant/Inter loads. `display=swap` is the right tradeoff for a wedding site; users see something readable immediately.
-- **Color contrast** — charcoal `#2a2a2a` on ivory `#faf8f3` is ~14:1 (well above WCAG AAA 7:1). Sage `#8a9a7b` on ivory has lower contrast — only use sage for non-essential accent text or large display headings, never body copy.
-- **Path conventions** — relative paths like `assets/css/main.css` work from `index.html` at root. Sub-paths (e.g. `/en/index.html` in Phase 2) need `../assets/...` or root-relative `/assets/...`. Decide convention now: **root-relative `/`** is simpler at any depth.
+- **FOUT (flash of unstyled text)** &mdash; brief moment of fallback font before Cormorant/Inter loads. `display=swap` is the right tradeoff for a wedding site; users see something readable immediately.
+- **Color contrast** &mdash; charcoal `#2a2a2a` on ivory `#faf8f3` is ~14:1 (well above WCAG AAA 7:1). Sage `#8a9a7b` on ivory has lower contrast &mdash; only use sage for non-essential accent text or large display headings, never body copy.
+- **Path conventions** &mdash; relative paths like `assets/css/main.css` work from `index.html` at root. Sub-paths (e.g. `/en/index.html` in Phase 2) need `../assets/...` or root-relative `/assets/...`. Decide convention now: **root-relative `/`** is simpler at any depth.
 
 ## Estimated effort
 

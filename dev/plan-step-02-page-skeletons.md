@@ -1,4 +1,4 @@
-# Step 02 — Page skeletons
+# Step 02 &mdash; Page skeletons
 
 Second implementation step. Goal: every page exists with shared header/footer and a stub content area; navigation works in both directions.
 
@@ -19,12 +19,12 @@ After this step, the site has all 7 pages (`index.html` from Step 01 plus 6 new)
 
 ### 1. Confirm header/footer pattern
 
-Step 01 settled on **Option A — copy-paste**. Each page carries identical header and footer markup; the only difference between pages is the `aria-current="page"` attribute on the matching nav link. Sync across pages stays manual (AI-assisted).
+Step 01 settled on **Option A &mdash; copy-paste**. Each page carries identical header and footer markup; the only difference between pages is the `aria-current="page"` attribute on the matching nav link. Sync across pages stays manual (AI-assisted).
 
 ### 2. Add `.page` and `.timeline` styles to `assets/css/main.css`
 
-- `.page` — vertical-rhythm wrapper for content pages (where `.hero` is the wrapper on the index page)
-- `.timeline` — grid layout for `<dl>` time–event pairs on `program.html`
+- `.page` &mdash; vertical-rhythm wrapper for content pages (where `.hero` is the wrapper on the index page)
+- `.timeline` &mdash; grid layout for `<dl>` time–event pairs on `program.html`
 
 ### 3. Create the 6 pages
 
@@ -38,7 +38,7 @@ Step 01 settled on **Option A — copy-paste**. Each page carries identical head
 | `gift.html` | Dar | (lead copy + QR placeholder) |
 
 Each page:
-- Same `<head>` as `index.html` — meta, fonts, CSS link
+- Same `<head>` as `index.html` &mdash; meta, fonts, CSS link
 - Page-specific `<title>` in the form `Page name · Tereza & Jakub`
 - Header copy-pasted from `index.html`, with `aria-current="page"` on the matching nav link
 - `<main class="page container">` wrapping page-specific content
@@ -47,10 +47,10 @@ Each page:
 
 ### 4. Verify
 
-- Click each nav link from each page — all 200 OK
+- Click each nav link from each page &mdash; all 200 OK
 - `python3 -m http.server` running, paths resolve
-- 375px wide — header nav wraps, content readable
-- DevTools console — no errors
+- 375px wide &mdash; header nav wraps, content readable
+- DevTools console &mdash; no errors
 
 ## Acceptance criteria
 
@@ -64,14 +64,14 @@ Each page:
 ## Decisions confirmed in this step
 
 - **Header/footer pattern.** Copy-paste (Option A from Step 01). Reconsider single-source-of-truth strategies (build script, JS injection) only if the page count exceeds ~10.
-- **Title format.** `Page name · Tereza & Jakub` — page-specific part first so the meaningful bit is visible even when the browser truncates the tab title.
+- **Title format.** `Page name · Tereza & Jakub` &mdash; page-specific part first so the meaningful bit is visible even when the browser truncates the tab title.
 - **Active-page indicator.** `aria-current="page"` on the matching nav link. Styling already lives in `main.css` from Step 01 (sage underline).
 
 ## Conventions used
 
 - **Phase markers in HTML comments.** `<!-- TODO Phase 4: mailto link -->`. Easy to grep when starting a later phase, and they document intent inline.
 - **Czech placeholder copy.** Minimal, in vykání, clearly worded so it cannot accidentally ship as real content. Phase 3 replaces it.
-- **`em` italics on placeholder lines** — e.g. `<em>Mapa bude vložena ve fázi 4.</em>` — visually flags content that's not the final copy.
+- **`em` italics on placeholder lines** &mdash; e.g. `<em>Mapa bude vložena ve fázi 4.</em>` &mdash; visually flags content that's not the final copy.
 
 ## What this step does NOT cover
 

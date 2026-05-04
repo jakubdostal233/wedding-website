@@ -1,14 +1,14 @@
-# Wedding Website — Project Context
+# Wedding Website &mdash; Project Context
 
 Static informational website for **Tereza & Jakub**'s wedding on **10 July 2026 in Prague** (Vršovický zámeček). Public but unlisted, hosted free on GitHub Pages, single-author, ~12-month lifecycle.
 
 ## Where to find what
 
-- **Spec (source of truth):** `dev/SPEC.md` — what we're building, decisions made, open items
-- **Roadmap:** `dev/roadmap.md` — phased path from now to launch
-- **Active plan:** `dev/plan-step-NN-*.md` — tasks for the current phase
-- **Documentation:** `docs/` — long-form guides (deployment, content workflow, etc.)
-- **Public README:** `README.md` — repo overview for any reader
+- **Spec (source of truth):** `dev/SPEC.md` &mdash; what we're building, decisions made, open items
+- **Roadmap:** `dev/roadmap.md` &mdash; phased path from now to launch
+- **Active plan:** `dev/plan-step-NN-*.md` &mdash; tasks for the current phase
+- **Documentation:** `docs/` &mdash; long-form guides (deployment, content workflow, etc.)
+- **Public README:** `README.md` &mdash; repo overview for any reader
 
 ## Stack
 
@@ -17,10 +17,11 @@ Vanilla HTML / CSS / JavaScript, no build step, no Node toolchain. Multi-page ar
 ## Project conventions
 
 - **Page filenames in English** (`location.html`, `about-us.html`), **content in Czech** (vykání, warm but proper). English mirror under `/en/` is a possible Phase 2.
+- **Em dashes use the entity `&mdash;`, not the Unicode character.** User preference &mdash; entities are explicit in source and don't get confused with hyphens or en dashes at a glance. Applies everywhere: HTML, Markdown, CSS, and config files. In Markdown the entity still renders as a proper em dash through the inline-HTML pass.
 - **CSS:** single `assets/css/main.css`, mobile-first; palette ivory · charcoal · sage; type Cormorant Garamond + Inter.
 - **No third-party services** (no Formspree, no analytics, no CDN beyond Google Fonts) unless added with explicit decision logged in `dev/SPEC.md`.
 - **Photos:** placeholders (e.g. solid sage block or `assets/img/placeholder-*.jpg`) until real photos are available.
-- **Site files live at the repo root** (`index.html`, `assets/`, …) alongside project files (`dev/`, `docs/`). GitHub Pages serves the root, so anything in the repo is technically reachable — `robots.txt` disallows crawlers, but don't put secrets in tracked files.
+- **Site files live at the repo root** (`index.html`, `assets/`, …) alongside project files (`dev/`, `docs/`). GitHub Pages serves the root, so anything in the repo is technically reachable &mdash; `robots.txt` disallows crawlers, but don't put secrets in tracked files.
 
 ## Local development
 
@@ -38,7 +39,7 @@ GitHub Pages, deploy from `main` branch root. Custom domain via `CNAME` file at 
 
 ## Scratch / private notes
 
-- `temp/` is gitignored — use freely for drafts, exports, generator scripts (e.g. SPAYD QR generation). Don't reference `temp/` from tracked files.
+- `temp/` is gitignored &mdash; use freely for drafts, exports, generator scripts (e.g. SPAYD QR generation). Don't reference `temp/` from tracked files.
 
 ## Workflow notes for Claude
 

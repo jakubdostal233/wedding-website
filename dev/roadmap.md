@@ -1,19 +1,19 @@
-# Wedding Website — Roadmap
+# Wedding Website &mdash; Roadmap
 
 Phased path from project init to live website. Each phase has a brief description, a plan, deliverables, and dependencies. Detail for the *current* phase lives in `dev/plan-step-NN-*.md`; the spec ground-truth is in `dev/SPEC.md`.
 
 ## Table of contents
 
-- [Phase 1 — Foundation](#phase-1--foundation)
-- [Phase 2 — Page skeletons](#phase-2--page-skeletons)
-- [Phase 3 — Content draft](#phase-3--content-draft)
-- [Phase 4 — Integrations](#phase-4--integrations)
-- [Phase 5 — Photos](#phase-5--photos)
-- [Phase 6 — Polish](#phase-6--polish)
-- [Phase 7 — Domain and deploy](#phase-7--domain-and-deploy)
+- [Phase 1 &mdash; Foundation](#phase-1--foundation)
+- [Phase 2 &mdash; Page skeletons](#phase-2--page-skeletons)
+- [Phase 3 &mdash; Content draft](#phase-3--content-draft)
+- [Phase 4 &mdash; Integrations](#phase-4--integrations)
+- [Phase 5 &mdash; Photos](#phase-5--photos)
+- [Phase 6 &mdash; Polish](#phase-6--polish)
+- [Phase 7 &mdash; Domain and deploy](#phase-7--domain-and-deploy)
 - [Symbols and abbreviations](#symbols-and-abbreviations)
 
-## Phase 1 — Foundation
+## Phase 1 &mdash; Foundation
 
 **Goal.** Lay the technical foundation: site asset directories, base CSS (palette, typography, layout primitives), shared header/footer pattern, fonts loaded, and one working page (`index.html`) that proves everything renders correctly.
 
@@ -21,8 +21,8 @@ Phased path from project init to live website. Each phase has a brief descriptio
 - Decide and document the shared-header/footer strategy
 - Create `assets/css/`, `assets/js/`, `assets/img/`
 - Load fonts (Cormorant Garamond + Inter via Google Fonts)
-- Write `assets/css/main.css` — reset, custom properties for palette/typography/spacing, base styles
-- Implement `index.html` — hero with names/date/place, shared header/footer
+- Write `assets/css/main.css` &mdash; reset, custom properties for palette/typography/spacing, base styles
+- Implement `index.html` &mdash; hero with names/date/place, shared header/footer
 - Verify locally (browser + `python3 -m http.server`)
 
 **Deliverable.** `index.html` opens in a browser and matches the design mockup.
@@ -31,7 +31,7 @@ Phased path from project init to live website. Each phase has a brief descriptio
 
 **Detail.** `dev/plan-step-01-foundation.md`.
 
-## Phase 2 — Page skeletons
+## Phase 2 &mdash; Page skeletons
 
 **Goal.** Every page exists with shared header/footer and a stub for its content area. Navigation works between pages.
 
@@ -45,7 +45,7 @@ Phased path from project init to live website. Each phase has a brief descriptio
 
 **Dependencies.** Phase 1.
 
-## Phase 3 — Content draft
+## Phase 3 &mdash; Content draft
 
 **Goal.** Real Czech copy on every page (placeholders where info is still pending).
 
@@ -63,7 +63,7 @@ Phased path from project init to live website. Each phase has a brief descriptio
 
 **Dependencies.** Phase 2 + content from you (venue address, schedule, story).
 
-## Phase 4 — Integrations
+## Phase 4 &mdash; Integrations
 
 **Goal.** All dynamic-feeling features wired up.
 
@@ -78,7 +78,7 @@ Phased path from project init to live website. Each phase has a brief descriptio
 
 **Dependencies.** Phase 3 + bank account info, venue addresses, finalised schedule.
 
-## Phase 5 — Photos
+## Phase 5 &mdash; Photos
 
 **Goal.** Real photos in place of placeholders.
 
@@ -93,7 +93,7 @@ Phased path from project init to live website. Each phase has a brief descriptio
 
 **Dependencies.** Phase 4 + photo selection.
 
-## Phase 6 — Polish
+## Phase 6 &mdash; Polish
 
 **Goal.** Quality pass before going live.
 
@@ -111,7 +111,7 @@ Phased path from project init to live website. Each phase has a brief descriptio
 
 **Dependencies.** Phase 5.
 
-## Phase 7 — Domain and deploy
+## Phase 7 &mdash; Domain and deploy
 
 **Goal.** Site live at the custom domain.
 
@@ -135,8 +135,8 @@ Phased path from project init to live website. Each phase has a brief descriptio
 
 | Term | Meaning |
 |------|---------|
-| SPAYD | Short Payment Descriptor — Czech QR payment standard |
-| WCAG AA | Web Content Accessibility Guidelines, level AA — common accessibility target |
+| SPAYD | Short Payment Descriptor &mdash; Czech QR payment standard |
+| WCAG AA | Web Content Accessibility Guidelines, level AA &mdash; common accessibility target |
 | FOUT | Flash of Unstyled Text |
 | WebP | Modern image format with better compression than JPG |
 | CNAME | DNS record aliasing one domain to another |
