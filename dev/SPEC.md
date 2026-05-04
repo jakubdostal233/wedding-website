@@ -74,7 +74,8 @@ All pages share a single header (site nav) and footer.
 
 - Develop locally: open `.html` directly, or run `python3 -m http.server 8000`
 - Push to GitHub `main` → enable GitHub Pages (deploy from `main`, root)
-- Buy domain (~200 CZK/yr at e.g. forpsi.cz, websupport.cz, domena.cz)
+- Domain: `tereza-jakub.cz` registered at Forpsi (~165 CZK/yr)
+- Email: `info@tereza-jakub.cz` forwards to personal Gmail via Seznam Email Profi (free tier)
 - Set DNS records at the registrar pointing at GitHub Pages
 - Add a `CNAME` file in the repo containing the domain name
 - Verify HTTPS works (GitHub Pages auto-issues a Let's Encrypt certificate)
@@ -94,10 +95,7 @@ Total annual cost: ~200 CZK (domain only).
 
 These can be filled in over time; none block scaffolding or the foundation step:
 
-- Email address for the contact-page `mailto:`
 - Photos (hero, "About us")
-- Bank account info (CZ account number or IBAN) for SPAYD QR
-- Domain name
 
 ## Open questions
 
