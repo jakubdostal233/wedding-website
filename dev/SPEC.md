@@ -18,7 +18,7 @@
 
 ## Objective
 
-Static informational website for Jakub & [partner]'s wedding on **10 July 2026 in Prague**. Tells guests when and where, how to get there, and what the day looks like; offers a contact channel, an "add to calendar" file, and an optional bank QR for financial gifts. Free hosting; low-effort to maintain; ~12-month lifecycle.
+Static informational website for **Tereza & Jakub**'s wedding on **10 July 2026 in Prague** (Vršovický zámeček). Tells guests when and where, how to get there, and what the day looks like; offers a contact channel, an "add to calendar" file, and an optional bank QR for financial gifts. Free hosting; low-effort to maintain; ~12-month lifecycle.
 
 ## Stack and architecture
 
@@ -94,9 +94,8 @@ Total annual cost: ~200 CZK (domain only).
 
 These can be filled in over time; none block scaffolding or the foundation step:
 
-- Partner's name (currently `[J]` / `[Jméno]` in mockups)
-- Ceremony venue address + start time
-- Restaurant address
+- Vršovický zámeček (Praha) — exact street address + ceremony start time
+- Restaurant address (or confirmation that the banquet is at Vršovický zámeček)
 - Day-of program / schedule
 - Photos (hero, "About us")
 - Bank account info (CZ account number or IBAN) for SPAYD QR
@@ -107,8 +106,7 @@ These can be filled in over time; none block scaffolding or the foundation step:
 | # | Question | Why it matters | Resolution path |
 |---|----------|----------------|-----------------|
 | 1 | Self-host fonts vs. Google Fonts CDN | Privacy (Google sees a request when each page loads), GDPR, performance | Default: Google Fonts CDN; switch to self-hosted in Phase 6 if privacy becomes a concern |
-| 2 | Will the partner's name include diacritics? | Affects page titles and the hero copy (no impact on URLs since filenames are English) | Confirm at content phase |
-| 3 | One ceremony location or two (e.g. registry office + reception venue)? | Affects how `location.html` is structured | Confirm with venue addresses |
+| 2 | Is the banquet at Vršovický zámeček itself, or a separate restaurant? | Affects how `location.html` is structured (one map embed vs. two) | Confirm with the venue / coordinator |
 
 ## Risks and assumptions
 

@@ -1,6 +1,6 @@
 # Wedding Website — Project Context
 
-Static informational website for Jakub & [partner]'s wedding on **10 July 2026 in Prague**. Public but unlisted, hosted free on GitHub Pages, single-author, ~12-month lifecycle.
+Static informational website for **Tereza & Jakub**'s wedding on **10 July 2026 in Prague** (Vršovický zámeček). Public but unlisted, hosted free on GitHub Pages, single-author, ~12-month lifecycle.
 
 ## Where to find what
 
