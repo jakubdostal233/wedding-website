@@ -8,9 +8,17 @@ Informational website for our wedding on **10 July 2026 in Prague**. Built from 
 |------|--------------|
 | `index.html`, `*.html`, `assets/` | The public site (added during Phase 1+) |
 | `dev/` | Specification, roadmap, and active step plans |
-| `docs/` | Long-form documentation (deployment notes, content workflow, etc.) |
+| `docs/` | Long-form documentation (see below) |
 | `.claude/` | Project context for [Claude Code](https://claude.com/claude-code) |
 | `temp/` | Scratch — gitignored |
+
+### Planned documentation
+
+Files added to `docs/` as the project grows:
+
+- `deployment.md` — GitHub Pages setup, DNS configuration, domain renewal notes
+- `content-workflow.md` — how to add a page, how to swap a photo, how to update copy
+- `assets-pipeline.md` — image optimisation, font handling, SPAYD QR regeneration
 
 ## Local preview
 
