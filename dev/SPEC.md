@@ -74,7 +74,7 @@ All pages share a single header (site nav) and footer.
 
 - Develop locally: open `.html` directly, or run `python3 -m http.server 8000`
 - Push to GitHub `main` → enable GitHub Pages (deploy from `main`, root)
-- Domain: `tereza-jakub.cz` registered at Forpsi (~165 CZK/yr)
+- Domain: `tereza-jakub.cz` registered at Wedos (~120 CZK/yr)
 - Email: `info@tereza-jakub.cz` forwards to personal Gmail via Seznam Email Profi (free tier)
 - Set DNS records at the registrar pointing at GitHub Pages
 - Add a `CNAME` file in the repo containing the domain name

@@ -20,12 +20,12 @@ Static site &mdash; vanilla HTML/CSS/JS, no build step &mdash; hosted on GitHub 
 |-------|------|
 | Repository | <https://github.com/jakubdostal233/wedding-website> (branch `main`, root) |
 | Hosting | GitHub Pages (free), serves the repo root |
-| Domain | `tereza-jakub.cz` at Forpsi (registered May 2026, 1-year term) |
+| Domain | `tereza-jakub.cz` at Wedos (registered May 2026, 1-year term) |
 | Email | `info@tereza-jakub.cz` at Seznam Email Profi (free tier) &mdash; forwards to personal Gmail |
 
 ## Initial deployment (one-time)
 
-Steps 1&ndash;7. Skip steps already done; the order matters because step 5 (DNS at Forpsi) needs steps 2 and 3 to be live first.
+Steps 1&ndash;7. Skip steps already done; the order matters because step 5 (DNS at Wedos) needs steps 2 and 3 to be live first.
 
 ### 1. Push the repo to GitHub
 
@@ -64,9 +64,9 @@ git push
 
 After this commit, GitHub Pages will redirect the `*.github.io` URL to `tereza-jakub.cz` once DNS is configured. The repo's Pages settings page will show "Custom domain: tereza-jakub.cz" &mdash; with a warning until DNS is set up.
 
-### 4. Configure DNS at Forpsi
+### 4. Configure DNS at Wedos
 
-Open <https://admin.forpsi.com> &rarr; DNS for `tereza-jakub.cz`.
+Open <https://client.wedos.com> &rarr; DNS for `tereza-jakub.cz`.
 
 #### Delete
 
@@ -74,8 +74,8 @@ The current parking-page records:
 
 | název | typ | data | Why delete |
 |-------|-----|------|------------|
-| (empty) | A | `185.8.237.22` | Forpsi parking IP, replaced |
-| (empty) | AAAA | `2a0e:acc0::d22` | Forpsi parking IPv6, replaced |
+| (empty) | A | `185.8.237.22` | Wedos parking IP, replaced |
+| (empty) | AAAA | `2a0e:acc0::d22` | Wedos parking IPv6, replaced |
 | `*` | A | `185.8.237.22` | Wildcard parking; not needed |
 | `*` | AAAA | `2a0e:acc0::d22` | Wildcard parking; not needed |
 
@@ -175,16 +175,16 @@ Reverts the most recent commit and pushes. Site reverts within ~1 minute.
 
 For broader rollback (multiple commits to undo), `git revert <oldercommit>..HEAD` and push. Avoid `git reset --hard` on `main` since the branch is shared with GitHub.
 
-For severe issues (e.g., the site shows wrong content on the wrong domain due to a CNAME / DNS misconfiguration), point the apex A records at Forpsi back to the parking IPs (`185.8.237.22`) to take the site offline while you debug.
+For severe issues (e.g., the site shows wrong content on the wrong domain due to a CNAME / DNS misconfiguration), point the apex A records at Wedos back to the parking IPs (`185.8.237.22`) to take the site offline while you debug.
 
 ## Domain renewal
 
-Forpsi sends an email reminder ~30 days before the domain expires. To renew:
+Wedos sends an email reminder ~30 days before the domain expires. To renew:
 
-1. Log into <https://admin.forpsi.com>
+1. Log into <https://client.wedos.com>
 2. **Domény &rarr; tereza-jakub.cz &rarr; Prodloužit / Renew**
 3. Choose 1 year (or longer)
-4. Pay (~165 CZK + VAT for `.cz`, 1-year term)
+4. Pay (~120 CZK + VAT for `.cz`, 1-year term)
 
 If you forget to renew, there's a grace period (~30&ndash;45 days for `.cz`) during which you can still recover the domain at higher cost. After that, the domain is released back to public registration and anyone can grab it.
 
@@ -194,7 +194,7 @@ After the wedding (2026-07-10), if you don't plan to keep the site online long-t
 
 | Item | Provider | Annual cost |
 |------|----------|-------------|
-| Domain `tereza-jakub.cz` | Forpsi | ~165 CZK + VAT |
+| Domain `tereza-jakub.cz` | Wedos | ~120 CZK + VAT |
 | Email forwarding | Seznam Email Profi (free tier) | 0 |
 | Static hosting | GitHub Pages (free) | 0 |
 | TLS certificate | Let's Encrypt (auto, via GitHub) | 0 |
@@ -210,4 +210,4 @@ After the wedding (2026-07-10), if you don't plan to keep the site online long-t
 | Email stops working after DNS changes | MX records accidentally deleted | Re-add the two Seznam MX records (see [step 4 &mdash; Keep](#keep)) |
 | Pages build fails | Syntax error or unsupported file in repo | Check Actions tab for the error message |
 | Site updates aren't showing | Browser cache; GitHub CDN cache | Hard refresh (Ctrl+Shift+R); wait 5 min for CDN |
-| Forpsi DNS panel rejects an MX/CNAME with trailing dot | Some panels add the dot themselves | Try the value without the trailing dot |
+| Wedos DNS panel rejects an MX/CNAME with trailing dot | Some panels add the dot themselves | Try the value without the trailing dot |
