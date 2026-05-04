@@ -22,7 +22,7 @@ Static informational website for **Tereza & Jakub**'s wedding on **10 July 2026 
 
 ## Stack and architecture
 
-- **Vanilla HTML / CSS / JavaScript** — no framework, no build step, no Node toolchain
+- **Vanilla HTML / CSS / JavaScript** &mdash; no framework, no build step, no Node toolchain
 - **Multi-page** architecture with shared header/footer (kept in sync manually with AI assistance)
 - **Site files** live at the repo root (`index.html`, `assets/…`)
 - **Hosted on GitHub Pages**, free tier
@@ -44,7 +44,7 @@ Page filenames are in English regardless of content language to keep paths stabl
 
 ## Design
 
-- **Style:** modern minimalist — clean serif headings, sans-serif body, generous whitespace, single muted accent color, photo-led
+- **Style:** modern minimalist &mdash; clean serif headings, sans-serif body, generous whitespace, single muted accent color, photo-led
 - **Palette:** ivory · charcoal · sage green
 - **Typography:** Cormorant Garamond (display, serif) + Inter (body, sans-serif), via Google Fonts
 - **Mobile-first** responsive layout
@@ -53,7 +53,7 @@ Page filenames are in English regardless of content language to keep paths stabl
 
 | File | Czech section name | Purpose |
 |------|--------------------|---------|
-| `index.html` | Úvod | Hero — names, date, place, hero photo |
+| `index.html` | Úvod | Hero &mdash; names, date, place, hero photo |
 | `location.html` | Místo a čas | Ceremony venue + restaurant + time, map embeds |
 | `program.html` | Program | Day timeline |
 | `transit.html` | Cesta a ubytování | Directions, parking, transit, accommodation |
@@ -83,20 +83,18 @@ Total annual cost: ~200 CZK (domain only).
 
 ## Out of scope
 
-- **RSVP** — handled outside the site (email/phone)
+- **RSVP** &mdash; handled outside the site (email/phone)
 - **Photo gallery** beyond a few "About us" shots
-- **English translation** — Phase 2 only, may be skipped entirely
+- **English translation** &mdash; Phase 2 only, may be skipped entirely
 - **Backend** of any kind
-- **Forms** — guest contact is via `mailto:` only
-- **Analytics** — none
+- **Forms** &mdash; guest contact is via `mailto:` only
+- **Analytics** &mdash; none
 
 ## Pending content
 
 These can be filled in over time; none block scaffolding or the foundation step:
 
-- Vršovický zámeček (Praha) — exact street address + ceremony start time
-- Restaurant address (or confirmation that the banquet is at Vršovický zámeček)
-- Day-of program / schedule
+- Email address for the contact-page `mailto:`
 - Photos (hero, "About us")
 - Bank account info (CZ account number or IBAN) for SPAYD QR
 - Domain name
@@ -106,7 +104,6 @@ These can be filled in over time; none block scaffolding or the foundation step:
 | # | Question | Why it matters | Resolution path |
 |---|----------|----------------|-----------------|
 | 1 | Self-host fonts vs. Google Fonts CDN | Privacy (Google sees a request when each page loads), GDPR, performance | Default: Google Fonts CDN; switch to self-hosted in Phase 6 if privacy becomes a concern |
-| 2 | Is the banquet at Vršovický zámeček itself, or a separate restaurant? | Affects how `location.html` is structured (one map embed vs. two) | Confirm with the venue / coordinator |
 
 ## Risks and assumptions
 
@@ -124,10 +121,10 @@ All risks above are **low** unless flagged otherwise.
 
 | Term | Meaning |
 |------|---------|
-| SPAYD | Short Payment Descriptor — Czech QR payment standard |
-| EPC QR | European Payments Council QR — international QR payment standard |
-| FOUT | Flash of Unstyled Text — brief moment before a custom font loads |
+| SPAYD | Short Payment Descriptor &mdash; Czech QR payment standard |
+| EPC QR | European Payments Council QR &mdash; international QR payment standard |
+| FOUT | Flash of Unstyled Text &mdash; brief moment before a custom font loads |
 | CNAME | DNS record type for aliasing one domain to another |
 | ToC | Table of Contents |
-| iframe | Inline frame — embedded HTML document inside another page |
+| iframe | Inline frame &mdash; embedded HTML document inside another page |
 | WCAG | Web Content Accessibility Guidelines |

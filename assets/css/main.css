@@ -1,5 +1,5 @@
 /* =============================================================
-   Wedding Website — Base styles
+   Wedding Website &mdash; Base styles
    Palette: ivory (#faf8f3) · charcoal (#2a2a2a) · sage (#8a9a7b)
    Type:    Cormorant Garamond (display) + Inter (body)
    ============================================================= */
@@ -35,7 +35,7 @@ svg {
 
 
 /* --- 2. Design tokens ---------------------------------------- */
-/* Custom properties — change a token here, the whole site adapts. */
+/* Custom properties &mdash; change a token here, the whole site adapts. */
 
 :root {
   /* Palette */
@@ -45,7 +45,7 @@ svg {
   --color-muted:  #6b6b6b;
   --color-rule:   #e6e1d6;  /* hairline divider */
 
-  /* Type stacks — system fallbacks render before web fonts load */
+  /* Type stacks &mdash; system fallbacks render before web fonts load */
   --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --font-body:    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
@@ -78,14 +78,14 @@ h1, h2, h3, h4 {
   margin: 0 0 var(--space-sm);
 }
 
-/* clamp(min, preferred, max) — fluid type that scales with viewport */
+/* clamp(min, preferred, max) &mdash; fluid type that scales with viewport */
 h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
 h2 { font-size: clamp(2rem,   4vw, 3rem); }
 h3 { font-size: clamp(1.4rem, 2.5vw, 1.75rem); }
 
 p {
   margin: 0 0 var(--space-sm);
-  max-width: 38rem;  /* ~75ch — comfortable reading width */
+  max-width: 38rem;  /* ~75ch &mdash; comfortable reading width */
 }
 
 a {
@@ -222,6 +222,15 @@ a:focus-visible {
   max-width: none;
 }
 
+.hero__welcome {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--color-muted);
+  margin: var(--space-md) 0 0;
+  max-width: none;
+}
+
 .hero__divider {
   width: 4rem;
   height: 1px;
@@ -240,7 +249,7 @@ a:focus-visible {
 
 
 /* --- 6. Content pages ---------------------------------------- */
-/* Wrapper for non-index pages — vertical rhythm and section spacing. */
+/* Wrapper for non-index pages &mdash; vertical rhythm and section spacing. */
 
 .page {
   padding-block: var(--space-lg);
@@ -254,7 +263,7 @@ a:focus-visible {
   margin-top: 0;
 }
 
-/* Program timeline — semantic <dl> rendered as a two-column grid */
+/* Program timeline &mdash; semantic <dl> rendered as a two-column grid */
 .timeline {
   display: grid;
   grid-template-columns: max-content 1fr;
