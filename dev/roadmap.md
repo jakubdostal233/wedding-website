@@ -1,17 +1,29 @@
 # Wedding Website &mdash; Roadmap
 
-Phased path from project init to live website. Each phase has a brief description, a plan, deliverables, and dependencies. Detail for the *current* phase lives in `dev/plan-step-NN-*.md`; the spec ground-truth is in `dev/SPEC.md`.
+Phased path from project init to live website, plus the current status. Phase names here are the canonical ones; the live to-do list is in `dev/plan.md` and completed detailed step-plans are archived in `dev/archive-plans/`; the spec ground-truth is in `dev/SPEC.md`.
 
 ## Table of contents
 
+- [Where we are now](#where-we-are-now)
 - [Phase 1 &mdash; Foundation](#phase-1--foundation)
 - [Phase 2 &mdash; Page skeletons](#phase-2--page-skeletons)
 - [Phase 3 &mdash; Content draft](#phase-3--content-draft)
 - [Phase 4 &mdash; Integrations](#phase-4--integrations)
+- [Phase 4.5 &mdash; Design refresh from print materials](#phase-45--design-refresh-from-print-materials)
 - [Phase 5 &mdash; Photos](#phase-5--photos)
 - [Phase 6 &mdash; Polish](#phase-6--polish)
 - [Phase 7 &mdash; Domain and deploy](#phase-7--domain-and-deploy)
 - [Symbols and abbreviations](#symbols-and-abbreviations)
+
+## Where we are now
+
+_Last updated: 2026-06-06._
+
+✅ **The site is built and live** at <https://tereza-jakub.cz>. Phases 1&ndash;4 are done: all seven pages exist with shared header/footer, real Czech content, and the integrations wired up (mapy.com embeds, the `.ics` calendar file, the `mailto:` link, and the SPAYD bank QR), plus Open Graph share cards.
+
+🧭 **Infrastructure restructure (2026-06-06).** The repository was reorganised to the tyre-model architecture: the website now lives in `site/`, deployment migrated from legacy branch-deploy to a GitHub Actions workflow, and `dev/` adopted the steering-document scheme. See `dev/decisions.md` ([D-STRUCT], [D-DEPLOY]) and `docs/architecture.md`.
+
+📍 **Next: Phase 4.5 &mdash; the visual design refresh** from the printed wedding materials (blush-pink identity, replacing the current sage green). Then the remaining work is Phase 5 (real photos) and Phase 6 (final polish) before the wedding on 2026-07-10. The live task list is in `dev/plan.md`.
 
 ## Phase 1 &mdash; Foundation
 
@@ -71,12 +83,26 @@ Phased path from project init to live website. Each phase has a brief descriptio
 - Embed mapy.com iframe on `location.html` (and possibly `transit.html`) for the ceremony venue + restaurant
 - Generate `wedding.ics`; link it from `contact.html`
 - Add `mailto:` link with prefilled subject on `contact.html`
-- Generate the SPAYD QR from your bank info (script in `temp/`; output saved to `assets/img/qr-platba.svg`)
+- Generate the SPAYD QR from your bank info (script in `tools/`; output saved to `site/assets/img/qr-platba.svg`)
 - Embed the QR on `gift.html` with the IBAN/account number printed beneath
 
 **Deliverable.** Every functional element works end-to-end.
 
 **Dependencies.** Phase 3 + bank account info, venue addresses, finalised schedule.
+
+## Phase 4.5 &mdash; Design refresh from print materials
+
+**Goal.** Bring the website's visual identity in line with the printed wedding materials &mdash; the announcement (`tmp/style/svatebni-oznameni.pdf`) and the name badges (`tmp/style/jmenovky-design.pdf`). Tracked as [O-DESIGN] in `dev/decisions.md`.
+
+**Plan.**
+- Sample the exact palette (hex values) and identify the typefaces from the two PDFs &mdash; do not ship the eyeballed provisional values recorded in `dev/decisions.md`.
+- Update `dev/SPEC.md` (Design section: palette + typography) and **re-confirm with the owner before applying anything** (project rule: design/palette/page-list changes go through the spec + sign-off).
+- Replace the sage-green accent with the **blush/dusty-pink palette** on white, in the `--color-*` custom properties at the top of `site/assets/css/main.css`; align the heading typeface to the elegant high-contrast display serif; introduce the print motifs (rounded oval / arch shapes, thin charcoal hairlines, the stacked `10/07/26` date) where they fit.
+- Re-check WCAG AA contrast with the new palette; regenerate `og-card.png` if the card design changes.
+
+**Deliverable.** The site reads as the same identity as the printed announcement and badges.
+
+**Dependencies.** The 2026-06-06 restructure (done); owner sign-off on the sampled palette/type via `dev/SPEC.md`.
 
 ## Phase 5 &mdash; Photos
 
@@ -115,21 +141,11 @@ Phased path from project init to live website. Each phase has a brief descriptio
 
 **Goal.** Site live at the custom domain.
 
-**Plan.**
-- Push the repo to GitHub
-- Enable GitHub Pages (Settings → Pages → deploy from `main` branch, root)
-- Verify the default `*.github.io` URL works
-- Buy a domain at a Czech registrar (forpsi.cz, websupport.cz, domena.cz, etc.)
-- Configure DNS at the registrar (apex `A` records to GitHub Pages IPs + `www` `CNAME`)
-- Add a `CNAME` file in the repo with the domain name
-- Wait for DNS propagation (minutes to hours)
-- Confirm HTTPS works (GitHub auto-issues Let's Encrypt)
-- Test the live URL on multiple devices
-- Distribute the URL to guests
+**Status.** ✅ Largely done. The site is live at <https://tereza-jakub.cz>: the domain is registered at Wedos, DNS apex `A` records point at GitHub Pages, HTTPS (Let's Encrypt) is issued and enforced, and the `www` redirect works. As of 2026-06-06 deployment is **published via GitHub Actions** (`.github/workflows/deploy.yml`) serving `site/` as the root, replacing the original legacy branch-deploy. Full procedure and DNS records: `docs/deployment.md`.
 
-**Deliverable.** Guests can reach the site at the custom domain.
+**Remaining.** Distribute the URL to guests &mdash; after the design refresh (Phase 4.5), photos (Phase 5), and the final polish pass (Phase 6).
 
-**Dependencies.** Phase 6 + a chosen domain name.
+**Dependencies.** Phase 6 (launch-quality pass) before broad distribution.
 
 ## Symbols and abbreviations
 

@@ -24,9 +24,9 @@ Static informational website for **Tereza & Jakub**'s wedding on **10 July 2026 
 
 - **Vanilla HTML / CSS / JavaScript** &mdash; no framework, no build step, no Node toolchain
 - **Multi-page** architecture with shared header/footer (kept in sync manually with AI assistance)
-- **Site files** live at the repo root (`index.html`, `assets/…`)
-- **Hosted on GitHub Pages**, free tier
-- **Custom domain** at launch (~200 CZK/yr), pointed via a `CNAME` file in the repo root
+- **Site files live in a dedicated `site/` directory** (`site/index.html`, `site/assets/…`, `site/CNAME`, `site/robots.txt`) &mdash; separated from the project meta-layer (`dev/`, `docs/`, `tools/`, `tmp/`). See `docs/architecture.md`.
+- **Hosted on GitHub Pages**, free tier, **published via a GitHub Actions workflow** (`.github/workflows/deploy.yml`) that serves `site/` as the site root
+- **Custom domain** `tereza-jakub.cz` (~200 CZK/yr), bound via the repo Pages settings/API and a `CNAME` file in `site/`
 - **No backend, no database, no third-party services** (no analytics, no form services, no CDN beyond Google Fonts)
 
 ## Languages
@@ -72,13 +72,13 @@ All pages share a single header (site nav) and footer.
 
 ## Deployment
 
-- Develop locally: open `.html` directly, or run `python3 -m http.server 8000`
-- Push to GitHub `main` → enable GitHub Pages (deploy from `main`, root)
-- Domain: `tereza-jakub.cz` registered at Wedos (~120 CZK/yr)
+Live at <https://tereza-jakub.cz> (public but unlisted). Full procedure, DNS records, rollback, and renewal: `docs/deployment.md`.
+
+- Develop locally: open `site/*.html` directly, or run `python3 -m http.server 8000 --directory site`
+- Hosted on GitHub Pages, **published via GitHub Actions** (`.github/workflows/deploy.yml`): every push to `main` uploads `site/` as the Pages artifact and serves it as the site root
+- Domain: `tereza-jakub.cz` registered at Wedos (~120 CZK/yr); bound via the repo Pages settings/API (a `CNAME` file in `site/` does not bind the domain on its own under the Actions source) with apex A records pointing at GitHub Pages
 - Email: `info@tereza-jakub.cz` forwards to personal Gmail via Seznam Email Profi (free tier)
-- Set DNS records at the registrar pointing at GitHub Pages
-- Add a `CNAME` file in the repo containing the domain name
-- Verify HTTPS works (GitHub Pages auto-issues a Let's Encrypt certificate)
+- HTTPS auto-issued by Let's Encrypt (enforced)
 
 Total annual cost: ~200 CZK (domain only).
 
