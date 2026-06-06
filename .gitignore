@@ -21,4 +21,4 @@ node_modules/
 .claude/settings.local.json
 
 # Scratch directory &mdash; local notes, drafts, exports, generators
-temp/
+tmp/
