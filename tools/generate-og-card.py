@@ -1,6 +1,6 @@
 """Generate the Open Graph preview card for the wedding website.
 
-Output: ``assets/img/og-card.png`` (1200x630, the size Facebook/WhatsApp/iMessage
+Output: ``site/assets/img/og-card.png`` (1200x630, the size Facebook/WhatsApp/iMessage
 expect for link previews).
 
 Uses **EB Garamond** from the system fonts &mdash; a very close cousin of the site's
@@ -12,7 +12,7 @@ Usage::
     uv run --with pillow python tools/generate-og-card.py
 
 Re-run if the names, date, or place change. The PNG is the tracked artefact
-under ``assets/img/`` &mdash; this script is a one-shot generator.
+under ``site/assets/img/`` &mdash; this script is a one-shot generator.
 """
 
 from __future__ import annotations
@@ -38,7 +38,7 @@ FONT_REGULAR = EBG / "EBGaramond12-Regular.ttf"
 FONT_BOLD = EBG / "EBGaramond12-Bold.ttf"
 FONT_ITALIC = EBG / "EBGaramond12-Italic.ttf"
 
-OUT = Path(__file__).resolve().parent.parent / "assets" / "img" / "og-card.png"
+OUT = Path(__file__).resolve().parent.parent / "site" / "assets" / "img" / "og-card.png"
 
 
 def draw_centered(draw: ImageDraw.ImageDraw, text: str, y: int,

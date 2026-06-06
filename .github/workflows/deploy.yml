@@ -1,0 +1,49 @@
+# Publish the static site in site/ to GitHub Pages.
+#
+# This replaces the legacy "deploy from a branch (root)" source. The site/
+# directory is uploaded as the Pages artifact and served as the site root,
+# so relative paths and the Open Graph absolute URLs stay correct and
+# CNAME / robots.txt (inside site/) ship at the root. No build step: the
+# workflow only uploads the static files. See docs/deployment.md.
+#
+# NOTE: the custom domain (tereza-jakub.cz) is bound via the repository's
+# Pages settings / API, NOT by the CNAME file alone. Keep the custom domain
+# configured in Settings -> Pages when using the Actions source.
+
+name: Deploy site to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Least-privilege token plus the id-token needed by deploy-pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deploy; let an in-progress production deploy finish.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload only the served site, not the meta-layer (dev/, docs/, tools/).
+          path: site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

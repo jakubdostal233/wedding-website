@@ -1,16 +1,16 @@
 """Generate the SPAYD payment QR code for the wedding bank account.
 
-Output: ``assets/img/qr-platba.svg``
+Output: ``site/assets/img/qr-platba.svg``
 
 SPAYD (Short Payment Descriptor) is the Czech standard for QR payments.
 Every Czech mobile-banking app can scan this format and pre-fill a payment.
 
 Usage::
 
-    uv run --with segno python temp/generate-spayd-qr.py
+    uv run --with segno python tools/generate-spayd-qr.py
 
 Re-run only when the account info or variable symbol changes; the SVG is
-the tracked artefact under ``assets/img/``.
+the tracked artefact under ``site/assets/img/``.
 """
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ SPAYD = (
     "*MSG:Svatba Tereza a Jakub"
 )
 
-OUT = Path(__file__).resolve().parent.parent / "assets" / "img" / "qr-platba.svg"
+OUT = Path(__file__).resolve().parent.parent / "site" / "assets" / "img" / "qr-platba.svg"
 
 
 def main() -> None:
