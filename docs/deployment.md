@@ -18,8 +18,8 @@ Static site &mdash; vanilla HTML/CSS/JS, no build step &mdash; hosted on GitHub 
 
 | Where | What |
 |-------|------|
-| Repository | <https://github.com/jakubdostal233/wedding-website> (branch `main`, root) |
-| Hosting | GitHub Pages (free), serves the repo root |
+| Repository | <https://github.com/jakubdostal233/wedding-website> (branch `main`) |
+| Hosting | GitHub Pages (free), publishes the `site/` directory via GitHub Actions (`.github/workflows/deploy.yml`) |
 | Domain | `tereza-jakub.cz` at Wedos (registered May 2026, 1-year term) |
 | Email | `info@tereza-jakub.cz` at Seznam Email Profi (free tier) &mdash; forwards to personal Gmail |
 
@@ -35,34 +35,27 @@ git push -u origin main
 
 Verify with `git status -sb` &mdash; should show `## main...origin/main` with no `[ahead]` marker.
 
-### 2. Enable GitHub Pages
+### 2. Enable GitHub Pages (GitHub Actions source)
 
-In the repo on GitHub: **Settings &rarr; Pages**.
+The repo deploys via the workflow at `.github/workflows/deploy.yml`, which uploads the `site/` directory as the Pages artifact and serves it as the site root.
+
+In the repo on GitHub: **Settings &rarr; Pages &rarr; Build and deployment**.
 
 | Field | Value |
 |-------|-------|
-| Source | Deploy from a branch |
-| Branch | `main` |
-| Folder | `/ (root)` |
+| Source | **GitHub Actions** |
 
-Click **Save**. GitHub starts the build &mdash; visible in the **Actions** tab. After a couple of minutes, visit:
+(Equivalently from the CLI: `gh api repos/jakubdostal233/wedding-website/pages -X PUT -F build_type=workflow`.)
 
-<https://jakubdostal233.github.io/wedding-website/>
+A push to `main` then triggers the workflow &mdash; visible in the **Actions** tab. After a minute or two the deploy finishes and the site is live. If it doesn't deploy, check the Actions tab for the workflow run's error.
 
-You should see the site, served from the `*.github.io` URL. If it doesn't load, check Actions for build errors.
+> Migration note: the project originally used the legacy "Deploy from a branch" source (`main` / root). It moved to the GitHub Actions source on 2026-06-06 when the site files were relocated into `site/` (GitHub Pages branch-deploy can only serve `/` or `/docs`, not an arbitrary folder).
 
-### 3. Add the `CNAME` file
+### 3. Bind the custom domain
 
-The `CNAME` file at the repo root tells GitHub Pages which custom domain to bind:
+Under the **GitHub Actions** source, the custom domain is bound through the repo's Pages settings (not by a `CNAME` file alone): in **Settings &rarr; Pages &rarr; Custom domain**, enter `tereza-jakub.cz` and save (or via the CLI: `gh api repos/jakubdostal233/wedding-website/pages -X PUT -F cname=tereza-jakub.cz`).
 
-```bash
-echo "tereza-jakub.cz" > CNAME
-git add CNAME
-git commit -m "Add CNAME for tereza-jakub.cz"
-git push
-```
-
-After this commit, GitHub Pages will redirect the `*.github.io` URL to `tereza-jakub.cz` once DNS is configured. The repo's Pages settings page will show "Custom domain: tereza-jakub.cz" &mdash; with a warning until DNS is set up.
+A `CNAME` file is also kept at `site/CNAME` (containing `tereza-jakub.cz`) so it ships inside the served artifact at the root &mdash; conventional and portable, but the authoritative binding is the Pages setting above. The Pages settings page shows "Custom domain: tereza-jakub.cz" with a green check once DNS (step 4) resolves.
 
 ### 4. Configure DNS at Wedos
 
@@ -158,9 +151,9 @@ After initial deployment, every update is a single command:
 git push
 ```
 
-GitHub Pages picks up changes within ~30 seconds and rebuilds. The new content is live within a minute or two. No DNS or hosting touch needed.
+A push to `main` triggers the `deploy.yml` workflow, which uploads `site/` and deploys it. The new content is live within a minute or two (watch the **Actions** tab). No DNS or hosting touch needed.
 
-Updates that don't change the site at all (e.g., README edits, docs/, dev/ files) still trigger a Pages rebuild but produce identical output &mdash; no harm.
+The workflow uploads only `site/`, so edits outside it (`README.md`, `docs/`, `dev/`, `tools/`) still trigger a run but produce an identical artifact &mdash; no harm. Only changes under `site/` actually alter the published site.
 
 ## Rollback
 
@@ -171,9 +164,11 @@ git revert HEAD
 git push
 ```
 
-Reverts the most recent commit and pushes. Site reverts within ~1 minute.
+Reverts the most recent commit and pushes; the `deploy.yml` workflow redeploys within ~1 minute. You can also re-run the last good deployment from the **Actions** tab (re-run the previous successful workflow run) without a new commit.
 
 For broader rollback (multiple commits to undo), `git revert <oldercommit>..HEAD` and push. Avoid `git reset --hard` on `main` since the branch is shared with GitHub.
+
+If the **deploy workflow itself** is broken (the site stops updating), check the Actions tab for the failing step and fix `.github/workflows/deploy.yml`; the workflow is a small static-upload (`upload-pages-artifact` with `path: site` → `deploy-pages`), so failures are usually a path or permissions typo.
 
 For severe issues (e.g., the site shows wrong content on the wrong domain due to a CNAME / DNS misconfiguration), point the apex A records at Wedos back to the parking IPs (`185.8.237.22`) to take the site offline while you debug.
 

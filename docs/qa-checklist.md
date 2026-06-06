@@ -4,6 +4,33 @@ Functional checks to run on real devices after major changes &mdash; **especiall
 
 The site looking right in your laptop browser is not enough; the integrations have to work on the **devices guests will actually use**.
 
+## Table of contents
+
+- [Test devices](#test-devices)
+- [Pages render correctly](#pages-render-correctly)
+- [Integrations &mdash; the things that must work](#integrations--the-things-that-must-work)
+- [Sharing previews (Open Graph)](#sharing-previews-open-graph)
+- [Performance / load](#performance--load)
+- [Robots / privacy](#robots--privacy)
+- [After any change to the bank info or schedule](#after-any-change-to-the-bank-info-or-schedule)
+- [After a domain or DNS change](#after-a-domain-or-dns-change)
+- [Abbreviations](#abbreviations)
+
+## Abbreviations
+
+| Abbreviation | Meaning |
+|---|---|
+| BIC | Bank Identifier Code (SWIFT) |
+| DNS | Domain Name System |
+| IBAN | International Bank Account Number |
+| ICS | iCalendar file format (RFC 5545) |
+| MX | Mail Exchange (DNS record type) |
+| OG | Open Graph (link-preview metadata) |
+| QR | Quick-response code |
+| SPAYD | Short Payment Descriptor (Czech QR payment standard) |
+| VS | Variable symbol (Czech payment reference) |
+| WCAG AA | Web Content Accessibility Guidelines, level AA |
+
 ## Test devices
 
 Run the relevant rows on at least:
@@ -85,7 +112,7 @@ Test with **at least 2 different Czech banking apps** to catch app-specific quir
 
 - [ ] Re-run `tools/generate-spayd-qr.py` (if SPAYD MSG / VS / IBAN changed)
 - [ ] Re-scan the QR with your banking app to confirm new values
-- [ ] Edit `assets/wedding_tj.ics` if the date or time changed; re-import on a phone to confirm the event updates
+- [ ] Edit `site/assets/wedding_tj.ics` if the date or time changed; re-import on a phone to confirm the event updates
 
 ## After a domain or DNS change
 
