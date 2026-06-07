@@ -96,8 +96,8 @@ Final. Implementation may proceed on these.
 ### D-IA4 - Site reduced to four pages
 
 - Date: 2026-06-07
-- Decision: The seven-page structure is reduced to **four** &mdash; `index.html` (Úvod), `program.html` (Program), `practical-info.html` (Praktické informace), `about-us.html` (O nás). `location.html`, `transit.html`, `contact.html`, and `gift.html` are removed; their content relocates: maps + add-to-calendar &rarr; Program; transport/parking, dress code, menus, children, Dar (bank QR + IBAN), Kontakt &rarr; Praktické informace. Accommodation (ubytování) is dropped; O nás keeps only its title.
-- Why: simpler navigation for guests; the supplied content (`tmp/website-content.txt`) fits four sections cleanly.
+- Decision: The seven-page structure is reduced to **four navigated pages** &mdash; `index.html` (Úvod), `program.html` (Program), `practical-info.html` (Praktické informace), `photoshooting.html` (Focení) &mdash; plus one **unlisted** page, `gift.html` (Dar + bank QR + IBAN), reachable only via `/gift`. The old `location.html`, `transit.html`, `contact.html`, and `about-us.html` (O nás) are removed. Content relocates: maps + add-to-calendar &rarr; Program; transport/parking, dress code, menus, children, Dar (thank-you), Různé, Kontakt &rarr; Praktické informace; the bank QR + IBAN live only on the unlisted `gift.html`; the photo-shoot groups go to `photoshooting.html`. Accommodation (ubytování) is dropped; O nás is dropped entirely.
+- Why: simpler navigation for guests; payment details kept off the public nav; the supplied content fits cleanly. (Finalised over 2026-06-07: an initial pass kept O nás and Dar-in-Praktické-informace; then O nás was removed, Dar split out to the unlisted gift page, and Focení added to the nav.)
 - Partially supersedes [D-PAGES](#d-pages--multi-page-english-filenames-czech-content) (the page *count* only &mdash; the multi-page architecture, English filenames, and Czech content all stand).
 - See the [restructure plan](./archive-plans/2026-06-07_restructure-4pages-fonts-content.md).
 

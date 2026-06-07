@@ -42,12 +42,12 @@ Run the relevant rows on at least:
 
 ## Pages render correctly
 
-For each page (`index`, `program`, `practical-info`, `about-us`):
+For each page (`index`, `program`, `practical-info`, `photoshooting`, `gift`):
 
 - [ ] Page loads at `https://tereza-jakub.cz/<page>.html` (and `/` for index)
 - [ ] HTTPS lock icon shows in browser, no cert warning
 - [ ] Hero / page heading renders in Playfair Display; body text in Source Sans 3
-- [ ] Header nav: 3 links visible (Program, Praktické informace, O nás), active page underlined in the accent colour (blush pink)
+- [ ] Header nav: 3 links visible (Program, Praktické informace, Focení), active page underlined in the accent colour (blush pink)
 - [ ] Footer present, contact link works
 - [ ] No layout breakage at narrow viewport (browser ~375px wide; phone in portrait)
 - [ ] Browser tab shows the dark slate "T&J" favicon
@@ -78,7 +78,7 @@ For each page (`index`, `program`, `practical-info`, `about-us`):
 - [ ] Send a real test email; arrives in your Gmail within ~1 minute
 - [ ] Reply to the test email from Gmail &rarr; arrives at sender (forwarding works **both ways**? &mdash; if not, that's expected, replies-from-Gmail use Gmail's address, not the alias)
 
-### Bank QR (`practical-info.html`)
+### Bank QR (`gift.html`, unlisted &mdash; reach via `/gift`)
 
 Test with **at least 2 different Czech banking apps** to catch app-specific quirks:
 

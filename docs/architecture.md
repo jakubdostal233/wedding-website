@@ -45,10 +45,11 @@ wedding-website/
 ├── README.md                # human-facing repo overview — meta
 │
 ├── site/                    # THE DELIVERABLE — everything served (= the site root)
-│   ├── index.html           # home / hero (full-bleed photo)
-│   ├── program.html         # day timeline + maps + add-to-calendar
-│   ├── practical-info.html  # dress code, menus, parking, dar (QR), kontakt
-│   ├── about-us.html        # O nás (title only for now)
+│   ├── index.html           # home / hero (page-width photo)
+│   ├── program.html         # day timeline + maps (Místa) + add-to-calendar
+│   ├── practical-info.html  # dress code, parking, menus, dar (thank-you), různé, kontakt
+│   ├── photoshooting.html   # Focení — photo-shoot groups
+│   ├── gift.html            # Dar + bank QR — unlisted (direct link /gift)
 │   ├── favicon.svg
 │   ├── CNAME                # binds the custom domain (tereza-jakub.cz)
 │   ├── robots.txt           # disallow all crawlers
@@ -86,27 +87,28 @@ Only `site/` is served. Everything else is technically reachable on GitHub Pages
 
 The site is **vanilla HTML, CSS, and JavaScript with no build step and no Node toolchain** ([D-STACK](../dev/decisions.md#d-stack--vanilla-static-site-no-build-step)). Each page is a hand-authored `.html` file that the browser loads directly; there is no framework, no templating engine, and no compilation. The advantage for a small, roughly twelve-month-lifecycle informational site is that there is nothing in a build pipeline to break or maintain, and any text editor plus a browser is a complete toolchain.
 
-There are four pages, each a single Czech section of content (page filenames are English to keep paths stable; see [D-PAGES](../dev/decisions.md#d-pages--multi-page-english-filenames-czech-content) and the 7&rarr;4 reduction [D-IA4](../dev/decisions.md#d-ia4--site-reduced-to-four-pages)):
+There are four navigated pages plus one unlisted page, each a single Czech section of content (page filenames are English to keep paths stable; see [D-PAGES](../dev/decisions.md#d-pages--multi-page-english-filenames-czech-content) and the page-count reduction [D-IA4](../dev/decisions.md#d-ia4--site-reduced-to-four-pages)):
 
 | File | Czech section | Purpose |
 |---|---|---|
-| `index.html` | Úvod | Hero: names, date, place, full-bleed photo |
-| `program.html` | Program | Alternating timeline; "Vynecháváme"; add-to-calendar; 3 map embeds |
-| `practical-info.html` | Praktické informace | Dress code, menus, transport & parking, children, Dar (bank QR), Kontakt |
-| `about-us.html` | O nás | Title only |
+| `index.html` | Úvod | Hero: names, "10.07.2026, Praha", page-width photo |
+| `program.html` | Program | Alternating timeline; "Vynecháváme"; add-to-calendar; 3 map embeds (Místa) |
+| `practical-info.html` | Praktické informace | Dress code, parking, menus, children, Dar (thank-you), Různé, Kontakt |
+| `photoshooting.html` | Focení | Photo-shoot groups |
+| `gift.html` | (Dar) | Bank QR + IBAN &mdash; unlisted, direct link `/gift` |
 
-**Shared header and footer.** Every page carries the same `<header class="site-header">` (the brand link plus the three-item nav &mdash; Program, Praktické informace, O nás) and `<footer class="site-footer">`. Because there is no include mechanism, these blocks are **duplicated in each file and kept in sync manually** (with AI assistance). Pages cross-link with plain relative hrefs (`href="program.html"`, `href="index.html"`), so the whole nav works identically from any page. This manual-sync approach is comfortable at four pages; if the page count grew past roughly ten, a tiny build-time include or a small client-side fetch would be worth introducing.
+**Shared header and footer.** Every page carries the same `<header class="site-header">` (the brand link plus the three-item nav &mdash; Program, Praktické informace, Focení) and `<footer class="site-footer">`; `gift.html` carries the same chrome but is itself absent from the nav (unlisted). Because there is no include mechanism, these blocks are **duplicated in each file and kept in sync manually** (with AI assistance). Pages cross-link with plain relative hrefs (`href="program.html"`, `href="index.html"`), so the whole nav works identically from any page. This manual-sync approach is comfortable at five pages; if the page count grew past roughly ten, a tiny build-time include or a small client-side fetch would be worth introducing.
 
 ## 3. Assets and the CSS architecture
 
 `site/assets/` holds everything the HTML loads at runtime &mdash; it is part of the deliverable, not the meta-layer, which is why it lives inside `site/`:
 
 - `css/main.css` &mdash; the **single stylesheet** for the entire site. It is mobile-first and organised as: a reset, a block of CSS custom properties (`--color-*` palette tokens, typography, spacing), base element styles, the shared header/footer, and then page-specific blocks (hero, timeline, map embeds, the QR block, buttons). Keeping all styles in one file is deliberate at this size; the custom-property tokens at the top are the single place a palette or type change is made.
-- `img/` &mdash; `og-card.png` (the 1200&times;630 social preview) and `qr-platba.svg` (the SPAYD payment QR). Both are **generated offline** (see section 5), not hand-drawn.
+- `img/` &mdash; `og-card.png` (the 1200&times;630 social preview) and `qr-platba.svg` (the SPAYD payment QR), both **generated offline** (see section 5); plus `hero.jpg` / `hero.webp`, the optimised home-page photo.
 - `js/` &mdash; reserved for future JavaScript; currently empty (the site needs no runtime JS).
 - `wedding_tj.ics` &mdash; the calendar event file offered for download.
 
-The visual identity is a **blush-pink accent (`#ed9dbc`) on white** with **black/charcoal body text (`#2a2a2a`)**, typeset in **Playfair Display** (titles + all headings) and **Source Sans 3** (sans-serif body), both from the Google Fonts CDN. The palette comes from the printed wedding materials; the typography follows <https://www.jakubmares.cz>. See [D-DESIGN](../dev/decisions.md#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity) and the [2026-06-07 restructure plan](../dev/archive-plans/2026-06-07_restructure-4pages-fonts-content.md). Because the palette and type live as custom properties in `main.css`, the identity is set in the token block rather than per page. The home page uses a full-bleed hero photo with the names overlaid; the Program page renders the day as an alternating centre-line timeline (pink times, black dots).
+The visual identity is a **blush-pink accent (`#ed9dbc`) on white** with **black/charcoal body text (`#2a2a2a`)**, typeset in **Playfair Display** (titles + all headings) and **Source Sans 3** (sans-serif body), both from the Google Fonts CDN. The palette comes from the printed wedding materials; the typography follows <https://www.jakubmares.cz>. See [D-DESIGN](../dev/decisions.md#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity) and the [2026-06-07 restructure plan](../dev/archive-plans/2026-06-07_restructure-4pages-fonts-content.md). Because the palette and type live as custom properties in `main.css`, the identity is set in the token block rather than per page. The home page shows a page-width hero photo with the names above it; the Program page renders the day as an alternating centre-line timeline (pink times, black dots).
 
 HTML references assets with **relative paths** (`href="assets/css/main.css"`, `src="assets/img/qr-platba.svg"`); since the pages and `assets/` sit together under `site/`, these resolve correctly both when served and when opened from disk. The Open Graph tags additionally use **absolute** URLs rooted at the domain (`https://tereza-jakub.cz/assets/img/og-card.png`), which remain correct because `site/` is served *as* the domain root (section 6).
 
@@ -117,7 +119,7 @@ All "dynamic-feeling" features are static &mdash; no backend, no runtime third-p
 - **Maps** &mdash; Google Maps iframe embeds on the **Program** page for the three venues (Vršovický zámeček, Havlíčkovy sady, La Farma), each with outbound links to Mapy.cz and Google Maps.
 - **Calendar** &mdash; a static `wedding_tj.ics` file (iCalendar / RFC 5545) linked from the **Program** page with a `download` attribute; opening it adds the event to Apple Calendar, Google Calendar, or Outlook.
 - **Email** &mdash; a `mailto:info@tereza-jakub.cz` link with a pre-filled subject; replies forward to the owner's Gmail via Seznam Email Profi.
-- **Bank QR** &mdash; a Czech SPAYD QR code embedded as a static SVG on the **Praktické informace** page (Dar section), with the IBAN and BIC printed beneath. No JavaScript runs; the QR is generated once, offline.
+- **Bank QR** &mdash; a Czech SPAYD QR code embedded as a static SVG on the unlisted **`gift.html`** page, with the IBAN and BIC printed beneath. The public Praktické informace page mentions the gift only as a thank-you (no payment details). No JavaScript runs; the QR is generated once, offline.
 - **Open Graph cards** &mdash; every page carries OG and Twitter-card meta tags so that sharing a link in a chat app shows a preview card (`og-card.png`) with the names and date rather than a bare URL.
 
 ## 5. Offline generator tools
@@ -142,7 +144,7 @@ The site remains build-less: the workflow only copies static files, it does not 
 
 ## 7. Privacy and access
 
-The site is **public but unlisted** ([D-PRIVACY](../dev/decisions.md#d-privacy--public-but-unlisted)): it is reachable by anyone with the URL but is kept out of search results. `site/robots.txt` returns `Disallow: /` for all crawlers, and every page includes `<meta name="robots" content="noindex,nofollow">`. The whole repository is technically reachable on the host, so no true secrets are committed to tracked files; bank details on the Praktické informace page are intentionally public.
+The site is **public but unlisted** ([D-PRIVACY](../dev/decisions.md#d-privacy--public-but-unlisted)): it is reachable by anyone with the URL but is kept out of search results. `site/robots.txt` returns `Disallow: /` for all crawlers, and every page includes `<meta name="robots" content="noindex,nofollow">`. The whole repository is technically reachable on the host, so no true secrets are committed to tracked files; bank details on the unlisted `gift.html` are intentionally public (the page is simply not linked from the nav).
 
 ## 8. Local development
 

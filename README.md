@@ -9,7 +9,7 @@ The repo separates **the website** (everything served) from the **project meta-l
 ```
 wedding-website/
 ├── site/        # THE WEBSITE — everything served (the site root)
-│   ├── *.html   #   the 4 pages (index, program, practical-info, about-us)
+│   ├── *.html   #   index, program, practical-info, photoshooting (+ unlisted gift)
 │   ├── assets/  #   css/main.css, img/ (og-card, payment QR), js/, wedding_tj.ics
 │   ├── favicon.svg, CNAME, robots.txt
 ├── dev/         # steering: SPEC, roadmap, plan, decisions, worklog, archives
@@ -37,7 +37,7 @@ Vanilla HTML / CSS / JavaScript. No build step, no framework, no backend. Deploy
 
 ## Status
 
-**Live.** The site is four pages (Úvod, Program, Praktické informace, O nás) with Czech content and the integrations wired up (maps, calendar `.ics`, bank QR, `mailto:`, Open Graph cards). On 2026-06-06 the repository was restructured into `site/` with a GitHub Actions deploy; on 2026-06-07 the visual identity was set (blush-pink palette, Playfair Display + Source Sans 3) and the site was reduced from seven pages to four with a jakubmares.cz-style Program timeline. Up next: the hero / about-us photos and a final polish pass before the day.
+**Live.** The site has four navigated pages (Úvod, Program, Praktické informace, Focení) plus an unlisted gift page, with Czech content and the integrations wired up (maps, calendar `.ics`, bank QR, `mailto:`, Open Graph cards). On 2026-06-06 the repository was restructured into `site/` with a GitHub Actions deploy; on 2026-06-07 the visual identity was set (blush-pink palette, Playfair Display + Source Sans 3, jakubmares.cz-style) and the pages reorganised (O nás dropped, Focení added, the bank QR moved to the unlisted gift page). Up next: a favicon refresh and a final polish pass before the day.
 
 ## Pointers
 

@@ -13,7 +13,7 @@ Entry points (read first; keep current whenever anything that affects them chang
 
 The deliverable:
 
-- [../site/](../site/) &mdash; **everything that is served** (the site root): the four `*.html` pages (`index`, `program`, `practical-info`, `about-us`), `favicon.svg`, `CNAME`, `robots.txt`, and `assets/` (`css/main.css`, `img/`, `js/`, `wedding_tj.ics`). This is the only directory GitHub Pages publishes.
+- [../site/](../site/) &mdash; **everything that is served** (the site root): the five `*.html` pages (`index`, `program`, `practical-info`, `photoshooting` &mdash; plus the unlisted `gift`, not in the nav), `favicon.svg`, `CNAME`, `robots.txt`, and `assets/` (`css/main.css`, `img/`, `js/`, `wedding_tj.ics`). This is the only directory GitHub Pages publishes.
 
 Steering (`dev/`, operational):
 
@@ -45,8 +45,8 @@ Vanilla HTML / CSS / JavaScript, no build step, no Node toolchain. Multi-page ar
 
 - **Page filenames in English** (`program.html`, `practical-info.html`), **content in Czech** (vykání, warm but proper). English mirror under `/en/` is a possible later phase.
 - **Em dashes use the entity `&mdash;`, not the Unicode character.** User preference &mdash; entities are explicit in source and don't get confused with hyphens or en dashes at a glance. Applies everywhere: HTML, Markdown, CSS, and config files. In Markdown the entity still renders as a proper em dash through the inline-HTML pass.
-- **CSS:** single `site/assets/css/main.css`, mobile-first; palette/type live as `--color-*` and typography custom properties at the top of the file (the one place a palette/type change is made). Current identity: blush-pink accent (`#ed9dbc`) for titles + headings on white, black/charcoal body text; **Playfair Display** (titles + headings) + **Source Sans 3** (sans-serif body) via Google Fonts &mdash; typography matches jakubmares.cz, palette from the print materials (see [../dev/decisions.md](../dev/decisions.md) `D-DESIGN` and the [restructure plan](../dev/archive-plans/2026-06-07_restructure-4pages-fonts-content.md)). Program is an alternating timeline; the home page is a full-bleed hero photo.
-- **Emojis:** welcome in `dev/` markdown and in chat (they help navigation; vocabulary in [../dev/workflow-emojis-reference.md](../dev/workflow-emojis-reference.md)). NOT in `docs/`, the website source (HTML/CSS/JS), or config files.
+- **CSS:** single `site/assets/css/main.css`, mobile-first; palette/type live as `--color-*` and typography custom properties at the top of the file (the one place a palette/type change is made). Current identity: blush-pink accent (`#ed9dbc`) for titles + headings on white, black/charcoal body text; **Playfair Display** (titles + headings) + **Source Sans 3** (sans-serif body) via Google Fonts &mdash; typography matches jakubmares.cz, palette from the print materials (see [../dev/decisions.md](../dev/decisions.md) `D-DESIGN` and the [restructure plan](../dev/archive-plans/2026-06-07_restructure-4pages-fonts-content.md)). Program is an alternating timeline; the home page is a page-width hero photo. Nav: Program · Praktické informace · Focení (`gift.html` is unlisted, reachable at `/gift`).
+- **Emojis:** welcome in `dev/` markdown and in chat (they help navigation; vocabulary in [../dev/workflow-emojis-reference.md](../dev/workflow-emojis-reference.md)). NOT in `docs/` or config files; avoid them in the website source too &mdash; **except** the occasional intentional content emoji the owner asks for (e.g. the 🙂 in the Program "Vynecháváme" and Praktické informace "Kontakt" copy).
 - **No third-party services** (no Formspree, no analytics, no CDN beyond Google Fonts) unless added with an explicit decision logged in [../dev/decisions.md](../dev/decisions.md).
 - **Photos:** placeholders (e.g. a blush gradient block or `site/assets/img/placeholder-*.jpg`) until real photos are available.
 

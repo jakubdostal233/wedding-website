@@ -19,13 +19,13 @@ Phased path from project init to live website, plus the current status. Phase na
 
 _Last updated: 2026-06-07._
 
-✅ **The site is built and live** at <https://tereza-jakub.cz> &mdash; four pages (Úvod, Program, Praktické informace, O nás) with a shared header/footer, real Czech content, and the integrations wired up (Google Maps embeds, the `.ics` calendar file, the `mailto:` link, and the SPAYD bank QR), plus Open Graph share cards.
+✅ **The site is built and live** at <https://tereza-jakub.cz> &mdash; four navigated pages (Úvod, Program, Praktické informace, Focení) plus an unlisted `gift.html`, with a shared header/footer, real Czech content, and the integrations wired up (Google Maps embeds, the `.ics` calendar file, the `mailto:` link, and the SPAYD bank QR on the gift page), plus Open Graph share cards.
 
 🧭 **Infrastructure restructure (2026-06-06).** The repository was reorganised to the tyre-model architecture: the website now lives in `site/`, deployment migrated from legacy branch-deploy to a GitHub Actions workflow, and `dev/` adopted the steering-document scheme. See `dev/decisions.md` ([D-STRUCT], [D-DEPLOY]) and `docs/architecture.md`.
 
-🎨 **Design + IA refresh (2026-06-07).** The visual identity was set (blush-pink palette `#ED9DBC` on white + Playfair Display / Source Sans 3, matching jakubmares.cz) and the site reduced from seven pages to four, with an alternating Program timeline and a full-bleed hero photo. See `dev/decisions.md` ([D-DESIGN], [D-IA4]) and the restructure plan in `dev/archive-plans/2026-06-07_restructure-4pages-fonts-content.md`.
+🎨 **Design + IA refresh (2026-06-07).** The visual identity was set (blush-pink palette `#ED9DBC` on white + Playfair Display / Source Sans 3, matching jakubmares.cz) and the site reduced from seven pages to four navigated pages (O nás dropped, Focení added) plus an unlisted gift page, with an alternating Program timeline and a page-width hero photo. See `dev/decisions.md` ([D-DESIGN], [D-IA4]) and the restructure plan in `dev/archive-plans/2026-06-07_restructure-4pages-fonts-content.md`.
 
-📍 **Next:** the about-us photo + Phase 6 final polish (real-device QA, accessibility, WCAG AA contrast) before the wedding on 2026-07-10. The live task list is in `dev/plan.md`.
+📍 **Next:** refresh the favicon (still off-palette) + Phase 6 launch polish (real-device QA, accessibility, WCAG AA contrast) before the wedding on 2026-07-10. The live task list is in `dev/plan.md`.
 
 ## Phase 1 &mdash; Foundation
 

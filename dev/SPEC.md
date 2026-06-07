@@ -53,12 +53,13 @@ Page filenames are in English regardless of content language to keep paths stabl
 
 | File | Czech section name | Purpose |
 |------|--------------------|---------|
-| `index.html` | Úvod | Hero &mdash; names, date, place, full-bleed photo |
-| `program.html` | Program | Alternating timeline; "Vynecháváme"; add-to-calendar; 3 map embeds |
-| `practical-info.html` | Praktické informace | Dress code, menus, transport & parking, children, Dar (bank QR + IBAN), Kontakt |
-| `about-us.html` | O nás | Title only |
+| `index.html` | Úvod | Hero &mdash; names, "10.07.2026, Praha", page-width photo |
+| `program.html` | Program | Alternating timeline; "Vynecháváme"; add-to-calendar; 3 map embeds (Místa) |
+| `practical-info.html` | Praktické informace | Dress code, doprava a parkování, menus, program pro děti, Dar (thank-you), Různé, Kontakt |
+| `photoshooting.html` | Focení | Photo-shoot groups (organises the shoot) |
+| `gift.html` | (Dar) | Bank QR + IBAN &mdash; **unlisted**, direct link only (`/gift`) |
 
-Reduced from seven pages on 2026-06-07 ([D-IA4](./decisions.md#d-ia4--site-reduced-to-four-pages)).
+Header nav is **Program · Praktické informace · Focení** (the brand links home to `index`). `gift.html` is unlisted &mdash; reachable only via its URL, so the payment details stay off the public nav. See [D-IA4](./decisions.md#d-ia4--site-reduced-to-four-pages).
 
 All pages share a single header (site nav) and footer.
 
