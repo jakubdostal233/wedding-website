@@ -184,40 +184,11 @@ a:focus-visible {
 }
 
 
-/* --- 5. Hero block (full-bleed photo + overlaid name) -------- */
+/* --- 5. Hero block (contained photo + name, on white) ------- */
 
 .hero {
-  position: relative;
-  min-height: 88vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   text-align: center;
-  overflow: hidden;
-}
-
-/* Cover photo + a readability gradient over it */
-.hero__bg,
-.hero__bg img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 42%;
-}
-
-.hero__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg,
-              rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.12) 38%, rgba(0,0,0,0.48) 100%);
-}
-
-.hero__content {
-  position: relative;  /* sits above the overlay */
-  color: #fff;
-  padding-inline: var(--space-md);
+  padding-block: var(--space-lg);
 }
 
 .hero__names {
@@ -225,9 +196,8 @@ a:focus-visible {
   font-weight: 600;
   font-size: clamp(2.75rem, 9vw, 6rem);
   line-height: 1.05;
-  color: #fff;
+  color: var(--color-accent);
   margin: 0;
-  text-shadow: 0 1px 18px rgba(0,0,0,0.35);
 }
 
 .hero__amp {
@@ -235,17 +205,17 @@ a:focus-visible {
   font-weight: 500;
 }
 
-/* Date flanked by short rules (jakubmares.cz style) */
+/* Date + place flanked by short rules (jakubmares.cz style) */
 .hero__date {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-sm);
-  margin: var(--space-md) 0 0;
+  margin: var(--space-md) 0 var(--space-lg);
   max-width: none;
   font-size: clamp(0.95rem, 2vw, 1.2rem);
   letter-spacing: 0.18em;
-  color: #fff;
+  color: var(--color-muted);
 }
 
 .hero__date::before,
@@ -253,27 +223,27 @@ a:focus-visible {
   content: "";
   width: clamp(1.5rem, 5vw, 3rem);
   height: 1px;
-  background: rgba(255,255,255,0.75);
+  background: var(--color-rule);
 }
 
-/* Short intro band under the hero (place + welcome), on white */
-.intro {
-  text-align: center;
-  padding-block: var(--space-lg);
+/* Photo sits within the content column (page width), not full-bleed */
+.hero__photo {
+  display: block;
+  margin: 0 auto;
 }
 
-.intro__place {
+.hero__photo img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.hero__welcome {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-size: clamp(1.25rem, 2.5vw, 1.6rem);
   color: var(--color-accent);
-  margin: 0 auto var(--space-xs);
-  max-width: none;
-}
-
-.intro__welcome {
-  color: var(--color-muted);
-  margin: 0 auto;
+  margin: var(--space-lg) auto 0;
   max-width: none;
 }
 
