@@ -6,9 +6,7 @@ Current state: the site is **built and live** at <https://tereza-jakub.cz> (all 
 
 ## Immediate (no blockers)
 
-1. 📍 **Phase 4.5 &mdash; Visual design refresh from the print materials ([O-DESIGN](./decisions.md#o-design--visual-design-refresh-from-the-print-materials)).** Update the site's identity to match `tmp/style/svatebni-oznameni.pdf` + `tmp/style/jmenovky-design.pdf`: swap the **sage-green accent for the blush/dusty-pink palette**, align the typography to the elegant high-contrast display serif, and introduce the print motifs (rounded oval / arch shapes, thin charcoal hairlines, the stacked `10/07/26` date) &mdash; primarily in `site/assets/css/main.css` (custom properties / tokens) plus any per-page touches. Provisional palette and typography are captured in [O-DESIGN](./decisions.md#o-design--visual-design-refresh-from-the-print-materials).
-   - First: **sample the exact hex values** from the two PDFs (don't ship the eyeballed estimates).
-   - Gate (project rule): update [./SPEC.md](./SPEC.md) Design section and **re-confirm with the owner** before applying any visual change.
+1. 🎨 **Phase 4.5 &mdash; print motifs (palette + typography are done; see [D-DESIGN](./decisions.md#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity)).** The blush-pink palette (`#ED9DBC` accent on `#FFFFFF`) and the typography (Bodoni Moda for title / headings / body, Tangerine for the title `&`) are applied. Still to bring over from `tmp/style/svatebni-oznameni.pdf` + `jmenovky-design.pdf`: the recurring **motifs** &mdash; rounded oval / arch shapes, thin hairline frames, vertical hairline dividers, and the stacked `10 / 07 / 26` date block. Primarily `site/assets/css/main.css` plus any per-page touches.
 
 ## Mid-term (dependent)
 
@@ -18,14 +16,13 @@ Current state: the site is **built and live** at <https://tereza-jakub.cz> (all 
 ## Long-term (not essential now)
 
 - **English `/en/` mirror** (the Phase 2 language option; may be skipped entirely).
-- **Self-host fonts** ([O-FONTS](./decisions.md#o-fonts--self-host-fonts-versus-google-fonts-cdn)) if privacy becomes a concern &mdash; bundle Cormorant Garamond + Inter (or the redesign's chosen faces) into `site/assets/` instead of the Google Fonts CDN.
+- **Self-host fonts** ([O-FONTS](./decisions.md#o-fonts--self-host-fonts-versus-google-fonts-cdn)) if privacy becomes a concern &mdash; bundle Bodoni Moda + Tangerine into `site/assets/` instead of the Google Fonts CDN.
 
 ## Open questions
 
 These are the OPEN items from [./decisions.md](./decisions.md); resolve with the owner:
 
-1. **[O-DESIGN](./decisions.md#o-design--visual-design-refresh-from-the-print-materials)** &mdash; the design refresh palette / typography (provisional inputs captured; needs exact sampling + SPEC update + sign-off).
-2. **[O-FONTS](./decisions.md#o-fonts--self-host-fonts-versus-google-fonts-cdn)** &mdash; self-host fonts versus the Google Fonts CDN.
+1. **[O-FONTS](./decisions.md#o-fonts--self-host-fonts-versus-google-fonts-cdn)** &mdash; self-host fonts versus the Google Fonts CDN.
 
 ## Abbreviations
 

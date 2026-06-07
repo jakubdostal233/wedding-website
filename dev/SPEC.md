@@ -44,9 +44,9 @@ Page filenames are in English regardless of content language to keep paths stabl
 
 ## Design
 
-- **Style:** modern minimalist &mdash; clean serif headings, sans-serif body, generous whitespace, single muted accent color, photo-led
-- **Palette:** ivory · charcoal · sage green
-- **Typography:** Cormorant Garamond (display, serif) + Inter (body, sans-serif), via Google Fonts
+- **Style:** modern minimalist &mdash; high-contrast serif headings, serif body, generous whitespace, a single blush-pink accent on white, photo-led. Refreshed from the printed wedding materials &mdash; see [decisions.md](./decisions.md#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity) (D-DESIGN).
+- **Palette:** white ground (`#FFFFFF`) · charcoal body text (`#2A2A2A`) · blush-pink accent (`#ED9DBC` &mdash; headings, names, links, dividers); blush hairlines (`#F0DDE4`)
+- **Typography** (via Google Fonts): **Bodoni Moda** (title, all headings, and body &mdash; its `opsz` axis serves a high-contrast cut at display sizes and a readable, lower-contrast cut at body sizes) · **Tangerine** (the calligraphic `&` in the title)
 - **Mobile-first** responsive layout
 
 ## Pages
