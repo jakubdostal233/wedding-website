@@ -95,7 +95,7 @@ There are four navigated pages plus one unlisted page, each a single Czech secti
 | `program.html` | Program | Alternating timeline; "Vynecháváme"; add-to-calendar; 3 map embeds (Místa) |
 | `practical-info.html` | Praktické informace | Dress code, parking, menus, children, Dar (thank-you), Různé, Kontakt |
 | `photoshooting.html` | Focení | Photo-shoot groups |
-| `gift.html` | (Dar) | Bank QR + IBAN &mdash; unlisted, direct link `/gift` |
+| `gift.html` | (Dar) | Bank QR + IBAN &mdash; not in the nav; linked from the Dar section (and at `/gift`) |
 
 **Shared header and footer.** Every page carries the same `<header class="site-header">` (the brand link plus the three-item nav &mdash; Program, Praktické informace, Focení) and `<footer class="site-footer">`; `gift.html` carries the same chrome but is itself absent from the nav (unlisted). Because there is no include mechanism, these blocks are **duplicated in each file and kept in sync manually** (with AI assistance). Pages cross-link with plain relative hrefs (`href="program.html"`, `href="index.html"`), so the whole nav works identically from any page. This manual-sync approach is comfortable at five pages; if the page count grew past roughly ten, a tiny build-time include or a small client-side fetch would be worth introducing.
 
@@ -144,7 +144,7 @@ The site remains build-less: the workflow only copies static files, it does not 
 
 ## 7. Privacy and access
 
-The site is **public but unlisted** ([D-PRIVACY](../dev/decisions.md#d-privacy--public-but-unlisted)): it is reachable by anyone with the URL but is kept out of search results. `site/robots.txt` returns `Disallow: /` for all crawlers, and every page includes `<meta name="robots" content="noindex,nofollow">`. The whole repository is technically reachable on the host, so no true secrets are committed to tracked files; bank details on the unlisted `gift.html` are intentionally public (the page is simply not linked from the nav).
+The site is **public but unlisted** ([D-PRIVACY](../dev/decisions.md#d-privacy--public-but-unlisted)): it is reachable by anyone with the URL but is kept out of search results. `site/robots.txt` returns `Disallow: /` for all crawlers, and every page includes `<meta name="robots" content="noindex,nofollow">`. The whole repository is technically reachable on the host, so no true secrets are committed to tracked files; bank details on `gift.html` are intentionally public (it is linked only from the Dar section, not the nav).
 
 ## 8. Local development
 

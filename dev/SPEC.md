@@ -57,9 +57,9 @@ Page filenames are in English regardless of content language to keep paths stabl
 | `program.html` | Program | Alternating timeline; "Vynecháváme"; add-to-calendar; 3 map embeds (Místa) |
 | `practical-info.html` | Praktické informace | Dress code, doprava a parkování, menus, program pro děti, Dar (thank-you), Různé, Kontakt |
 | `photoshooting.html` | Focení | Photo-shoot groups (organises the shoot) |
-| `gift.html` | (Dar) | Bank QR + IBAN &mdash; **unlisted**, direct link only (`/gift`) |
+| `gift.html` | (Dar) | Bank QR + IBAN &mdash; **not in the nav**; linked from the Dar section (and at `/gift`) |
 
-Header nav is **Program · Praktické informace · Focení** (the brand links home to `index`). `gift.html` is unlisted &mdash; reachable only via its URL, so the payment details stay off the public nav. See [D-IA4](./decisions.md#d-ia4--site-reduced-to-four-pages).
+Header nav is **Program · Praktické informace · Focení** (the brand links home to `index`). `gift.html` is kept out of the nav &mdash; reached from the "finanční dar" link in the Dar section of Praktické informace (and directly at `/gift`), so the payment details stay off the main nav. See [D-IA4](./decisions.md#d-ia4--site-reduced-to-four-pages).
 
 All pages share a single header (site nav) and footer.
 
