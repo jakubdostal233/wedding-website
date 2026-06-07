@@ -42,43 +42,43 @@ Run the relevant rows on at least:
 
 ## Pages render correctly
 
-For each page (`index`, `location`, `program`, `transit`, `about-us`, `contact`, `gift`):
+For each page (`index`, `program`, `practical-info`, `about-us`):
 
 - [ ] Page loads at `https://tereza-jakub.cz/<page>.html` (and `/` for index)
 - [ ] HTTPS lock icon shows in browser, no cert warning
-- [ ] Hero / page heading renders with the right serif typography
-- [ ] Header nav: 6 links visible, active page underlined in the accent colour (blush pink)
+- [ ] Hero / page heading renders in Playfair Display; body text in Source Sans 3
+- [ ] Header nav: 3 links visible (Program, Praktické informace, O nás), active page underlined in the accent colour (blush pink)
 - [ ] Footer present, contact link works
 - [ ] No layout breakage at narrow viewport (browser ~375px wide; phone in portrait)
 - [ ] Browser tab shows the dark slate "T&J" favicon
 
 ## Integrations &mdash; the things that must work
 
-### Maps (`location.html`)
+### Maps (`program.html`)
 
-- [ ] Both maps load (Vršovický zámeček + Restaurace La Farma)
+- [ ] All three maps load (Vršovický zámeček, Havlíčkovy sady, Restaurace La Farma)
 - [ ] You can pan and zoom inside each iframe
 - [ ] "Otevřít na Mapy.cz" link opens mapy.cz in a new tab, centered on the right venue
 - [ ] "Otevřít v Google Maps" link opens Google Maps in a new tab, centered on the right venue
 - [ ] On phone, opening the maps starts navigation cleanly
 
-### Calendar (`contact.html`)
+### Calendar (`program.html`)
 
-- [ ] "Přidat do kalendáře (.ics)" button downloads `wedding_tj.ics`
-- [ ] Opening the file on **iOS / iPhone** &rarr; offered to add to Apple Calendar; event lands as "Svatba | Tereza a Jakub" on **10. 7. 2026, 11:00 local Prague**, ending 23:00
+- [ ] "Přidat do kalendáře" button downloads `wedding_tj.ics`
+- [ ] Opening the file on **iOS / iPhone** &rarr; offered to add to Apple Calendar; event lands as "Svatba | Tereza a Jakub" on **10. 7. 2026, starting 10:30 local Prague** (arrival; obřad 11:00), ending 23:00
 - [ ] Opening the file on **Android** &rarr; offered to add to Google Calendar (or whichever calendar app); same event details
 - [ ] Opening the file on **desktop** with Outlook / Thunderbird / Google Calendar &rarr; same
 - [ ] Event location shows "Vršovický zámeček, Praha"
 - [ ] Event description has the full text and tap-able
 
-### Email contact (`contact.html`)
+### Email contact (`practical-info.html`)
 
 - [ ] Tapping `info@tereza-jakub.cz` link opens the device's default email client
 - [ ] Subject is pre-filled with **"Svatba 10.07.2026"**
 - [ ] Send a real test email; arrives in your Gmail within ~1 minute
 - [ ] Reply to the test email from Gmail &rarr; arrives at sender (forwarding works **both ways**? &mdash; if not, that's expected, replies-from-Gmail use Gmail's address, not the alias)
 
-### Bank QR (`gift.html`)
+### Bank QR (`practical-info.html`)
 
 Test with **at least 2 different Czech banking apps** to catch app-specific quirks:
 
