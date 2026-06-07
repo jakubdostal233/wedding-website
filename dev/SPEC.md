@@ -44,22 +44,21 @@ Page filenames are in English regardless of content language to keep paths stabl
 
 ## Design
 
-- **Style:** modern minimalist &mdash; high-contrast serif headings, serif body, generous whitespace, a single blush-pink accent on white, photo-led. Refreshed from the printed wedding materials &mdash; see [decisions.md](./decisions.md#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity) (D-DESIGN).
-- **Palette:** white ground (`#FFFFFF`) · charcoal body text (`#2A2A2A`) · blush-pink accent (`#ED9DBC` &mdash; headings, names, links, dividers); blush hairlines (`#F0DDE4`)
-- **Typography** (via Google Fonts): **Bodoni Moda** (title, all headings, and body &mdash; its `opsz` axis serves a high-contrast cut at display sizes and a readable, lower-contrast cut at body sizes) · **Tangerine** (the calligraphic `&` in the title)
+- **Style:** modern minimalist &mdash; high-contrast serif headings, sans-serif body, generous whitespace, a single blush-pink accent on white, photo-led. Palette refreshed from the printed materials; typography follows <https://www.jakubmares.cz> &mdash; see [decisions.md](./decisions.md#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity) (D-DESIGN) and the [2026-06-07 restructure plan](./archive-plans/2026-06-07_restructure-4pages-fonts-content.md).
+- **Palette:** white ground (`#FFFFFF`) · black/charcoal body & structural text (`#2A2A2A`, incl. high-contrast bits such as timeline dots) · blush-pink accent (`#ED9DBC` &mdash; titles, headings, names, links); blush hairlines (`#F0DDE4`)
+- **Typography** (via Google Fonts): **Playfair Display** (titles + all headings) · **Source Sans 3** (sans-serif body) &mdash; the pairing used by jakubmares.cz; a plain Playfair `&` in the title
 - **Mobile-first** responsive layout
 
 ## Pages
 
 | File | Czech section name | Purpose |
 |------|--------------------|---------|
-| `index.html` | Úvod | Hero &mdash; names, date, place, hero photo |
-| `location.html` | Místo a čas | Ceremony venue + restaurant + time, map embeds |
-| `program.html` | Program | Day timeline |
-| `transit.html` | Cesta a ubytování | Directions, parking, transit, accommodation |
-| `about-us.html` | O nás | Meeting story + photos |
-| `contact.html` | Kontakt | Mailto, add-to-calendar, map links |
-| `gift.html` | Dar | Bank QR for optional gifts (low priority) |
+| `index.html` | Úvod | Hero &mdash; names, date, place, full-bleed photo |
+| `program.html` | Program | Alternating timeline; "Vynecháváme"; add-to-calendar; 3 map embeds |
+| `practical-info.html` | Praktické informace | Dress code, menus, transport & parking, children, Dar (bank QR + IBAN), Kontakt |
+| `about-us.html` | O nás | Title only |
+
+Reduced from seven pages on 2026-06-07 ([D-IA4](./decisions.md#d-ia4--site-reduced-to-four-pages)).
 
 All pages share a single header (site nav) and footer.
 

@@ -89,8 +89,17 @@ Final. Implementation may proceed on these.
     - **Title + all headings: Bodoni Moda** &mdash; high-contrast didone, the closest Google-Fonts match to the print headline face (Agraham), which it replaces in both the title and the heading roles (in the print materials a single face served both).
     - **The `&` in the title: Tangerine** &mdash; calligraphic script replacing the print ampersand (terranika); set at ~0.92em of the names (`48px` against `52px` in the calibration render).
     - **Body: Bodoni Moda** (the same family as the headings) &mdash; at body sizes its `opsz` axis (`font-optical-sizing: auto`) serves a lower-contrast, readable cut, so it honours the print "Didot for body" intent (Bodoni and Didot are sibling didones) with a guaranteed, Czech-capable face. The original pick, Theano Didot, was dropped: it is no longer served by Google Fonts (returns "400: Font family not found"), so it would silently fall back to Georgia.
+  - **Update 2026-06-07 (supersedes the three typography lines above):** the owner chose to match the typography of <https://www.jakubmares.cz> instead &mdash; **Playfair Display** (titles + headings) + **Source Sans 3** (sans-serif body), with a **plain Playfair `&`** in the title (Tangerine dropped). The palette above is unchanged. Bodoni Moda + Tangerine shipped only briefly. See the [restructure plan](./archive-plans/2026-06-07_restructure-4pages-fonts-content.md).
 - Why the print fonts are not used directly: the print faces are `Agraham-PersonalUse` (no Czech diacritics &mdash; the announcement stamped the carons from a separate demo font), `terranika`, and `Didot` &mdash; none are available as the full font files an `@font-face` setup needs, and Agraham cannot set Czech text at all. The Google-Fonts equivalents avoid self-hosting, licensing, and `.woff2` work, and already cover Czech. This does not affect O-FONTS (CDN vs self-host) &mdash; the site still loads fonts from the Google Fonts CDN.
 - See [./SPEC.md](./SPEC.md) (Design section); analysis renders were produced 2026-06-07.
+
+### D-IA4 - Site reduced to four pages
+
+- Date: 2026-06-07
+- Decision: The seven-page structure is reduced to **four** &mdash; `index.html` (Úvod), `program.html` (Program), `practical-info.html` (Praktické informace), `about-us.html` (O nás). `location.html`, `transit.html`, `contact.html`, and `gift.html` are removed; their content relocates: maps + add-to-calendar &rarr; Program; transport/parking, dress code, menus, children, Dar (bank QR + IBAN), Kontakt &rarr; Praktické informace. Accommodation (ubytování) is dropped; O nás keeps only its title.
+- Why: simpler navigation for guests; the supplied content (`tmp/website-content.txt`) fits four sections cleanly.
+- Partially supersedes [D-PAGES](#d-pages--multi-page-english-filenames-czech-content) (the page *count* only &mdash; the multi-page architecture, English filenames, and Czech content all stand).
+- See the [restructure plan](./archive-plans/2026-06-07_restructure-4pages-fonts-content.md).
 
 ## Proposed - pending owner sign-off
 
@@ -104,6 +113,6 @@ No decision yet. Tracked alongside the live plan in [./plan.md](./plan.md).
 
 ### O-FONTS - Self-host fonts versus Google Fonts CDN
 
-- Decision needed: keep loading the web fonts (Bodoni Moda + Tangerine, per [D-DESIGN](#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity)) from the Google Fonts CDN, or self-host them in `site/assets/`.
+- Decision needed: keep loading the web fonts (Playfair Display + Source Sans 3, per [D-DESIGN](#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity)) from the Google Fonts CDN, or self-host them in `site/assets/`.
 - Trade-off: the CDN is simplest but lets Google see a request on each page load (privacy / GDPR) and adds a third-party dependency ([D-NOSERVICES](#d-noservices--no-third-party-services) carves out the font CDN as the one exception); self-hosting removes that at the cost of bundling and updating the font files.
 - Status: open. Default is the CDN; revisit if privacy becomes a concern. (The design refresh itself is now settled &mdash; see [D-DESIGN](#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity).)

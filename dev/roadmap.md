@@ -17,13 +17,15 @@ Phased path from project init to live website, plus the current status. Phase na
 
 ## Where we are now
 
-_Last updated: 2026-06-06._
+_Last updated: 2026-06-07._
 
-✅ **The site is built and live** at <https://tereza-jakub.cz>. Phases 1&ndash;4 are done: all seven pages exist with shared header/footer, real Czech content, and the integrations wired up (mapy.com embeds, the `.ics` calendar file, the `mailto:` link, and the SPAYD bank QR), plus Open Graph share cards.
+✅ **The site is built and live** at <https://tereza-jakub.cz> &mdash; four pages (Úvod, Program, Praktické informace, O nás) with a shared header/footer, real Czech content, and the integrations wired up (Google Maps embeds, the `.ics` calendar file, the `mailto:` link, and the SPAYD bank QR), plus Open Graph share cards.
 
 🧭 **Infrastructure restructure (2026-06-06).** The repository was reorganised to the tyre-model architecture: the website now lives in `site/`, deployment migrated from legacy branch-deploy to a GitHub Actions workflow, and `dev/` adopted the steering-document scheme. See `dev/decisions.md` ([D-STRUCT], [D-DEPLOY]) and `docs/architecture.md`.
 
-📍 **Next: Phase 4.5 &mdash; the visual design refresh** from the printed wedding materials (blush-pink identity, replacing the current sage green). Then the remaining work is Phase 5 (real photos) and Phase 6 (final polish) before the wedding on 2026-07-10. The live task list is in `dev/plan.md`.
+🎨 **Design + IA refresh (2026-06-07).** The visual identity was set (blush-pink palette `#ED9DBC` on white + Playfair Display / Source Sans 3, matching jakubmares.cz) and the site reduced from seven pages to four, with an alternating Program timeline and a full-bleed hero photo. See `dev/decisions.md` ([D-DESIGN], [D-IA4]) and the restructure plan in `dev/archive-plans/2026-06-07_restructure-4pages-fonts-content.md`.
+
+📍 **Next:** the about-us photo + Phase 6 final polish (real-device QA, accessibility, WCAG AA contrast) before the wedding on 2026-07-10. The live task list is in `dev/plan.md`.
 
 ## Phase 1 &mdash; Foundation
 
