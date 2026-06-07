@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<!-- Source for the Open Graph share card. Rendered to site/assets/img/og-card.png
+     at 1200x630 by tools/generate-og-card.py (headless Chromium) so it uses the
+     site's real web fonts (Playfair Display + Source Sans 3). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+  html, body { margin: 0; }
+  .card {
+    width: 1200px; height: 630px;
+    background: #ffffff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  .names {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 132px;
+    line-height: 1;
+    color: #ed9dbc;
+    margin: 0;
+  }
+  .amp { font-style: italic; font-weight: 500; }
+  .date {
+    display: flex; align-items: center; gap: 26px;
+    margin: 44px 0 0;
+    font-size: 34px;
+    letter-spacing: 0.18em;
+    color: #6b6b6b;
+  }
+  .date::before, .date::after {
+    content: ""; width: 64px; height: 1px; background: #e0c4d0;
+  }
+  .welcome {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 40px;
+    color: #ed9dbc;
+    margin: 52px 0 0;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1 class="names">Tereza <span class="amp">&amp;</span> Jakub</h1>
+    <p class="date">10.07.2026, Praha</p>
+    <p class="welcome">Těšíme se na vás.</p>
+  </div>
+</body>
+</html>

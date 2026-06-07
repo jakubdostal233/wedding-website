@@ -124,10 +124,10 @@ All "dynamic-feeling" features are static &mdash; no backend, no runtime third-p
 
 ## 5. Offline generator tools
 
-`tools/` holds two Python scripts that **produce tracked assets**; they are run rarely (only when their inputs change) and are not part of the served site:
+`tools/` holds two Python generators (plus `og-card.html`, the share-card source) that **produce tracked assets**; they are run rarely (only when their inputs change) and are not part of the served site:
 
 - `generate-spayd-qr.py` &mdash; encodes the SPAYD string (account, variable symbol, message) and writes `site/assets/img/qr-platba.svg` (uses `segno`). Re-run only if the bank account, variable symbol, or message changes; re-scan the result with a banking app to confirm.
-- `generate-og-card.py` &mdash; renders the social preview and writes `site/assets/img/og-card.png` at 1200&times;630 (uses Pillow). Re-run only if the names, date, or place change.
+- `generate-og-card.py` &mdash; renders the share-card source `og-card.html` to `site/assets/img/og-card.png` at 1200&times;630 via **headless Chromium**, so the card uses the site's real web fonts (Playfair Display + Source Sans 3). Re-run (after editing `og-card.html`) only if the names, date, or place change.
 
 Both hardcode their output path under `site/assets/img/`, and both are one-shot generators &mdash; the committed SVG and PNG are the artifacts the site actually uses.
 
