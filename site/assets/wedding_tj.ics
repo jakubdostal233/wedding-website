@@ -5,11 +5,12 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:tereza-jakub-svatba-20260710@tereza-jakub.cz
-DTSTAMP:20260504T080000Z
-DTSTART:20260710T090000Z
+DTSTAMP:20260607T000000Z
+DTSTART:20260710T083000Z
 DTEND:20260710T210000Z
 SUMMARY:Svatba | Tereza a Jakub
-DESCRIPTION:Obřad ve Vršovickém zámečku\, hostina v restauraci La Farma. Doporučujeme dorazit nejpozději v 10:45.
+DESCRIPTION:Příjezd 10:30-10:45\, obřad v 11:00 ve Vršovickém zámečku\, navazující oslava v restauraci La Farma. Program: https://tereza-jakub.cz/program.html
 LOCATION:Vršovický zámeček\, Praha
+URL:https://tereza-jakub.cz/
 END:VEVENT
 END:VCALENDAR

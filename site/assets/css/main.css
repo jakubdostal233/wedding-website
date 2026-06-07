@@ -1,7 +1,7 @@
 /* =============================================================
    Wedding Website &mdash; Base styles
-   Palette: white (#ffffff) · charcoal text (#2a2a2a) · blush-pink accent (#ed9dbc)
-   Type:    Bodoni Moda (title, headings, body &mdash; opsz axis varies contrast by size) + Tangerine (the &)
+   Palette: white (#ffffff) · charcoal/black text (#2a2a2a) · blush-pink accent (#ed9dbc)
+   Type:    Playfair Display (titles + headings) + Source Sans 3 (body) &mdash; matches jakubmares.cz
    ============================================================= */
 
 
@@ -40,15 +40,14 @@ svg {
 :root {
   /* Palette */
   --color-bg:     #ffffff;  /* white */
-  --color-text:   #2a2a2a;  /* charcoal &mdash; body copy */
-  --color-accent: #ed9dbc;  /* blush-pink &mdash; headings, names, links, dividers */
+  --color-text:   #2a2a2a;  /* charcoal/black &mdash; body + structural (timeline dots/line) */
+  --color-accent: #ed9dbc;  /* blush-pink &mdash; titles, headings, names, links */
   --color-muted:  #6b6b6b;
   --color-rule:   #f0dde4;  /* blush hairline divider */
 
   /* Type stacks &mdash; system fallbacks render before web fonts load */
-  --font-display: 'Bodoni Moda', Georgia, 'Times New Roman', serif;
-  --font-body:    'Bodoni Moda', Georgia, 'Times New Roman', serif;
-  --font-script:  'Tangerine', 'Snell Roundhand', cursive;  /* the & in the title */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body:    'Source Sans 3', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
   /* Spacing scale (multiples of 0.5rem = 8px on default root size) */
   --space-xs: 0.5rem;
@@ -66,8 +65,7 @@ svg {
 
 body {
   font-family: var(--font-body);
-  font-optical-sizing: auto;
-  font-size: 1.0625rem;  /* 17px &mdash; a didone at body size; slightly larger reads better */
+  font-size: 1.0625rem;  /* ~17px */
   line-height: 1.65;
   color: var(--color-text);
   background-color: var(--color-bg);
@@ -75,20 +73,16 @@ body {
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-optical-sizing: auto;
-  font-weight: 500;
-  line-height: 1.2;
+  font-weight: 700;        /* Playfair bold &mdash; the jakubmares.cz heading weight */
+  line-height: 1.15;
   color: var(--color-accent);
   margin: 0 0 var(--space-sm);
 }
 
 /* clamp(min, preferred, max) &mdash; fluid type that scales with viewport */
 h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
-h2 { font-size: clamp(2rem,   4vw, 3rem); }
-h3 { font-size: clamp(1.4rem, 2.5vw, 1.75rem); }
-
-/* Smaller headings: a touch heavier so Bodoni's hairlines stay crisp */
-h3, h4 { font-weight: 600; }
+h2 { font-size: clamp(1.9rem,  4vw, 2.75rem); }
+h3 { font-size: clamp(1.3rem, 2.5vw, 1.6rem); }
 
 p {
   margin: 0 0 var(--space-sm);
@@ -134,10 +128,9 @@ a:focus-visible {
 
 .site-header__brand {
   font-family: var(--font-display);
-  font-optical-sizing: auto;
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   text-decoration: none;
   color: var(--color-accent);
 }
@@ -191,74 +184,97 @@ a:focus-visible {
 }
 
 
-/* --- 5. Hero block ------------------------------------------- */
+/* --- 5. Hero block (full-bleed photo + overlaid name) -------- */
 
 .hero {
-  padding-block: clamp(var(--space-lg), 12vw, var(--space-xl));
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  overflow: hidden;
+}
+
+/* Cover photo + a readability gradient over it */
+.hero__bg,
+.hero__bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+              rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.12) 38%, rgba(0,0,0,0.48) 100%);
+}
+
+.hero__content {
+  position: relative;  /* sits above the overlay */
+  color: #fff;
+  padding-inline: var(--space-md);
 }
 
 .hero__names {
   font-family: var(--font-display);
-  font-optical-sizing: auto;
-  font-weight: 500;
-  font-size: clamp(3rem, 9vw, 6rem);
+  font-weight: 600;
+  font-size: clamp(2.75rem, 9vw, 6rem);
   line-height: 1.05;
-  color: var(--color-accent);
-  margin: 0 0 var(--space-md);
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 1px 18px rgba(0,0,0,0.35);
 }
 
-/* The "&" is a small calligraphic accent (Tangerine), ~0.92x the names, like the print design */
 .hero__amp {
-  font-family: var(--font-script);
-  font-style: normal;
-  font-weight: 700;
-  font-size: 0.92em;
-  color: var(--color-accent);
+  font-style: italic;
+  font-weight: 500;
 }
 
+/* Date flanked by short rules (jakubmares.cz style) */
 .hero__date {
-  font-family: var(--font-body);
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-  margin: 0 0 var(--space-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin: var(--space-md) 0 0;
   max-width: none;
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+  letter-spacing: 0.18em;
+  color: #fff;
 }
 
-.hero__place {
+.hero__date::before,
+.hero__date::after {
+  content: "";
+  width: clamp(1.5rem, 5vw, 3rem);
+  height: 1px;
+  background: rgba(255,255,255,0.75);
+}
+
+/* Short intro band under the hero (place + welcome), on white */
+.intro {
+  text-align: center;
+  padding-block: var(--space-lg);
+}
+
+.intro__place {
   font-family: var(--font-display);
   font-style: italic;
   font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-  color: var(--color-text);
-  margin: 0;
+  color: var(--color-accent);
+  margin: 0 auto var(--space-xs);
   max-width: none;
 }
 
-.hero__welcome {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
+.intro__welcome {
   color: var(--color-muted);
-  margin: var(--space-md) 0 0;
+  margin: 0 auto;
   max-width: none;
-}
-
-.hero__divider {
-  width: 4rem;
-  height: 1px;
-  background: var(--color-accent);
-  border: none;
-  margin: var(--space-md) auto;
-}
-
-/* Placeholder gradient until a real hero photo is selected */
-.hero__image {
-  margin-top: var(--space-lg);
-  aspect-ratio: 16 / 9;
-  background: linear-gradient(135deg, #f0cdda 0%, #faeef2 100%);
-  border-radius: 2px;
 }
 
 
@@ -277,23 +293,83 @@ a:focus-visible {
   margin-top: 0;
 }
 
-/* Program timeline &mdash; semantic <dl> rendered as a two-column grid */
+/* Program timeline &mdash; alternating centre-line layout (jakubmares.cz style) */
 .timeline {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: var(--space-sm) var(--space-md);
-  margin: var(--space-md) 0;
+  position: relative;
+  max-width: 46rem;
+  margin: var(--space-lg) auto;
+  padding: 0;
+  list-style: none;
 }
 
-.timeline dt {
+/* the vertical centre line (black) */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: var(--color-text);
+  transform: translateX(-50%);
+}
+
+.timeline__item {
+  position: relative;
+  width: 50%;
+  padding-bottom: var(--space-lg);
+  box-sizing: border-box;
+}
+
+.timeline__item:nth-child(odd) {
+  left: 0;
+  padding-right: calc(var(--space-lg) + 0.5rem);
+  text-align: right;
+}
+
+.timeline__item:nth-child(even) {
+  left: 50%;
+  padding-left: calc(var(--space-lg) + 0.5rem);
+  text-align: left;
+}
+
+/* the dot, sitting on the centre line (black for contrast) */
+.timeline__item::after {
+  content: "";
+  position: absolute;
+  top: 0.4rem;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--color-text);
+  border: 2px solid var(--color-bg);
+}
+
+.timeline__item:nth-child(odd)::after  { right: -7.5px; }
+.timeline__item:nth-child(even)::after { left:  -7.5px; }
+
+.timeline__time {
   font-family: var(--font-display);
-  font-weight: 500;
-  color: var(--color-accent);
-  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--color-accent);   /* time = accent pink (acts as a mini-title) */
+  margin: 0 0 0.15rem;
 }
 
-.timeline dd {
+.timeline__event {
   margin: 0;
+  max-width: none;
+  color: var(--color-text);     /* event text = black */
+}
+
+/* Plain list used for "Vynecháváme" etc. */
+.list-plain {
+  margin: var(--space-sm) 0 0;
+  padding-left: 1.2em;
+}
+
+.list-plain li {
+  margin-bottom: 0.25rem;
 }
 
 
@@ -305,7 +381,7 @@ a:focus-visible {
   width: 100%;
   aspect-ratio: 16 / 10;
   margin: var(--space-md) 0;
-  border-radius: 2px;
+  border-radius: 8px;
   overflow: hidden;
   background: var(--color-rule);
 }
@@ -318,12 +394,18 @@ a:focus-visible {
   border: 0;
 }
 
+/* Map links row under an embed */
+.map-links {
+  margin: 0 0 var(--space-md);
+  font-size: 0.95rem;
+}
+
 /* Ghost button &mdash; outline that fills on hover. Used for the .ics download. */
 .button {
   display: inline-block;
   padding: var(--space-xs) var(--space-md);
   border: 1px solid var(--color-text);
-  border-radius: 2px;
+  border-radius: 4px;
   font-family: var(--font-body);
   font-size: 0.95rem;
   text-decoration: none;
@@ -345,7 +427,7 @@ a:focus-visible {
   padding: var(--space-md);
   max-width: 30rem;
   border: 1px solid var(--color-rule);
-  border-radius: 2px;
+  border-radius: 8px;
   text-align: center;
 }
 
@@ -366,7 +448,7 @@ a:focus-visible {
 }
 
 .qr-block dt {
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-muted);
 }
 
@@ -374,6 +456,11 @@ a:focus-visible {
   margin: 0;
   font-variant-numeric: tabular-nums;
   word-break: break-all;
+}
+
+/* Simple definition list for menus / info pairs */
+.info-list {
+  margin: var(--space-sm) 0;
 }
 
 
@@ -402,5 +489,25 @@ a:focus-visible {
 
   .site-nav ul {
     gap: var(--space-xs) var(--space-md);
+  }
+
+  /* Timeline collapses to a single left-aligned column */
+  .timeline::before { left: 7px; }
+
+  .timeline__item,
+  .timeline__item:nth-child(odd),
+  .timeline__item:nth-child(even) {
+    width: 100%;
+    left: 0;
+    text-align: left;
+    padding-left: calc(var(--space-md) + 0.25rem);
+    padding-right: 0;
+  }
+
+  .timeline__item::after,
+  .timeline__item:nth-child(odd)::after,
+  .timeline__item:nth-child(even)::after {
+    left: 0.5px;
+    right: auto;
   }
 }
