@@ -68,6 +68,20 @@ Live on GitHub Pages, **published via GitHub Actions** ([../.github/workflows/de
 
 - `tmp/` is gitignored &mdash; use freely for drafts, exports, generator runs, design sources. Don't reference `tmp/` from tracked files. Throwaway specs are named `spec_YYYY-MM-DD_slug.md`.
 
+## When the owner says "update project docs" (or similar)
+
+This phrase means: run the following audit. It is the canonical meaning of the request.
+
+1. **`tmp/` (drafts and scratch specs first).** For each draft / spec file: if all its tasks are done, remove the file (prefer a recoverable delete, e.g. `gio trash`). If partly done, delete the done entries and move the not-yet-done tasks into [../dev/plan.md](../dev/plan.md).
+2. **`dev/`.**
+   - [../dev/SPEC.md](../dev/SPEC.md) and [../dev/decisions.md](../dev/decisions.md) &mdash; do they still match reality? Is everything still valid as written?
+   - [../dev/plan.md](../dev/plan.md) &mdash; delete executed tasks; check the ordering is still optimal; can anything move from mid-term to immediate? Is everything in `tmp/` and in the roadmap reflected here? If not, update it.
+   - [../dev/roadmap.md](../dev/roadmap.md) &mdash; do "Where we are now" and the phase statuses still match reality?
+   - [../dev/workflow-tracking.md](../dev/workflow-tracking.md) &mdash; is every skill/hook issue and improvement idea from recent work captured (per that file's own section rules)?
+   - [../dev/worklog.md](../dev/worklog.md) &mdash; anything worth preserving: promote it to the right durable doc (`decisions.md`, `SPEC.md`, or a `docs/` file), then delete it here; anything already documented elsewhere or now stale: delete it.
+3. **`docs/`.** Make sure everything is up to date &mdash; especially [../docs/architecture.md](../docs/architecture.md) and [../docs/deployment.md](../docs/deployment.md), which drift most easily; update them to reflect reality.
+4. **Entry docs ([./CLAUDE.md](./CLAUDE.md), [../README.md](../README.md)).** Update both to reflect the current state &mdash; the signposts and conventions in `CLAUDE.md`, and the project summary, file structure, and status in `README.md`. They are what a fresh agent and a newcomer read first, so they must not lag the rest.
+
 ## Workflow notes for Claude
 
 - Follow the global workflow (`jd:audit` → `jd:plan` → implement → `jd:verify` → `jd:git`) for non-trivial changes. Skip steps when the spec already settles the question.
