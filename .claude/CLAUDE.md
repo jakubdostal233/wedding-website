@@ -45,10 +45,10 @@ Vanilla HTML / CSS / JavaScript, no build step, no Node toolchain. Multi-page ar
 
 - **Page filenames in English** (`location.html`, `about-us.html`), **content in Czech** (vykání, warm but proper). English mirror under `/en/` is a possible later phase.
 - **Em dashes use the entity `&mdash;`, not the Unicode character.** User preference &mdash; entities are explicit in source and don't get confused with hyphens or en dashes at a glance. Applies everywhere: HTML, Markdown, CSS, and config files. In Markdown the entity still renders as a proper em dash through the inline-HTML pass.
-- **CSS:** single `site/assets/css/main.css`, mobile-first; palette/type live as `--color-*` and typography custom properties at the top of the file (the one place a palette/type change is made). Current identity: ivory · charcoal · sage with Cormorant Garamond + Inter &mdash; **scheduled to be refreshed** to the printed-materials' blush-pink identity (see [../dev/decisions.md](../dev/decisions.md) `O-DESIGN`).
+- **CSS:** single `site/assets/css/main.css`, mobile-first; palette/type live as `--color-*` and typography custom properties at the top of the file (the one place a palette/type change is made). Current identity: blush-pink accent (`#ed9dbc`) on white with charcoal body text, typeset in Bodoni Moda (title, headings, body) plus Tangerine for the title `&`, all via Google Fonts &mdash; refreshed from the printed materials (see [../dev/decisions.md](../dev/decisions.md) `D-DESIGN`). The print motifs (arch shapes, hairline frames, stacked `10/07/26` date) are not yet applied.
 - **Emojis:** welcome in `dev/` markdown and in chat (they help navigation; vocabulary in [../dev/workflow-emojis-reference.md](../dev/workflow-emojis-reference.md)). NOT in `docs/`, the website source (HTML/CSS/JS), or config files.
 - **No third-party services** (no Formspree, no analytics, no CDN beyond Google Fonts) unless added with an explicit decision logged in [../dev/decisions.md](../dev/decisions.md).
-- **Photos:** placeholders (e.g. a solid sage block or `site/assets/img/placeholder-*.jpg`) until real photos are available.
+- **Photos:** placeholders (e.g. a blush gradient block or `site/assets/img/placeholder-*.jpg`) until real photos are available.
 
 ## Local development
 

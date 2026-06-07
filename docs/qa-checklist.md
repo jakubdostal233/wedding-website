@@ -47,7 +47,7 @@ For each page (`index`, `location`, `program`, `transit`, `about-us`, `contact`,
 - [ ] Page loads at `https://tereza-jakub.cz/<page>.html` (and `/` for index)
 - [ ] HTTPS lock icon shows in browser, no cert warning
 - [ ] Hero / page heading renders with the right serif typography
-- [ ] Header nav: 6 links visible, active page underlined in sage
+- [ ] Header nav: 6 links visible, active page underlined in the accent colour (blush pink)
 - [ ] Footer present, contact link works
 - [ ] No layout breakage at narrow viewport (browser ~375px wide; phone in portrait)
 - [ ] Browser tab shows the dark slate "T&J" favicon
