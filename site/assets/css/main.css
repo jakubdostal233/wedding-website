@@ -322,7 +322,7 @@ a:focus-visible {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.15rem;
-  color: var(--color-accent);   /* time = accent pink (acts as a mini-title) */
+  color: var(--color-text);     /* charcoal for legibility (WCAG AA); Playfair + bold still set it apart */
   margin: 0 0 0.15rem;
 }
 
@@ -436,7 +436,7 @@ a:focus-visible {
 .qr-block dd {
   margin: 0;
   font-variant-numeric: tabular-nums;
-  word-break: break-all;
+  overflow-wrap: anywhere;   /* wrap only if a value would overflow &mdash; don't shatter numbers mid-digit */
 }
 
 /* Simple definition list for menus / info pairs */
@@ -491,4 +491,9 @@ a:focus-visible {
     left: 0.5px;
     right: auto;
   }
+
+  /* Bank details: stack label above value so long account/IBAN numbers get the full width */
+  .qr-block { padding: var(--space-sm); }
+  .qr-block dl { grid-template-columns: 1fr; row-gap: 0.1rem; }
+  .qr-block dt:not(:first-of-type) { margin-top: var(--space-sm); }
 }
