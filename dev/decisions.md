@@ -2,7 +2,7 @@
 
 Authoritative record of what is settled and what is not. Decided entries are listed oldest-first (new decisions appended at the end). Every entry is dated.
 
-> This log was established on 2026-06-06 during the repository restructure ([D-STRUCT](#d-struct--repository-restructured-to-the-tyre-model-architecture)). Decisions that predate it were settled at the project's inception and recorded prose-style in [./SPEC.md](./SPEC.md); they are consolidated here and dated to the project's May 2026 start where known. [./SPEC.md](./SPEC.md) remains the fuller source of truth for *what* is being built; this file is the dated record of *decisions*.
+> This log was established on 2026-06-06 during the repository restructure ([D-STRUCT](#d-struct--repository-restructured-to-the-tyre-model-architecture)). Decisions that predate it were settled at the project's inception and recorded prose-style in [./SPEC.md](./SPEC.md); they are consolidated here and dated to the project's May 2026 start where known. [./SPEC.md](./SPEC.md) remains the fuller source of truth for _what_ is being built; this file is the dated record of _decisions_.
 
 Entry IDs encode status as a prefix &mdash; `D-` = Decided, `P-` = Proposed (pending owner sign-off), `O-` = Open &mdash; followed by a short topic mnemonic.
 
@@ -15,16 +15,16 @@ Entry IDs encode status as a prefix &mdash; `D-` = Decided, `P-` = Proposed (pen
 
 ## Abbreviations
 
-| Abbreviation | Meaning |
-|---|---|
-| CDN | Content delivery network |
-| CNAME | DNS record aliasing one domain to another (and the GitHub Pages file that binds a custom domain) |
-| CI | Continuous integration |
-| DNS | Domain Name System |
-| ICS | iCalendar file format (RFC 5545) |
-| OG | Open Graph (link-preview metadata) |
-| SPAYD | Short Payment Descriptor &mdash; Czech QR payment standard |
-| SVG | Scalable Vector Graphics |
+| Abbreviation | Meaning                                                                                          |
+| ------------ | ------------------------------------------------------------------------------------------------ |
+| CDN          | Content delivery network                                                                         |
+| CNAME        | DNS record aliasing one domain to another (and the GitHub Pages file that binds a custom domain) |
+| CI           | Continuous integration                                                                           |
+| DNS          | Domain Name System                                                                               |
+| ICS          | iCalendar file format (RFC 5545)                                                                 |
+| OG           | Open Graph (link-preview metadata)                                                               |
+| SPAYD        | Short Payment Descriptor &mdash; Czech QR payment standard                                       |
+| SVG          | Scalable Vector Graphics                                                                         |
 
 ## Decided
 
@@ -47,7 +47,7 @@ Final. Implementation may proceed on these.
 - Date: 2026-05 (inception)
 - Decision: Hosted free on GitHub Pages, fronted by the custom domain `tereza-jakub.cz` (registered at Wedos), bound via a `CNAME` file. Email `info@tereza-jakub.cz` forwards via Seznam Email Profi (free tier). Total cost ~165 CZK + VAT / year (domain only).
 - Why: free, reliable static hosting; the owner already controls the domain and email.
-- See [../docs/deployment.md](../docs/deployment.md). Superseded in part by [D-DEPLOY](#d-deploy--deploy-via-github-actions-serving-the-site-directory) (the deploy *mechanism*; the host and domain are unchanged).
+- See [../docs/deployment.md](../docs/deployment.md). Superseded in part by [D-DEPLOY](#d-deploy--deploy-via-github-actions-serving-the-site-directory) (the deploy _mechanism_; the host and domain are unchanged).
 
 ### D-PRIVACY - Public but unlisted
 
@@ -71,7 +71,7 @@ Final. Implementation may proceed on these.
 ### D-DEPLOY - Deploy via GitHub Actions, serving the `site/` directory
 
 - Date: 2026-06-06
-- Decision: GitHub Pages publishes via a **GitHub Actions** static-upload workflow ([../.github/workflows/deploy.yml](../.github/workflows/deploy.yml)) that uploads the `site/` directory as the Pages artifact, replacing the previous legacy "deploy from a branch (root)" source. The `site/` folder is served *as the site root*, so the Open Graph absolute URLs (`https://tereza-jakub.cz/...`) are unchanged and `CNAME` / `robots.txt` ship inside `site/`. The site stays build-less &mdash; the workflow only uploads static files.
+- Decision: GitHub Pages publishes via a **GitHub Actions** static-upload workflow ([../.github/workflows/deploy.yml](../.github/workflows/deploy.yml)) that uploads the `site/` directory as the Pages artifact, replacing the previous legacy "deploy from a branch (root)" source. The `site/` folder is served _as the site root_, so the Open Graph absolute URLs (`https://tereza-jakub.cz/...`) are unchanged and `CNAME` / `robots.txt` ship inside `site/`. The site stays build-less &mdash; the workflow only uploads static files.
 - Why: a dedicated `site/` directory ([D-STRUCT](#d-struct--repository-restructured-to-the-tyre-model-architecture)) is incompatible with legacy branch-deploy, which serves only `/` or `/docs`; the Actions path serves an arbitrary folder as root with no build step.
 - See [../docs/deployment.md](../docs/deployment.md).
 
@@ -92,13 +92,14 @@ Final. Implementation may proceed on these.
   - **Update 2026-06-07 (supersedes the three typography lines above):** the owner chose to match the typography of <https://www.jakubmares.cz> instead &mdash; **Playfair Display** (titles + headings) + **Source Sans 3** (sans-serif body), with a **plain Playfair `&`** in the title (Tangerine dropped). The palette above is unchanged. Bodoni Moda + Tangerine shipped only briefly. See the [restructure plan](./archive-plans/2026-06-07_restructure-4pages-fonts-content.md).
 - Why the print fonts are not used directly: the print faces are `Agraham-PersonalUse` (no Czech diacritics &mdash; the announcement stamped the carons from a separate demo font), `terranika`, and `Didot` &mdash; none are available as the full font files an `@font-face` setup needs, and Agraham cannot set Czech text at all. The Google-Fonts equivalents avoid self-hosting, licensing, and `.woff2` work, and already cover Czech. This does not affect O-FONTS (CDN vs self-host) &mdash; the site still loads fonts from the Google Fonts CDN.
 - See [./SPEC.md](./SPEC.md) (Design section); analysis renders were produced 2026-06-07.
+- **Update 2026-07-03 (QA pass):** the Program timeline **times** moved from the accent pink to charcoal (`#2A2A2A`). The pink measures ~2.07:1 on white (fails WCAG AA even for large text); the times carry functional schedule information at ~18&nbsp;px, so they take the readable charcoal while pink stays for decorative display (titles, headings, names, links). Extends the palette's existing "pink is decorative, charcoal for readable copy" principle; the accent token itself is unchanged.
 
 ### D-IA4 - Site reduced to four pages
 
 - Date: 2026-06-07
 - Decision: The seven-page structure is reduced to **four navigated pages** &mdash; `index.html` (Úvod), `program.html` (Program), `practical-info.html` (Praktické informace), `photoshooting.html` (Focení) &mdash; plus one page kept **out of the nav**, `gift.html` (Dar + bank QR + IBAN), linked only from the Dar section of Praktické informace (and reachable directly at `/gift`). The old `location.html`, `transit.html`, `contact.html`, and `about-us.html` (O nás) are removed. Content relocates: maps + add-to-calendar &rarr; Program; transport/parking, dress code, menus, children, Dar (thank-you), Různé, Kontakt &rarr; Praktické informace; the bank QR + IBAN live only on the unlisted `gift.html`; the photo-shoot groups go to `photoshooting.html`. Accommodation (ubytování) is dropped; O nás is dropped entirely.
 - Why: simpler navigation for guests; payment details kept off the public nav; the supplied content fits cleanly. (Finalised over 2026-06-07: an initial pass kept O nás and Dar-in-Praktické-informace; then O nás was removed, Dar split out to the unlisted gift page, and Focení added to the nav.)
-- Partially supersedes [D-PAGES](#d-pages--multi-page-english-filenames-czech-content) (the page *count* only &mdash; the multi-page architecture, English filenames, and Czech content all stand).
+- Partially supersedes [D-PAGES](#d-pages--multi-page-english-filenames-czech-content) (the page _count_ only &mdash; the multi-page architecture, English filenames, and Czech content all stand).
 - See the [restructure plan](./archive-plans/2026-06-07_restructure-4pages-fonts-content.md).
 
 ## Proposed - pending owner sign-off

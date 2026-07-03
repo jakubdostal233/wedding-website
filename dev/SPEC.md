@@ -40,24 +40,24 @@ Page filenames are in English regardless of content language to keep paths stabl
 
 - **Public but unlisted.** Discoverable only by the URL distributed to guests.
 - `robots.txt` disallows all crawlers.
-- Each HTML page includes `<meta name="robots" content="noindex">`.
+- Each HTML page includes `<meta name="robots" content="noindex,nofollow">`.
 
 ## Design
 
 - **Style:** modern minimalist &mdash; high-contrast serif headings, sans-serif body, generous whitespace, a single blush-pink accent on white, photo-led. Palette refreshed from the printed materials; typography follows <https://www.jakubmares.cz> &mdash; see [decisions.md](./decisions.md#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity) (D-DESIGN) and the [2026-06-07 restructure plan](./archive-plans/2026-06-07_restructure-4pages-fonts-content.md).
-- **Palette:** white ground (`#FFFFFF`) · black/charcoal body & structural text (`#2A2A2A`, incl. high-contrast bits such as timeline dots) · blush-pink accent (`#ED9DBC` &mdash; titles, headings, names, links); blush hairlines (`#F0DDE4`)
+- **Palette:** white ground (`#FFFFFF`) · black/charcoal body & structural text (`#2A2A2A`, incl. high-contrast bits such as timeline dots and times) · blush-pink accent (`#ED9DBC` &mdash; titles, headings, names, links); blush hairlines (`#F0DDE4`)
 - **Typography** (via Google Fonts): **Playfair Display** (titles + all headings) · **Source Sans 3** (sans-serif body) &mdash; the pairing used by jakubmares.cz; a plain Playfair `&` in the title
 - **Mobile-first** responsive layout
 
 ## Pages
 
-| File | Czech section name | Purpose |
-|------|--------------------|---------|
-| `index.html` | Úvod | Hero &mdash; names, "10.07.2026, Praha", page-width photo |
-| `program.html` | Program | Alternating timeline; "Vynecháváme"; add-to-calendar; 3 map embeds (Místa) |
+| File                  | Czech section name  | Purpose                                                                                   |
+| --------------------- | ------------------- | ----------------------------------------------------------------------------------------- |
+| `index.html`          | Úvod                | Hero &mdash; names, "10.07.2026, Praha", page-width photo                                 |
+| `program.html`        | Program             | Alternating timeline; "Vynecháváme"; add-to-calendar; 3 map embeds (Místa)                |
 | `practical-info.html` | Praktické informace | Dress code, doprava a parkování, menus, program pro děti, Dar (thank-you), Různé, Kontakt |
-| `photoshooting.html` | Focení | Photo-shoot groups (organises the shoot) |
-| `gift.html` | (Dar) | Bank QR + IBAN &mdash; **not in the nav**; linked from the Dar section (and at `/gift`) |
+| `photoshooting.html`  | Focení              | Photo-shoot groups (organises the shoot)                                                  |
+| `gift.html`           | (Dar)               | Bank QR + IBAN &mdash; **not in the nav**; linked from the Dar section (and at `/gift`)   |
 
 Header nav is **Program · Praktické informace · Focení** (the brand links home to `index`). `gift.html` is kept out of the nav &mdash; reached from the "finanční dar" link in the Dar section of Praktické informace (and directly at `/gift`), so the payment details stay off the main nav. See [D-IA4](./decisions.md#d-ia4--site-reduced-to-four-pages).
 
@@ -65,7 +65,7 @@ All pages share a single header (site nav) and footer.
 
 ## Integrations
 
-- **Map:** `mapy.com` iframe embed (one for the ceremony venue, one for the restaurant)
+- **Maps:** Google Maps iframe embeds on the Program page for three venues (Vršovický zámeček, Havlíčkovy sady, La Farma), each with outbound Mapy.cz + Google Maps links
 - **Calendar:** single static `.ics` file in the repo; download button labelled "Přidat do kalendáře"
 - **Email:** `mailto:` link with prefilled subject `Svatba 10.07.2026`
 - **Bank QR:** Czech **SPAYD** format, generated from your account info, embedded as a static SVG/PNG in the repo (no JavaScript at runtime)
@@ -95,34 +95,34 @@ Total annual cost: ~200 CZK (domain only).
 
 These can be filled in over time; none block scaffolding or the foundation step:
 
-- Photos (hero, "About us")
+- A nicer hero photo (owner to provide; the current home-page photo is a casual candid)
 
 ## Open questions
 
-| # | Question | Why it matters | Resolution path |
-|---|----------|----------------|-----------------|
-| 1 | Self-host fonts vs. Google Fonts CDN | Privacy (Google sees a request when each page loads), GDPR, performance | Default: Google Fonts CDN; switch to self-hosted in Phase 6 if privacy becomes a concern |
+| #   | Question                             | Why it matters                                                          | Resolution path                                                                          |
+| --- | ------------------------------------ | ----------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| 1   | Self-host fonts vs. Google Fonts CDN | Privacy (Google sees a request when each page loads), GDPR, performance | Default: Google Fonts CDN; switch to self-hosted in Phase 6 if privacy becomes a concern |
 
 ## Risks and assumptions
 
-| Item | Risk | Mitigation |
-|------|------|------------|
+| Item                               | Risk                                                     | Mitigation                                                                                         |
+| ---------------------------------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | GitHub Pages serves all repo files | `dev/SPEC.md` etc. publicly accessible if URL is guessed | Low for a wedding site; `robots.txt` discourages crawlers; never put true secrets in tracked files |
-| Multi-page header/footer drift | 7 pages = 7 copies of header HTML | AI-assisted sync; convert to a tiny include script if it becomes painful past ~10 pages |
-| Mapy.com iframe stability | Embed format could change | Low risk; format is stable. Fall back to a static screenshot + outbound link if needed |
-| SPAYD QR correctness | Wrong data → guests' payments fail or land elsewhere | Generate once, scan with two banking apps to verify before launch |
-| Domain DNS propagation delay | Site unreachable for hours after a DNS change | Switch DNS ≥ 1 week before guests are invited |
+| Multi-page header/footer drift     | 5 pages = 5 copies of header HTML                        | AI-assisted sync; convert to a tiny include script if it becomes painful past ~10 pages            |
+| Google Maps iframe stability       | Embed format could change                                | Low risk; format is stable. Fall back to a static screenshot + outbound link if needed             |
+| SPAYD QR correctness               | Wrong data → guests' payments fail or land elsewhere     | Generate once, scan with two banking apps to verify before launch                                  |
+| Domain DNS propagation delay       | Site unreachable for hours after a DNS change            | Switch DNS ≥ 1 week before guests are invited                                                      |
 
 All risks above are **low** unless flagged otherwise.
 
 ## Symbols and abbreviations
 
-| Term | Meaning |
-|------|---------|
-| SPAYD | Short Payment Descriptor &mdash; Czech QR payment standard |
+| Term   | Meaning                                                                |
+| ------ | ---------------------------------------------------------------------- |
+| SPAYD  | Short Payment Descriptor &mdash; Czech QR payment standard             |
 | EPC QR | European Payments Council QR &mdash; international QR payment standard |
-| FOUT | Flash of Unstyled Text &mdash; brief moment before a custom font loads |
-| CNAME | DNS record type for aliasing one domain to another |
-| ToC | Table of Contents |
-| iframe | Inline frame &mdash; embedded HTML document inside another page |
-| WCAG | Web Content Accessibility Guidelines |
+| FOUT   | Flash of Unstyled Text &mdash; brief moment before a custom font loads |
+| CNAME  | DNS record type for aliasing one domain to another                     |
+| ToC    | Table of Contents                                                      |
+| iframe | Inline frame &mdash; embedded HTML document inside another page        |
+| WCAG   | Web Content Accessibility Guidelines                                   |

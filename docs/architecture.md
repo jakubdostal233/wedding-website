@@ -1,6 +1,6 @@
 # Website Architecture
 
-How the wedding website is built and how it works &mdash; the directory layout, the multi-page static structure, the asset and CSS organisation, the integrations, the offline generator tools, and how it is deployed. Self-contained reference; for the *deployment procedure* see [./deployment.md](./deployment.md), for *what* is being built see [../dev/SPEC.md](../dev/SPEC.md), and for *decisions* see [../dev/decisions.md](../dev/decisions.md).
+How the wedding website is built and how it works &mdash; the directory layout, the multi-page static structure, the asset and CSS organisation, the integrations, the offline generator tools, and how it is deployed. Self-contained reference; for the _deployment procedure_ see [./deployment.md](./deployment.md), for _what_ is being built see [../dev/SPEC.md](../dev/SPEC.md), and for _decisions_ see [../dev/decisions.md](../dev/decisions.md).
 
 ## Table of contents
 
@@ -16,21 +16,21 @@ How the wedding website is built and how it works &mdash; the directory layout, 
 
 ## Abbreviations
 
-| Abbreviation | Meaning |
-|---|---|
-| CDN | Content delivery network |
-| CNAME | DNS record aliasing one domain to another (and the GitHub Pages file that binds a custom domain) |
-| CSS | Cascading Style Sheets |
-| DNS | Domain Name System |
-| HTML | HyperText Markup Language |
-| HTTPS | HTTP Secure (TLS-encrypted HTTP) |
-| ICS | iCalendar file format (RFC 5545) |
-| JS | JavaScript |
-| OG | Open Graph (link-preview metadata) |
-| SPAYD | Short Payment Descriptor &mdash; Czech QR payment standard |
-| SVG | Scalable Vector Graphics |
-| TLS | Transport Layer Security |
-| WCAG | Web Content Accessibility Guidelines |
+| Abbreviation | Meaning                                                                                          |
+| ------------ | ------------------------------------------------------------------------------------------------ |
+| CDN          | Content delivery network                                                                         |
+| CNAME        | DNS record aliasing one domain to another (and the GitHub Pages file that binds a custom domain) |
+| CSS          | Cascading Style Sheets                                                                           |
+| DNS          | Domain Name System                                                                               |
+| HTML         | HyperText Markup Language                                                                        |
+| HTTPS        | HTTP Secure (TLS-encrypted HTTP)                                                                 |
+| ICS          | iCalendar file format (RFC 5545)                                                                 |
+| JS           | JavaScript                                                                                       |
+| OG           | Open Graph (link-preview metadata)                                                               |
+| SPAYD        | Short Payment Descriptor &mdash; Czech QR payment standard                                       |
+| SVG          | Scalable Vector Graphics                                                                         |
+| TLS          | Transport Layer Security                                                                         |
+| WCAG         | Web Content Accessibility Guidelines                                                             |
 
 ## 1. Repository layout: deliverable versus meta-layer
 
@@ -89,13 +89,13 @@ The site is **vanilla HTML, CSS, and JavaScript with no build step and no Node t
 
 There are four navigated pages plus one unlisted page, each a single Czech section of content (page filenames are English to keep paths stable; see [D-PAGES](../dev/decisions.md#d-pages--multi-page-english-filenames-czech-content) and the page-count reduction [D-IA4](../dev/decisions.md#d-ia4--site-reduced-to-four-pages)):
 
-| File | Czech section | Purpose |
-|---|---|---|
-| `index.html` | Úvod | Hero: names, "10.07.2026, Praha", page-width photo |
-| `program.html` | Program | Alternating timeline; "Vynecháváme"; add-to-calendar; 3 map embeds (Místa) |
-| `practical-info.html` | Praktické informace | Dress code, parking, menus, children, Dar (thank-you), Různé, Kontakt |
-| `photoshooting.html` | Focení | Photo-shoot groups |
-| `gift.html` | (Dar) | Bank QR + IBAN &mdash; not in the nav; linked from the Dar section (and at `/gift`) |
+| File                  | Czech section       | Purpose                                                                             |
+| --------------------- | ------------------- | ----------------------------------------------------------------------------------- |
+| `index.html`          | Úvod                | Hero: names, "10.07.2026, Praha", page-width photo                                  |
+| `program.html`        | Program             | Alternating timeline; "Vynecháváme"; add-to-calendar; 3 map embeds (Místa)          |
+| `practical-info.html` | Praktické informace | Dress code, parking, menus, children, Dar (thank-you), Různé, Kontakt               |
+| `photoshooting.html`  | Focení              | Photo-shoot groups                                                                  |
+| `gift.html`           | (Dar)               | Bank QR + IBAN &mdash; not in the nav; linked from the Dar section (and at `/gift`) |
 
 **Shared header and footer.** Every page carries the same `<header class="site-header">` (the brand link plus the three-item nav &mdash; Program, Praktické informace, Focení) and `<footer class="site-footer">`; `gift.html` carries the same chrome but is itself absent from the nav (unlisted). Because there is no include mechanism, these blocks are **duplicated in each file and kept in sync manually** (with AI assistance). Pages cross-link with plain relative hrefs (`href="program.html"`, `href="index.html"`), so the whole nav works identically from any page. This manual-sync approach is comfortable at five pages; if the page count grew past roughly ten, a tiny build-time include or a small client-side fetch would be worth introducing.
 
@@ -108,9 +108,9 @@ There are four navigated pages plus one unlisted page, each a single Czech secti
 - `js/` &mdash; reserved for future JavaScript; currently empty (the site needs no runtime JS).
 - `wedding_tj.ics` &mdash; the calendar event file offered for download.
 
-The visual identity is a **blush-pink accent (`#ed9dbc`) on white** with **black/charcoal body text (`#2a2a2a`)**, typeset in **Playfair Display** (titles + all headings) and **Source Sans 3** (sans-serif body), both from the Google Fonts CDN. The palette comes from the printed wedding materials; the typography follows <https://www.jakubmares.cz>. See [D-DESIGN](../dev/decisions.md#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity) and the [2026-06-07 restructure plan](../dev/archive-plans/2026-06-07_restructure-4pages-fonts-content.md). Because the palette and type live as custom properties in `main.css`, the identity is set in the token block rather than per page. The home page shows a page-width hero photo with the names above it; the Program page renders the day as an alternating centre-line timeline (pink times, black dots).
+The visual identity is a **blush-pink accent (`#ed9dbc`) on white** with **black/charcoal body text (`#2a2a2a`)**, typeset in **Playfair Display** (titles + all headings) and **Source Sans 3** (sans-serif body), both from the Google Fonts CDN. The palette comes from the printed wedding materials; the typography follows <https://www.jakubmares.cz>. See [D-DESIGN](../dev/decisions.md#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity) and the [2026-06-07 restructure plan](../dev/archive-plans/2026-06-07_restructure-4pages-fonts-content.md). Because the palette and type live as custom properties in `main.css`, the identity is set in the token block rather than per page. The home page shows a page-width hero photo with the names above it; the Program page renders the day as an alternating centre-line timeline (charcoal times, black dots).
 
-HTML references assets with **relative paths** (`href="assets/css/main.css"`, `src="assets/img/qr-platba.svg"`); since the pages and `assets/` sit together under `site/`, these resolve correctly both when served and when opened from disk. The Open Graph tags additionally use **absolute** URLs rooted at the domain (`https://tereza-jakub.cz/assets/img/og-card.png`), which remain correct because `site/` is served *as* the domain root (section 6).
+HTML references assets with **relative paths** (`href="assets/css/main.css"`, `src="assets/img/qr-platba.svg"`); since the pages and `assets/` sit together under `site/`, these resolve correctly both when served and when opened from disk. The Open Graph tags additionally use **absolute** URLs rooted at the domain (`https://tereza-jakub.cz/assets/img/og-card.png`), which remain correct because `site/` is served _as_ the domain root (section 6).
 
 ## 4. Integrations
 
@@ -135,7 +135,7 @@ Both hardcode their output path under `site/assets/img/`, and both are one-shot 
 
 The site is hosted free on **GitHub Pages** behind the custom domain **`tereza-jakub.cz`** (registered at Wedos), with HTTPS auto-issued by Let's Encrypt ([D-HOST](../dev/decisions.md#d-host--github-pages--custom-domain)).
 
-Publishing uses a **GitHub Actions** workflow ([../.github/workflows/deploy.yml](../.github/workflows/deploy.yml)) that, on every push to `main`, uploads the `site/` directory as the Pages artifact and deploys it ([D-DEPLOY](../dev/decisions.md#d-deploy--deploy-via-github-actions-serving-the-site-directory)). The uploaded folder is served *as the site root*, so:
+Publishing uses a **GitHub Actions** workflow ([../.github/workflows/deploy.yml](../.github/workflows/deploy.yml)) that, on every push to `main`, uploads the `site/` directory as the Pages artifact and deploys it ([D-DEPLOY](../dev/decisions.md#d-deploy--deploy-via-github-actions-serving-the-site-directory)). The uploaded folder is served _as the site root_, so:
 
 - relative asset paths and the OG absolute URLs both stay correct;
 - `CNAME` (inside `site/`) keeps the custom domain bound, and `robots.txt` is served from the root.

@@ -37,7 +37,7 @@ Vanilla HTML / CSS / JavaScript. No build step, no framework, no backend. Deploy
 
 ## Status
 
-**Live.** The site has four navigated pages (Úvod, Program, Praktické informace, Focení) plus an unlisted gift page, with Czech content and the integrations wired up (maps, calendar `.ics`, bank QR, `mailto:`, Open Graph cards). On 2026-06-06 the repository was restructured into `site/` with a GitHub Actions deploy; on 2026-06-07 the visual identity was set (blush-pink palette, Playfair Display + Source Sans 3, jakubmares.cz-style) and the pages reorganised (O nás dropped, Focení added, the bank QR moved to the unlisted gift page). Up next: a favicon refresh and a final polish pass before the day.
+**Live.** The site has four navigated pages (Úvod, Program, Praktické informace, Focení) plus an unlisted gift page, with Czech content and the integrations wired up (maps, calendar `.ics`, bank QR, `mailto:`, Open Graph cards). On 2026-06-06 the repository was restructured into `site/` with a GitHub Actions deploy; on 2026-06-07 the visual identity was set (blush-pink palette, Playfair Display + Source Sans 3, jakubmares.cz-style) and the pages reorganised (O nás dropped, Focení added, the bank QR moved to the unlisted gift page). The favicon was refreshed to the blush-pink identity and a QA pass ran on 2026-07-03 (HTML validation, contrast, escaped font-link ampersands, and a mobile fix for the gift-page bank number); the URL has been sent to guests. Remaining before the wedding (2026-07-10) is owner-side real-device testing, plus an optional nicer hero photo.
 
 ## Pointers
 

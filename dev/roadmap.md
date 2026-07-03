@@ -17,7 +17,7 @@ Phased path from project init to live website, plus the current status. Phase na
 
 ## Where we are now
 
-_Last updated: 2026-06-07._
+_Last updated: 2026-07-03._
 
 ✅ **The site is built and live** at <https://tereza-jakub.cz> &mdash; four navigated pages (Úvod, Program, Praktické informace, Focení) plus an unlisted `gift.html`, with a shared header/footer, real Czech content, and the integrations wired up (Google Maps embeds, the `.ics` calendar file, the `mailto:` link, and the SPAYD bank QR on the gift page), plus Open Graph share cards.
 
@@ -25,13 +25,18 @@ _Last updated: 2026-06-07._
 
 🎨 **Design + IA refresh (2026-06-07).** The visual identity was set (blush-pink palette `#ED9DBC` on white + Playfair Display / Source Sans 3, matching jakubmares.cz) and the site reduced from seven pages to four navigated pages (O nás dropped, Focení added) plus an unlisted gift page, with an alternating Program timeline and a page-width hero photo. See `dev/decisions.md` ([D-DESIGN], [D-IA4]) and the restructure plan in `dev/archive-plans/2026-06-07_restructure-4pages-fonts-content.md`.
 
-📍 **Next:** refresh the favicon (still off-palette) + Phase 6 launch polish (real-device QA, accessibility, WCAG AA contrast) before the wedding on 2026-07-10. The live task list is in `dev/plan.md`.
+🎀 **Favicon + QA pass (2026-07-03).** The favicon was refreshed to the blush-pink identity (pink ground, Playfair monogram). A QA pass ran across all pages: HTML validation (all pass), internal-link resolution, IBAN checksum (valid), calendar and contrast checks, and a Czech copy read-through. Fixes shipped: the gift page's bank number no longer breaks mid-digit on mobile, the Program timeline **times** are charcoal for legibility (the pink is ~2.07:1 and fails WCAG AA), the font-link ampersands are escaped (HTML now validates), and Open Graph tags were added to `photoshooting.html`. See [decisions.md](./decisions.md) (D-DESIGN update).
+
+📬 **The URL has been distributed to guests** (confirmed 2026-07-03).
+
+📍 **Next:** owner-side real-device QA (phones/tablets, different banking apps for the QR) per [../docs/qa-checklist.md](../docs/qa-checklist.md); optionally a nicer hero photo (owner to provide). Wedding: 2026-07-10. The live task list is in `dev/plan.md`.
 
 ## Phase 1 &mdash; Foundation
 
 **Goal.** Lay the technical foundation: site asset directories, base CSS (palette, typography, layout primitives), shared header/footer pattern, fonts loaded, and one working page (`index.html`) that proves everything renders correctly.
 
 **Plan.**
+
 - Decide and document the shared-header/footer strategy
 - Create `assets/css/`, `assets/js/`, `assets/img/`
 - Load fonts (Cormorant Garamond + Inter via Google Fonts)
@@ -50,6 +55,7 @@ _Last updated: 2026-06-07._
 **Goal.** Every page exists with shared header/footer and a stub for its content area. Navigation works between pages.
 
 **Plan.**
+
 - Create `location.html`, `program.html`, `transit.html`, `about-us.html`, `contact.html`, `gift.html`
 - Apply the shared header/footer to each
 - Stub each page's content area with placeholder Czech text and the section structure
@@ -64,6 +70,7 @@ _Last updated: 2026-06-07._
 **Goal.** Real Czech copy on every page (placeholders where info is still pending).
 
 **Plan.**
+
 - Write hero copy for `index.html`
 - Fill `location.html` with venue + restaurant info (placeholders if address is still pending)
 - Fill `program.html` with the day timeline (placeholder times if not yet set)
@@ -82,6 +89,7 @@ _Last updated: 2026-06-07._
 **Goal.** All dynamic-feeling features wired up.
 
 **Plan.**
+
 - Embed mapy.com iframe on `location.html` (and possibly `transit.html`) for the ceremony venue + restaurant
 - Generate `wedding.ics`; link it from `contact.html`
 - Add `mailto:` link with prefilled subject on `contact.html`
@@ -97,6 +105,7 @@ _Last updated: 2026-06-07._
 **Goal.** Bring the website's visual identity in line with the printed wedding materials &mdash; the announcement (`tmp/style/svatebni-oznameni.pdf`) and the name badges (`tmp/style/jmenovky-design.pdf`). Tracked as [O-DESIGN] in `dev/decisions.md`.
 
 **Plan.**
+
 - Sample the exact palette (hex values) and identify the typefaces from the two PDFs &mdash; do not ship the eyeballed provisional values recorded in `dev/decisions.md`.
 - Update `dev/SPEC.md` (Design section: palette + typography) and **re-confirm with the owner before applying anything** (project rule: design/palette/page-list changes go through the spec + sign-off).
 - Replace the sage-green accent with the **blush/dusty-pink palette** on white, in the `--color-*` custom properties at the top of `site/assets/css/main.css`; align the heading typeface to the elegant high-contrast display serif; introduce the print motifs (rounded oval / arch shapes, thin charcoal hairlines, the stacked `10/07/26` date) where they fit.
@@ -111,6 +120,7 @@ _Last updated: 2026-06-07._
 **Goal.** Real photos in place of placeholders.
 
 **Plan.**
+
 - Source / shoot photos: hero (1) and "About us" (3–5)
 - Crop, resize, compress (target ≤ 250 KB per image)
 - Choose format(s): WebP with JPG fallback, or just optimised JPG
@@ -125,7 +135,10 @@ _Last updated: 2026-06-07._
 
 **Goal.** Quality pass before going live.
 
+**Status.** Largely done (2026-07-03). The automated + desktop side ran as a QA pass: HTML validation, internal-link resolution, IBAN checksum, contrast math (body 14.35:1 and muted grey 5.33:1 pass AA; the pink accent ~2.07:1 stays decorative, and the functional timeline times were darkened to charcoal), responsive layout on desktop and mobile (with a mobile fix for the gift-page number wrap), and a Czech copy read-through. Favicon done; `robots.txt` + per-page `noindex` in place. **Remaining is owner-side real-device testing** (phones/tablets, the QR in two banking apps) per [../docs/qa-checklist.md](../docs/qa-checklist.md), plus the optional nicer hero photo.
+
 **Plan.**
+
 - Mobile responsive testing on real devices (phone, tablet)
 - Accessibility: `alt` text, semantic HTML, keyboard navigation, color contrast (WCAG AA)
 - Performance: image optimisation, font-display strategy, no render-blocking JS
@@ -145,17 +158,17 @@ _Last updated: 2026-06-07._
 
 **Status.** ✅ Largely done. The site is live at <https://tereza-jakub.cz>: the domain is registered at Wedos, DNS apex `A` records point at GitHub Pages, HTTPS (Let's Encrypt) is issued and enforced, and the `www` redirect works. As of 2026-06-06 deployment is **published via GitHub Actions** (`.github/workflows/deploy.yml`) serving `site/` as the root, replacing the original legacy branch-deploy. Full procedure and DNS records: `docs/deployment.md`.
 
-**Remaining.** Distribute the URL to guests &mdash; after the design refresh (Phase 4.5), photos (Phase 5), and the final polish pass (Phase 6).
+**Remaining.** ✅ Done &mdash; the URL was distributed to guests (confirmed 2026-07-03).
 
 **Dependencies.** Phase 6 (launch-quality pass) before broad distribution.
 
 ## Symbols and abbreviations
 
-| Term | Meaning |
-|------|---------|
-| SPAYD | Short Payment Descriptor &mdash; Czech QR payment standard |
-| WCAG AA | Web Content Accessibility Guidelines, level AA &mdash; common accessibility target |
-| FOUT | Flash of Unstyled Text |
-| WebP | Modern image format with better compression than JPG |
-| CNAME | DNS record aliasing one domain to another |
-| `*.github.io` | Default URL pattern GitHub Pages serves before a custom domain is set |
+| Term          | Meaning                                                                            |
+| ------------- | ---------------------------------------------------------------------------------- |
+| SPAYD         | Short Payment Descriptor &mdash; Czech QR payment standard                         |
+| WCAG AA       | Web Content Accessibility Guidelines, level AA &mdash; common accessibility target |
+| FOUT          | Flash of Unstyled Text                                                             |
+| WebP          | Modern image format with better compression than JPG                               |
+| CNAME         | DNS record aliasing one domain to another                                          |
+| `*.github.io` | Default URL pattern GitHub Pages serves before a custom domain is set              |

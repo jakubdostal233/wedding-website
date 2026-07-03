@@ -18,18 +18,18 @@ The site looking right in your laptop browser is not enough; the integrations ha
 
 ## Abbreviations
 
-| Abbreviation | Meaning |
-|---|---|
-| BIC | Bank Identifier Code (SWIFT) |
-| DNS | Domain Name System |
-| IBAN | International Bank Account Number |
-| ICS | iCalendar file format (RFC 5545) |
-| MX | Mail Exchange (DNS record type) |
-| OG | Open Graph (link-preview metadata) |
-| QR | Quick-response code |
-| SPAYD | Short Payment Descriptor (Czech QR payment standard) |
-| VS | Variable symbol (Czech payment reference) |
-| WCAG AA | Web Content Accessibility Guidelines, level AA |
+| Abbreviation | Meaning                                              |
+| ------------ | ---------------------------------------------------- |
+| BIC          | Bank Identifier Code (SWIFT)                         |
+| DNS          | Domain Name System                                   |
+| IBAN         | International Bank Account Number                    |
+| ICS          | iCalendar file format (RFC 5545)                     |
+| MX           | Mail Exchange (DNS record type)                      |
+| OG           | Open Graph (link-preview metadata)                   |
+| QR           | Quick-response code                                  |
+| SPAYD        | Short Payment Descriptor (Czech QR payment standard) |
+| VS           | Variable symbol (Czech payment reference)            |
+| WCAG AA      | Web Content Accessibility Guidelines, level AA       |
 
 ## Test devices
 
@@ -50,7 +50,7 @@ For each page (`index`, `program`, `practical-info`, `photoshooting`, `gift`):
 - [ ] Header nav: 3 links visible (Program, Praktické informace, Focení), active page underlined in the accent colour (blush pink)
 - [ ] Footer present, contact link works
 - [ ] No layout breakage at narrow viewport (browser ~375px wide; phone in portrait)
-- [ ] Browser tab shows the dark slate "T&J" favicon
+- [ ] Browser tab shows the blush-pink "T&J" favicon
 
 ## Integrations &mdash; the things that must work
 
