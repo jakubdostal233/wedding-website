@@ -17,8 +17,5 @@ node_modules/
 .env.*
 !.env.example
 
-# Claude per-machine project overrides (the rest of .claude/ is tracked)
-.claude/settings.local.json
-
 # Scratch directory &mdash; local notes, drafts, exports, generators
 tmp/
