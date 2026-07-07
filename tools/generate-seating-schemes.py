@@ -1,21 +1,25 @@
-"""Generate the reception seating schemes (inside + terrace) as SVG.
+"""Generate the reception seating schemes (inside + terrace) as SVG, in two variants.
 
-Output: ``site/assets/img/seating-inside.svg`` (restaurant, "Uvnitř") and
-``site/assets/img/seating-outside.svg`` (terrace, "Venku") &mdash; the tracked
-artefacts. This script is their single source of truth: the floor plans are
-authored parametrically here (palette constants, primitive helpers, scene
-functions), so a seat, label, or wall moves by editing a coordinate and
-re-running &mdash; never by hand-editing the emitted SVG.
+Output (all tracked artefacts under ``site/assets/img/``):
+
+- ``seating-inside.svg`` / ``seating-outside.svg`` &mdash; seats carry **numbers** 1&ndash;45;
+- ``seating-inside-names.svg`` / ``seating-outside-names.svg`` &mdash; the same floor
+  plans with **guest names** on larger chips (long names wrap to two lines).
+
+This script is the single source of truth for all four files: the floor plans are
+authored parametrically (palette constants, primitive helpers, scene functions,
+per-variant chip geometry), so a seat, name, or wall changes by editing this file
+and re-running &mdash; never by hand-editing the emitted SVGs.
 
 Usage::
 
     python tools/generate-seating-schemes.py
 
-Styled with the site identity (blush ``#ed9dbc`` accent, Playfair Display
-titles + Source Sans 3 numbers, fonts via the Google Fonts CDN inside the
-SVG ``<style>``). Note for embedding: an SVG referenced through ``<img>``
-does not load external fonts (browser image mode) &mdash; inline the SVG into
-the HTML when the real fonts must apply. Standard library only.
+Styled with the site identity (blush ``#ed9dbc`` accent, Playfair Display titles +
+Source Sans 3 chip text, fonts via the Google Fonts CDN inside the SVG ``<style>``).
+Note for embedding: an SVG referenced through ``<img>`` does not load external
+fonts (browser image mode) &mdash; inline the SVG into the HTML when the real fonts
+must apply. Standard library only.
 """
 
 from __future__ import annotations
@@ -32,7 +36,7 @@ ACCENT_DARK = "#c76a8d"   # deeper blush - key labels
 TABLE_FILL = "#f9e7ef"    # soft blush tint - table tops
 TABLE_STROKE = "#dbaabf"  # table outline
 ZONE_FILL = "#f3ece2"     # warm neutral - bar / toilets / service zones
-INK = "#3a3a3a"           # charcoal - body text, seat numbers (not pure black)
+INK = "#3a3a3a"           # charcoal - body text, chip text (not pure black)
 INK_SOFT = "#7a7a7a"      # muted - secondary labels, arrows
 WALL = "#9a9a9a"          # room outline / low walls
 SEAT_FILL = "#ffffff"     # seat fill
@@ -46,7 +50,32 @@ FONT_IMPORT = (
     "family=Source+Sans+3:wght@400;600;700&display=swap');"
 )
 
-SEAT = 42  # seat chip side length
+SEAT = 42  # numbered seat chip side length
+
+# --- guest names (seat number -> name); the names variant renders these ----
+NAMES = {
+    1: "Nevěsta", 2: "Ženich", 3: "Maminka ženicha", 4: "Tatínek ženicha",
+    5: "Tomášek", 6: "Sestra ženicha", 7: "Tomáš H.", 8: "Babička nevěsty",
+    9: "Dědeček nevěsty", 10: "Martin", 11: "Maminka nevěsty", 12: "Michal P.",
+    13: "Šárka P.", 14: "Teta Stáňa", 15: "Babička ženicha", 16: "Bratr nevěsty",
+    17: "Terka", 18: "Daniel", 19: "Strejda Jára", 20: "Žanet",
+    21: "Martina S.", 22: "Marek S.", 23: "Vítek", 24: "Martin K.",
+    25: "Lea K.", 26: "Bára", 27: "Jirka", 28: "Ondra",
+    29: "Martina D.", 30: "Tatínek nevěsty", 31: "Pavel Š.", 32: "Adam B.",
+    33: "Dominik", 34: "Martin P.", 35: "André", 36: "Valda",
+    37: "Michal Z.", 38: "Amálka", 39: "Monča", 40: "Míša",
+    41: "Klára", 42: "Eliška", 43: "Ester", 44: "Anet B.", 45: "Magda Š.",
+}
+
+# --- variants: chip geometry + outside-terrace fit --------------------------
+# names chips are wider/taller to fit two-line names; the terrace room widens
+# accordingly so the chips keep a margin to its walls.
+MODES = {
+    "numbers": {"suffix": "", "names": False, "w": SEAT, "h": SEAT,
+                "out_room": (140, 300), "rail_x": 95},
+    "names": {"suffix": "-names", "names": True, "w": 80, "h": 46,
+              "out_room": (130, 350), "rail_x": 85},
+}
 
 
 # --- low-level SVG helpers -------------------------------------------------
@@ -65,14 +94,22 @@ def text(x, y, s, size=18, fill=INK, font=None, weight=400,
     )
 
 
-def seat(cx, cy, label, size=SEAT) -> str:
-    half = size / 2
-    fill, stroke, num, sw = SEAT_FILL, "#c9c9c9", INK, 1.6
-    return (
-        f'<rect x="{cx - half:.1f}" y="{cy - half:.1f}" width="{size}" height="{size}" '
-        f'rx="9" ry="9" fill="{fill}" stroke="{stroke}" stroke-width="{sw}"/>'
-        + text(cx, cy, label, size=size * 0.42, fill=num, weight=600)
+def seat(cx, cy, n, m) -> str:
+    """One seat chip: the number (numbers mode) or the guest name (names mode,
+    wrapping names longer than 10 chars at the first space)."""
+    w, h = m["w"], m["h"]
+    chip = (
+        f'<rect x="{cx - w / 2:.1f}" y="{cy - h / 2:.1f}" width="{w}" height="{h}" '
+        f'rx="9" ry="9" fill="{SEAT_FILL}" stroke="#c9c9c9" stroke-width="1.6"/>'
     )
+    if not m["names"]:
+        return chip + text(cx, cy, n, size=w * 0.42, weight=600)
+    name = NAMES[n]
+    if len(name) > 10 and " " in name:
+        l1, l2 = name.split(" ", 1)
+        return (chip + text(cx, cy - 8.5, l1, size=13, weight=600)
+                + text(cx, cy + 8.5, l2, size=13, weight=600))
+    return chip + text(cx, cy, name, size=13, weight=600)
 
 
 def table(x, y, w, h, rx=16) -> str:
@@ -131,29 +168,31 @@ def arrow(x1, y1, x2, y2) -> str:
     )
 
 
-def banquet_run(x, y, w, h, left, right, foot=None) -> str:
+def banquet_run(x, y, w, h, left, right, m, foot=None) -> str:
     """A long banquet table: seats down the left and right long edges,
-    an optional seat at the foot. left/right are label lists (top -> bottom)."""
+    an optional seat at the foot. left/right are seat-number lists (top -> bottom)."""
     parts = [table(x, y, w, h)]
     n = len(left)
     top, bot = y + 40, y + h - 40
     ys = [top + (bot - top) * i / (n - 1) for i in range(n)]
-    for lbl, cy in zip(left, ys):
-        parts.append(seat(x - 28, cy, lbl))
-    for lbl, cy in zip(right, ys):
-        parts.append(seat(x + w + 28, cy, lbl))
+    dx = 7 + m["w"] / 2
+    for num, cy in zip(left, ys):
+        parts.append(seat(x - dx, cy, num, m))
+    for num, cy in zip(right, ys):
+        parts.append(seat(x + w + dx, cy, num, m))
     if foot:
-        parts.append(seat(x + w / 2, y + h + 30, foot))
+        parts.append(seat(x + w / 2, y + h + 9 + m["h"] / 2, foot, m))
     return "".join(parts)
 
 
-def cluster4(cx, cy, left, right) -> str:
+def cluster4(cx, cy, left, right, m) -> str:
     """Table for four, two seats on each long side. left/right = (top, bottom)."""
     parts = [table(cx - 40, cy - 50, 80, 100)]
-    for lbl, oy in zip(left, (-24, 24)):
-        parts.append(seat(cx - 67, cy + oy, lbl))
-    for lbl, oy in zip(right, (-24, 24)):
-        parts.append(seat(cx + 67, cy + oy, lbl))
+    dx = 46 + m["w"] / 2
+    for num, oy in zip(left, (-24, 24)):
+        parts.append(seat(cx - dx, cy + oy, num, m))
+    for num, oy in zip(right, (-24, 24)):
+        parts.append(seat(cx + dx, cy + oy, num, m))
     return "".join(parts)
 
 
@@ -189,25 +228,25 @@ def document(w, h, body) -> str:
 
 
 # --- scene: inside (UVNITR) ------------------------------------------------
-def build_inside() -> str:
+def build_inside(m) -> str:
     W, H = 920, 1240
     p = [title(W / 2, 60, "Uvnitř")]
     p.append(room(45, 100, 830, 1095))
 
     # head table: guests along both long edges, seat 5 at the left end
     tx, ty, tw, th = 185, 185, 560, 84
-    cy_top = ty - 6 - SEAT / 2
-    cy_bot = ty + th + 6 + SEAT / 2
+    cy_top = ty - 6 - m["h"] / 2
+    cy_bot = ty + th + 6 + m["h"] / 2
     p.append(table(tx, ty, tw, th))
     # both edges share one 6-slot grid; bottom slots 2+3 (across from the
     # couple 2+1) stay empty, so 6-9 sit exactly across from 4, 3, 11, 10
     def slot_x(i):
         return tx + tw * (i + 0.5) / 6
-    for i, lbl in enumerate(["4", "3", "2", "1", "11", "10"]):
-        p.append(seat(slot_x(i), cy_top, lbl))
-    for i, lbl in zip((0, 1, 4, 5), ("6", "7", "8", "9")):
-        p.append(seat(slot_x(i), cy_bot, lbl))
-    p.append(seat(tx - 6 - SEAT / 2, ty + th / 2, "5"))  # left end
+    for i, num in enumerate([4, 3, 2, 1, 11, 10]):
+        p.append(seat(slot_x(i), cy_top, num, m))
+    for i, num in zip((0, 1, 4, 5), (6, 7, 8, 9)):
+        p.append(seat(slot_x(i), cy_bot, num, m))
+    p.append(seat(tx - 6 - m["w"] / 2, ty + th / 2, 5, m))  # left end
 
     # low walls (spanning to the room side walls) + stairs between them
     p.append(wall(45, 345, 355, 24))
@@ -217,11 +256,11 @@ def build_inside() -> str:
     p.append(stairs(400, 333, 130, 48))
 
     # left cluster (12-15) and right banquet run (16-30 + 23)
-    p.append(cluster4(250, 560, left=("15", "14"), right=("12", "13")))
+    p.append(cluster4(250, 560, left=(15, 14), right=(12, 13), m=m))
     p.append(banquet_run(560, 470, 150, 560,
-                         left=["30", "29", "28", "27", "26", "25", "24"],
-                         right=["16", "17", "18", "19", "20", "21", "22"],
-                         foot="23"))
+                         left=[30, 29, 28, 27, 26, 25, 24],
+                         right=[16, 17, 18, 19, 20, 21, 22],
+                         m=m, foot=23))
 
     # toilets alcove between the cluster and the bar - centred arrow, label below it
     p.append(zone(45, 800, 110, 90))
@@ -237,32 +276,36 @@ def build_inside() -> str:
 
 
 # --- scene: outside / terrace (VENKU) --------------------------------------
-def build_outside() -> str:
+def build_outside(m) -> str:
     W, H = 560, 820
+    room_x, room_w = m["out_room"]
+    rail_x = m["rail_x"]
     p = [title(W / 2, 60, "Venku")]
     # terrace outline (sized to the table run) + a light railing line down the left
-    p.append(room(140, 125, 300, 590))
+    p.append(room(room_x, 125, room_w, 590))
     p.append(
-        f'<path d="M95,135 L95,725 L150,725" fill="none" stroke="{WALL}" '
+        f'<path d="M{rail_x},135 L{rail_x},725 L150,725" fill="none" stroke="{WALL}" '
         'stroke-width="2" stroke-linejoin="round"/>'
     )
     p.append(banquet_run(250, 170, 110, 430,
-                         left=["45", "44", "43", "42", "41", "40", "39"],
-                         right=["31", "32", "33", "34", "35", "36", "37"],
-                         foot="38"))
+                         left=[45, 44, 43, 42, 41, 40, 39],
+                         right=[31, 32, 33, 34, 35, 36, 37],
+                         m=m, foot=38))
     # entrance bottom-left - arrow pointing left, label below (same pattern as inside)
-    p.append(arrow(140, 755, 80, 755))
-    p.append(text(110, 783, "Vchod", size=18, fill=INK, weight=600))
+    head_x = rail_x - 15
+    p.append(arrow(room_x, 755, head_x, 755))
+    p.append(text((room_x + head_x) / 2, 783, "Vchod", size=18, fill=INK, weight=600))
     return document(W, H, "".join(p))
 
 
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for name, build in [("seating-inside.svg", build_inside),
-                        ("seating-outside.svg", build_outside)]:
-        out = OUT_DIR / name
-        out.write_text(build(), encoding="utf-8")
-        print(f"wrote {out.relative_to(ROOT)}")
+    for m in MODES.values():
+        for stem, build in [("seating-inside", build_inside),
+                            ("seating-outside", build_outside)]:
+            out = OUT_DIR / f"{stem}{m['suffix']}.svg"
+            out.write_text(build(m), encoding="utf-8")
+            print(f"wrote {out.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":
