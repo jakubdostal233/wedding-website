@@ -76,6 +76,7 @@ wedding-website/
 │
 ├── tools/                   # offline generators (produce tracked assets) — meta
 │   ├── generate-og-card.py
+│   ├── generate-seating-schemes.py
 │   └── generate-spayd-qr.py
 │
 └── tmp/                     # gitignored scratch (drafts, exports, design sources)
@@ -89,13 +90,13 @@ The site is **vanilla HTML, CSS, and JavaScript with no build step and no Node t
 
 There are four navigated pages plus one unlisted page, each a single Czech section of content (page filenames are English to keep paths stable; see [D-PAGES](../dev/decisions.md#d-pages--multi-page-english-filenames-czech-content) and the page-count reduction [D-IA4](../dev/decisions.md#d-ia4--site-reduced-to-four-pages)):
 
-| File                  | Czech section       | Purpose                                                                             |
-| --------------------- | ------------------- | ----------------------------------------------------------------------------------- |
-| `index.html`          | Úvod                | Hero: names, "10.07.2026, Praha", page-width photo                                  |
-| `program.html`        | Program             | Alternating timeline; "Vynecháváme"; add-to-calendar; 3 map embeds (Místa)          |
-| `practical-info.html` | Praktické informace | Dress code, parking, menus, children, Dar (thank-you), Různé, Kontakt               |
-| `photoshooting.html`  | Focení              | Photo-shoot groups                                                                  |
-| `gift.html`           | (Dar)               | Bank QR + IBAN &mdash; not in the nav; linked from the Dar section (and at `/gift`) |
+| File                  | Czech section       | Purpose                                                                                                            |
+| --------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `index.html`          | Úvod                | Hero: names, "10.07.2026, Praha", page-width photo                                                                 |
+| `program.html`        | Program             | Alternating timeline; "Vynecháváme"; add-to-calendar; 3 map embeds (Místa)                                         |
+| `practical-info.html` | Praktické informace | Dress code, parking (incl. Gröbovka), menus, seating plans (inline SVG), children, Dar (thank-you), Různé, Kontakt |
+| `photoshooting.html`  | Focení              | Photo-shoot groups                                                                                                 |
+| `gift.html`           | (Dar)               | Bank QR + IBAN &mdash; not in the nav, no on-site links; direct `/gift` URL only                                   |
 
 **Shared header and footer.** Every page carries the same `<header class="site-header">` (the brand link plus the three-item nav &mdash; Program, Praktické informace, Focení) and `<footer class="site-footer">`; `gift.html` carries the same chrome but is itself absent from the nav (unlisted). Because there is no include mechanism, these blocks are **duplicated in each file and kept in sync manually** (with AI assistance). Pages cross-link with plain relative hrefs (`href="program.html"`, `href="index.html"`), so the whole nav works identically from any page. This manual-sync approach is comfortable at five pages; if the page count grew past roughly ten, a tiny build-time include or a small client-side fetch would be worth introducing.
 
@@ -104,7 +105,7 @@ There are four navigated pages plus one unlisted page, each a single Czech secti
 `site/assets/` holds everything the HTML loads at runtime &mdash; it is part of the deliverable, not the meta-layer, which is why it lives inside `site/`:
 
 - `css/main.css` &mdash; the **single stylesheet** for the entire site. It is mobile-first and organised as: a reset, a block of CSS custom properties (`--color-*` palette tokens, typography, spacing), base element styles, the shared header/footer, and then page-specific blocks (hero, timeline, map embeds, the QR block, buttons). Keeping all styles in one file is deliberate at this size; the custom-property tokens at the top are the single place a palette or type change is made.
-- `img/` &mdash; `og-card.png` (the 1200&times;630 social preview) and `qr-platba.svg` (the SPAYD payment QR), both **generated offline** (see section 5); plus `hero.jpg` / `hero.webp`, the optimised home-page photo.
+- `img/` &mdash; `og-card.png` (the 1200&times;630 social preview), `qr-platba.svg` (the SPAYD payment QR), and the four `seating-*.svg` reception plans, all **generated offline** (see section 5); plus `hero.jpg` / `hero.webp`, the optimised home-page photo.
 - `js/` &mdash; reserved for future JavaScript; currently empty (the site needs no runtime JS).
 - `wedding_tj.ics` &mdash; the calendar event file offered for download.
 
@@ -124,10 +125,11 @@ All "dynamic-feeling" features are static &mdash; no backend, no runtime third-p
 
 ## 5. Offline generator tools
 
-`tools/` holds two Python generators (plus `og-card.html`, the share-card source) that **produce tracked assets**; they are run rarely (only when their inputs change) and are not part of the served site:
+`tools/` holds three Python generators (plus `og-card.html`, the share-card source) that **produce tracked assets**; they are run rarely (only when their inputs change) and are not part of the served site:
 
 - `generate-spayd-qr.py` &mdash; encodes the SPAYD string (account, variable symbol, message) and writes `site/assets/img/qr-platba.svg` (uses `segno`). Re-run only if the bank account, variable symbol, or message changes; re-scan the result with a banking app to confirm.
 - `generate-og-card.py` &mdash; renders the share-card source `og-card.html` to `site/assets/img/og-card.png` at 1200&times;630 via **headless Chromium**, so the card uses the site's real web fonts (Playfair Display + Source Sans 3). Re-run (after editing `og-card.html`) only if the names, date, or place change.
+- `generate-seating-schemes.py` &mdash; emits the four reception seating plans into `site/assets/img/` (`seating-{inside,outside}.svg` with seat numbers, `seating-{inside,outside}-names.svg` with guest names) **and re-injects the names variant as inline SVG** into `practical-info.html` between the `seating-plans:begin/end` markers (the inline copies drop the fixed size and the font `@import` &mdash; the page owns fonts and responsiveness &mdash; and get per-plan defs-id suffixes). One parametric source drives every output: edit a seat, name, or wall there and re-run; never hand-edit the SVGs or the marker block.
 
 Both hardcode their output path under `site/assets/img/`, and both are one-shot generators &mdash; the committed SVG and PNG are the artifacts the site actually uses.
 
@@ -144,7 +146,7 @@ The site remains build-less: the workflow only copies static files, it does not 
 
 ## 7. Privacy and access
 
-The site is **public but unlisted** ([D-PRIVACY](../dev/decisions.md#d-privacy--public-but-unlisted)): it is reachable by anyone with the URL but is kept out of search results. `site/robots.txt` returns `Disallow: /` for all crawlers, and every page includes `<meta name="robots" content="noindex,nofollow">`. The whole repository is technically reachable on the host, so no true secrets are committed to tracked files; bank details on `gift.html` are intentionally public (it is linked only from the Dar section, not the nav).
+The site is **public but unlisted** ([D-PRIVACY](../dev/decisions.md#d-privacy--public-but-unlisted)): it is reachable by anyone with the URL but is kept out of search results. `site/robots.txt` returns `Disallow: /` for all crawlers, and every page includes `<meta name="robots" content="noindex,nofollow">`. The whole repository is technically reachable on the host, so no true secrets are committed to tracked files; bank details on `gift.html` are intentionally public (the page is not linked from anywhere on the site &mdash; reachable only via the direct `/gift` URL).
 
 ## 8. Local development
 

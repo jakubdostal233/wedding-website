@@ -444,6 +444,21 @@ a:focus-visible {
   margin: var(--space-sm) 0;
 }
 
+/* Seating plans &mdash; inline SVGs injected by tools/generate-seating-schemes.py.
+   The SVG keeps its native width/height attributes; the global
+   `svg { max-width: 100%; height: auto }` rule then caps it at natural size
+   on desktop and shrinks it with the viewport on mobile. `display: block`
+   + auto margins centre the narrower terrace plan in the content column. */
+.seating-plan {
+  display: block;
+  margin: var(--space-lg) auto;
+}
+
+.seating-plan__links {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
 
 /* --- 8. Utilities -------------------------------------------- */
 
