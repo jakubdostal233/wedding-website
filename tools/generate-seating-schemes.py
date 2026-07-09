@@ -62,27 +62,31 @@ SEAT = 42  # numbered seat chip side length
 
 # --- guest names (seat number -> name); the names variant renders these ----
 NAMES = {
+    # inside (uvnitr): seats 1-30
     1: "Nevěsta", 2: "Ženich", 3: "Maminka ženicha", 4: "Tatínek ženicha",
-    5: "Tomášek", 6: "Sestra ženicha", 7: "Tomáš H.", 8: "Babička nevěsty",
+    5: "Tomášek", 6: "Svědkyně ženicha", 7: "Tomáš H.", 8: "Babička nevěsty",
     9: "Dědeček nevěsty", 10: "Martin", 11: "Maminka nevěsty", 12: "Michal P.",
-    13: "Šárka P.", 14: "Teta Stáňa", 15: "Babička ženicha", 16: "Bratr nevěsty",
+    13: "Šárka P.", 14: "Teta Stáňa", 15: "Babička ženicha", 16: "Svědek nevěsty",
     17: "Terka", 18: "Daniel", 19: "Strejda Jára", 20: "Žanet",
     21: "Martina S.", 22: "Marek S.", 23: "Vítek", 24: "Martin K.",
     25: "Lea K.", 26: "Bára", 27: "Jirka", 28: "Ondra",
-    29: "Martina D.", 30: "Tatínek nevěsty", 31: "Pavel Š.", 32: "Adam B.",
-    33: "Dominik", 34: "Martin P.", 35: "André", 36: "Valda",
-    37: "Michal Z.", 38: "Amálka", 39: "Monča", 40: "Míša",
-    41: "Klára", 42: "Eliška", 43: "Ester", 44: "Anet B.", 45: "Magda Š.",
+    29: "Martina D.", 30: "Tatínek nevěsty",
+    # terrace (venku): four tables of four in reading order; table 1 seats three (31-33)
+    31: "Michal Z.", 32: "Monča", 33: "Amálka",
+    34: "Magda", 35: "Pavel", 36: "Anet", 37: "Adam",
+    38: "Ester", 39: "Dominik", 40: "Eliška", 41: "Martin P.",
+    42: "Klára", 43: "André", 44: "Míša", 45: "Valda",
 }
 
-# --- variants: chip geometry + outside-terrace fit --------------------------
-# names chips are wider/taller to fit two-line names; the terrace room widens
-# accordingly so the chips keep a margin to its walls.
+# --- variants: chip geometry + terrace-table fit ----------------------------
+# names chips are wider/taller (two-line names), so the terrace tables are wider
+# (t_w) with a larger seat spread (t_dx) and a taller row pitch than the numbers
+# variant. t_h = table height; pitch = vertical distance between table centres.
 MODES = {
     "numbers": {"suffix": "", "names": False, "w": SEAT, "h": SEAT,
-                "out_room": (140, 300), "rail_x": 95},
+                "t_w": 96, "t_h": 60, "t_dx": 30, "pitch": 176},
     "names": {"suffix": "-names", "names": True, "w": 80, "h": 46,
-              "out_room": (130, 350), "rail_x": 85},
+              "t_w": 150, "t_h": 64, "t_dx": 44, "pitch": 194},
 }
 
 
@@ -204,6 +208,19 @@ def cluster4(cx, cy, left, right, m) -> str:
     return "".join(parts)
 
 
+def cluster4_tb(cx, cy, top, bottom, m) -> str:
+    """Table for four with two seats on the top edge and two on the bottom.
+    top/bottom are (left, right) seat-number pairs; a None entry = empty seat."""
+    tw, th, dx = m["t_w"], m["t_h"], m["t_dx"]
+    parts = [table(cx - tw / 2, cy - th / 2, tw, th)]
+    dy = th / 2 + 7 + m["h"] / 2  # seat-centre offset from the table centre
+    for pair, oy in ((top, -dy), (bottom, dy)):
+        for num, ox in zip(pair, (-dx, dx)):
+            if num is not None:
+                parts.append(seat(cx + ox, cy + oy, num, m))
+    return "".join(parts)
+
+
 def title(cx, y, s, size=44) -> str:
     return (
         text(cx, y, s, size=size, fill=ACCENT, font=FONT_TITLE, weight=600, spacing="3")
@@ -285,24 +302,37 @@ def build_inside(m) -> str:
 
 # --- scene: outside / terrace (VENKU) --------------------------------------
 def build_outside(m) -> str:
-    W, H = 560, 820
-    room_x, room_w = m["out_room"]
-    rail_x = m["rail_x"]
-    p = [title(W / 2, 60, "Venku")]
-    # terrace outline (sized to the table run) + a light railing line down the left
-    p.append(room(room_x, 125, room_w, 590))
+    """Terrace: four small tables in one centred column, each seating four along
+    its top and bottom edges - the first table's top-left seat stays empty."""
+    W = 560
+    cx = W / 2                               # the column of tables is page-centred
+    dy = m["t_h"] / 2 + 7 + m["h"] / 2       # seat-centre offset from table centre
+    ext = dy + m["h"] / 2                    # table half-height including its chips
+    centres = [250 + i * m["pitch"] for i in range(4)]
+    room_x, room_w = 105, 350                # terrace outline (the outer box)
+    room_y = centres[0] - ext - 32
+    room_h = centres[-1] + ext + 32 - room_y
+    H = room_y + room_h + 92                 # space below for the entrance arrow
+
+    p = [title(cx, 60, "Venku")]
+    p.append(room(room_x, room_y, room_w, room_h))
+    # a light railing just outside the left wall, turning in along the bottom
+    rail_x = room_x - 42
     p.append(
-        f'<path d="M{rail_x},135 L{rail_x},725 L150,725" fill="none" stroke="{WALL}" '
+        f'<path d="M{rail_x},{room_y + 14:.0f} L{rail_x},{room_y + room_h:.0f} '
+        f'L{room_x + 24},{room_y + room_h:.0f}" fill="none" stroke="{WALL}" '
         'stroke-width="2" stroke-linejoin="round"/>'
     )
-    p.append(banquet_run(250, 170, 110, 430,
-                         left=[45, 44, 43, 42, 41, 40, 39],
-                         right=[31, 32, 33, 34, 35, 36, 37],
-                         m=m, foot=38))
-    # entrance bottom-left - arrow pointing left, label below (same pattern as inside)
-    head_x = rail_x - 15
-    p.append(arrow(room_x, 755, head_x, 755))
-    p.append(text((room_x + head_x) / 2, 783, "Vchod", size=18, fill=INK, weight=600))
+    # four tables; seat numbers run in reading order, None marks the empty seat
+    p.append(cluster4_tb(cx, centres[0], top=(None, 31), bottom=(32, 33), m=m))
+    p.append(cluster4_tb(cx, centres[1], top=(34, 35), bottom=(36, 37), m=m))
+    p.append(cluster4_tb(cx, centres[2], top=(38, 39), bottom=(40, 41), m=m))
+    p.append(cluster4_tb(cx, centres[3], top=(42, 43), bottom=(44, 45), m=m))
+    # entrance bottom-left - arrow pointing left, label below (same as inside)
+    ay = room_y + room_h + 34
+    head_x = rail_x - 18
+    p.append(arrow(room_x, ay, head_x, ay))
+    p.append(text((room_x + head_x) / 2, ay + 28, "Vchod", size=18, fill=INK, weight=600))
     return document(W, H, "".join(p))
 
 
