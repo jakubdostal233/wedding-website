@@ -44,7 +44,7 @@ Page filenames are in English regardless of content language to keep paths stabl
 
 ## Design
 
-- **Style:** modern minimalist &mdash; high-contrast serif headings, sans-serif body, generous whitespace, a single blush-pink accent on white, photo-led. Palette refreshed from the printed materials; typography follows <https://www.jakubmares.cz> &mdash; see [decisions.md](./decisions.md#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity) (D-DESIGN) and the [2026-06-07 restructure plan](./archive-plans/2026-06-07_restructure-4pages-fonts-content.md).
+- **Style:** modern minimalist &mdash; high-contrast serif headings, sans-serif body, generous whitespace, a single blush-pink accent on white, photo-led. Palette refreshed from the printed materials; typography follows <https://www.jakubmares.cz> &mdash; see [decisions.md](./decisions.md#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity) (D-DESIGN).
 - **Palette:** white ground (`#FFFFFF`) · black/charcoal body & structural text (`#2A2A2A`, incl. high-contrast bits such as timeline dots and times) · blush-pink accent (`#ED9DBC` &mdash; titles, headings, names, links); blush hairlines (`#F0DDE4`)
 - **Typography** (via Google Fonts): **Playfair Display** (titles + all headings) · **Source Sans 3** (sans-serif body) &mdash; the pairing used by jakubmares.cz; a plain Playfair `&` in the title
 - **Mobile-first** responsive layout

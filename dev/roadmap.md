@@ -1,6 +1,6 @@
 # Wedding Website &mdash; Roadmap
 
-Phased path from project init to live website, plus the current status. Phase names here are the canonical ones; the live to-do list is in `dev/plan.md` and completed detailed step-plans are archived in `dev/archive-plans/`; the spec ground-truth is in `dev/SPEC.md`.
+Phased path from project init to live website, plus the current status. Phase names here are the canonical ones; the live to-do list is in `dev/plan.md`; the spec ground-truth is in `dev/SPEC.md`. Completed detailed step-plans (`dev/archive-plans/`) were retired 2026-09-24 once the site went live - their outcomes are the phase narrative below.
 
 ## Table of contents
 
@@ -47,8 +47,6 @@ _Last updated: 2026-07-03._
 **Deliverable.** `index.html` opens in a browser and matches the design mockup.
 
 **Dependencies.** None.
-
-**Detail.** `dev/plan-step-01-foundation.md`.
 
 ## Phase 2 &mdash; Page skeletons
 

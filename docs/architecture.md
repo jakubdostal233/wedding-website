@@ -38,18 +38,18 @@ The repository separates **the deliverable** (the website itself, everything tha
 
 ```
 wedding-website/
-├── .claude/                 # agent context (CLAUDE.md) + Claude Code settings — meta
+├── .claude/                 # agent context (CLAUDE.md) + Claude Code settings - meta
 ├── .github/workflows/
-│   └── deploy.yml           # GitHub Actions: publish site/ to Pages — meta
+│   └── deploy.yml           # GitHub Actions: publish site/ to Pages - meta
 ├── .gitignore
-├── README.md                # human-facing repo overview — meta
+├── README.md                # human-facing repo overview - meta
 │
-├── site/                    # THE DELIVERABLE — everything served (= the site root)
+├── site/                    # THE DELIVERABLE - everything served (= the site root)
 │   ├── index.html           # home / hero (page-width photo)
 │   ├── program.html         # day timeline + maps (Místa) + add-to-calendar
 │   ├── practical-info.html  # dress code, parking, menus, dar (thank-you), různé, kontakt
-│   ├── photoshooting.html   # Focení — photo-shoot groups
-│   ├── gift.html            # Dar + bank QR — unlisted (direct link /gift)
+│   ├── photoshooting.html   # Focení - photo-shoot groups
+│   ├── gift.html            # Dar + bank QR - unlisted (direct link /gift)
 │   ├── favicon.svg
 │   ├── CNAME                # binds the custom domain (tereza-jakub.cz)
 │   ├── robots.txt           # disallow all crawlers
@@ -59,7 +59,7 @@ wedding-website/
 │       ├── js/              # reserved (currently empty)
 │       └── wedding_tj.ics   # calendar download
 │
-├── dev/                     # steering — meta
+├── dev/                     # steering - meta
 │   ├── SPEC.md              # source of truth: what is being built
 │   ├── roadmap.md           # phased plan + "where we are now" status
 │   ├── plan.md              # live to-do list
@@ -69,12 +69,12 @@ wedding-website/
 │   ├── workflow-emojis-reference.md
 │   └── archive-{plans,prompts,audits}/   # immutable dated snapshots
 │
-├── docs/                    # reference documentation — meta
+├── docs/                    # reference documentation - meta
 │   ├── architecture.md      # this file
 │   ├── deployment.md        # how to deploy / update / roll back
 │   └── qa-checklist.md      # pre-launch functional checks
 │
-├── tools/                   # offline generators (produce tracked assets) — meta
+├── tools/                   # offline generators (produce tracked assets) - meta
 │   ├── generate-og-card.py
 │   ├── generate-seating-schemes.py
 │   └── generate-spayd-qr.py
@@ -109,7 +109,7 @@ There are four navigated pages plus one unlisted page, each a single Czech secti
 - `js/` &mdash; reserved for future JavaScript; currently empty (the site needs no runtime JS).
 - `wedding_tj.ics` &mdash; the calendar event file offered for download.
 
-The visual identity is a **blush-pink accent (`#ed9dbc`) on white** with **black/charcoal body text (`#2a2a2a`)**, typeset in **Playfair Display** (titles + all headings) and **Source Sans 3** (sans-serif body), both from the Google Fonts CDN. The palette comes from the printed wedding materials; the typography follows <https://www.jakubmares.cz>. See [D-DESIGN](../dev/decisions.md#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity) and the [2026-06-07 restructure plan](../dev/archive-plans/2026-06-07_restructure-4pages-fonts-content.md). Because the palette and type live as custom properties in `main.css`, the identity is set in the token block rather than per page. The home page shows a page-width hero photo with the names above it; the Program page renders the day as an alternating centre-line timeline (charcoal times, black dots).
+The visual identity is a **blush-pink accent (`#ed9dbc`) on white** with **black/charcoal body text (`#2a2a2a`)**, typeset in **Playfair Display** (titles + all headings) and **Source Sans 3** (sans-serif body), both from the Google Fonts CDN. The palette comes from the printed wedding materials; the typography follows <https://www.jakubmares.cz>. See [D-DESIGN](../dev/decisions.md#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity). Because the palette and type live as custom properties in `main.css`, the identity is set in the token block rather than per page. The home page shows a page-width hero photo with the names above it; the Program page renders the day as an alternating centre-line timeline (charcoal times, black dots).
 
 HTML references assets with **relative paths** (`href="assets/css/main.css"`, `src="assets/img/qr-platba.svg"`); since the pages and `assets/` sit together under `site/`, these resolve correctly both when served and when opened from disk. The Open Graph tags additionally use **absolute** URLs rooted at the domain (`https://tereza-jakub.cz/assets/img/og-card.png`), which remain correct because `site/` is served _as_ the domain root (section 6).
 
