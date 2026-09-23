@@ -31,9 +31,10 @@ Wedding website.
 
 ## Related / sibling repos
 
-Full portfolio register -> work-private/jakub-hq/.claude/SIGNPOST.md (§ Portfolio). Paths below are ROOT-relative (ROOT = /mnt/d/projects).
+Full portfolio register -> core/jakub-hq/.claude/SIGNPOST.md (§ Portfolio). Paths below are ROOT-relative (ROOT = /mnt/d/projects).
 
 Claude infrastructure:
-- work-private/jakub-hq - portfolio HQ: map, side-task routing, status dashboard (full register in its .claude/SIGNPOST.md).
-- work-private/jd-plugins - jd / pers plugins (the skills + hooks this repo's workflow uses).
-- work-private/claude-code-config - global CLAUDE.md + settings.json source (symlink-deployed).
+
+- core/jakub-hq - portfolio HQ: map, side-task routing, status dashboard (full register in its .claude/SIGNPOST.md).
+- core/jd-plugins - jd / pers plugins (the skills + hooks this repo's workflow uses).
+- core/claude-code-config - global CLAUDE.md + settings.json source (symlink-deployed).
