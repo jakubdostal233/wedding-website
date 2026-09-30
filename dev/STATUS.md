@@ -32,11 +32,4 @@ outstanding before the wedding (2026-07-10) is the owner's real-device QA pass.
 
 ## What's blocked
 
-- 🔴 **`.github/workflows/deploy.yml` is missing from the working tree** &mdash; `git status` shows it
-  deleted but unstaged (not committed, not pushed), so the GitHub remote and `git log` history still
-  have it and deployment is not actually broken yet. Every doc that describes deployment
-  ([docs/deployment.md](../docs/deployment.md), [docs/architecture.md](../docs/architecture.md),
-  [DECISIONS.md](./DECISIONS.md) D-DEPLOY) assumes the file is present, which is still true for the
-  committed state, just not the working tree on this machine. Restore it (`git restore
-.github/workflows/deploy.yml`) or commit the removal deliberately &mdash; found 2026-09-30, not
-  investigated further (out of scope for a docs sweep).
+<!-- nothing blocked -->
