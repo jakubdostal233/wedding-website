@@ -8,14 +8,14 @@ The repo separates **the website** (everything served) from the **project meta-l
 
 ```
 wedding-website/
-├── site/        # THE WEBSITE — everything served (the site root)
+├── site/        # THE WEBSITE - everything served (the site root)
 │   ├── *.html   #   index, program, practical-info, photoshooting (+ unlisted gift)
 │   ├── assets/  #   css/main.css, img/ (og-card, payment QR), js/, wedding_tj.ics
 │   ├── favicon.svg, CNAME, robots.txt
-├── dev/         # steering: SPEC, roadmap, plan, decisions, worklog, archives
-├── docs/        # reference docs: architecture, deployment, QA checklist
+├── dev/         # steering: CONTEXT, ROADMAP, STATUS, DECISIONS
+├── docs/        # reference docs: architecture, deployment, QA checklist, evidence
 ├── tools/       # offline generators (produce the tracked images in site/assets/img/)
-├── tmp/         # scratch — gitignored
+├── tmp/         # scratch - gitignored
 └── .github/workflows/deploy.yml   # GitHub Actions: publishes site/ to Pages
 ```
 
@@ -37,14 +37,20 @@ Vanilla HTML / CSS / JavaScript. No build step, no framework, no backend. Deploy
 
 ## Status
 
-**Live.** The site has four navigated pages (Úvod, Program, Praktické informace, Focení) plus an unlisted gift page, with Czech content and the integrations wired up (maps, calendar `.ics`, bank QR, `mailto:`, Open Graph cards). On 2026-06-06 the repository was restructured into `site/` with a GitHub Actions deploy; on 2026-06-07 the visual identity was set (blush-pink palette, Playfair Display + Source Sans 3, jakubmares.cz-style) and the pages reorganised (O nás dropped, Focení added, the bank QR moved to the unlisted gift page). The favicon was refreshed to the blush-pink identity and a QA pass ran on 2026-07-03 (HTML validation, contrast, escaped font-link ampersands, and a mobile fix for the gift-page bank number); the URL has been sent to guests. Remaining before the wedding (2026-07-10) is owner-side real-device testing, plus an optional nicer hero photo.
+**Live** at <https://tereza-jakub.cz>. Four navigated pages (Úvod, Program, Praktické informace,
+Focení) plus an unlisted gift page, Czech content, every integration wired up (maps, calendar `.ics`,
+bank QR, `mailto:`, Open Graph cards), and the URL already sent to guests. The one item remaining
+before the wedding (2026-07-10) is owner-side real-device testing; see
+[dev/STATUS.md](dev/STATUS.md) for the current state and [dev/DECISIONS.md](dev/DECISIONS.md) for how
+the design and structure got here.
 
 ## Pointers
 
-- [dev/roadmap.md](dev/roadmap.md) &mdash; where the project is now and the phased plan.
-- [dev/plan.md](dev/plan.md) &mdash; the current task list.
-- [dev/SPEC.md](dev/SPEC.md) &mdash; the full specification (source of truth).
-- [dev/decisions.md](dev/decisions.md) &mdash; decision log (decided / proposed / open).
+- [dev/CONTEXT.md](dev/CONTEXT.md) &mdash; what this project is, why it exists, the principles it
+  follows.
+- [dev/ROADMAP.md](dev/ROADMAP.md) &mdash; where the project is now and the phased plan.
+- [dev/STATUS.md](dev/STATUS.md) &mdash; current state: what landed last, what is in flight.
+- [dev/DECISIONS.md](dev/DECISIONS.md) &mdash; decision log (decided / open).
 - [docs/architecture.md](docs/architecture.md) &mdash; how the website is built and works.
 - [docs/deployment.md](docs/deployment.md) &mdash; deploy, update, roll back; DNS and domain.
 - [docs/qa-checklist.md](docs/qa-checklist.md) &mdash; pre-launch functional checks.
