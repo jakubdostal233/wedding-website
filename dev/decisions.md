@@ -1,17 +1,14 @@
-# Decision log
+# Decisions &mdash; wedding-website
 
-Authoritative record of what is settled and what is not. Decided entries are listed oldest-first (new decisions appended at the end). Every entry is dated.
-
-> This log was established on 2026-06-06 during the repository restructure ([D-STRUCT](#d-struct--repository-restructured-to-the-tyre-model-architecture)). Decisions that predate it were settled at the project's inception and recorded prose-style in [./SPEC.md](./SPEC.md); they are consolidated here and dated to the project's May 2026 start where known. [./SPEC.md](./SPEC.md) remains the fuller source of truth for _what_ is being built; this file is the dated record of _decisions_.
-
-Entry IDs encode status as a prefix &mdash; `D-` = Decided, `P-` = Proposed (pending owner sign-off), `O-` = Open &mdash; followed by a short topic mnemonic.
+Every entry carries a fixed id &mdash; `D-` plus a short upper-case topic mnemonic, unique here and
+never renamed; the id is the one way to cite it anywhere. The **State** line, not the id, says whether
+an entry is decided or still open. All decisions are approved by the owner.
 
 ## Table of contents
 
 - [Abbreviations](#abbreviations)
 - [Decided](#decided)
-- [Proposed - pending owner sign-off](#proposed---pending-owner-sign-off)
-- [Open questions](#open-questions)
+- [Open](#open)
 
 ## Abbreviations
 
@@ -19,100 +16,160 @@ Entry IDs encode status as a prefix &mdash; `D-` = Decided, `P-` = Proposed (pen
 | ------------ | ------------------------------------------------------------------------------------------------ |
 | CDN          | Content delivery network                                                                         |
 | CNAME        | DNS record aliasing one domain to another (and the GitHub Pages file that binds a custom domain) |
-| CI           | Continuous integration                                                                           |
 | DNS          | Domain Name System                                                                               |
-| ICS          | iCalendar file format (RFC 5545)                                                                 |
-| OG           | Open Graph (link-preview metadata)                                                               |
 | SPAYD        | Short Payment Descriptor &mdash; Czech QR payment standard                                       |
-| SVG          | Scalable Vector Graphics                                                                         |
 
 ## Decided
 
-Final. Implementation may proceed on these.
+### D-DESIGN &mdash; Visual identity refreshed to the blush-pink print identity
 
-### D-STACK - Vanilla static site, no build step
+**State:** ✅ DECIDED · 2026-06-07 (typography updated 2026-06-07, times-color updated 2026-07-03)
 
-- Date: 2026-05 (inception)
-- Decision: The site is vanilla HTML / CSS / JavaScript with no framework, no build step, and no Node toolchain. A single stylesheet (`site/assets/css/main.css`), mobile-first.
-- Why: lowest maintenance and lowest hosting cost for a small, ~12-month-lifecycle informational site; nothing to break in a build pipeline.
+**Decision:** The site adopts the blush-pink identity of the printed wedding materials
+(`tmp/style/svatebni-oznameni.pdf`, `jmenovky-design.pdf` &mdash; checksums in
+[docs/evidence/D-DESIGN/manifest.md](../docs/evidence/D-DESIGN/manifest.md)), replacing the inception
+ivory/charcoal/sage scheme. Palette: accent `#ED9DBC` (rose pink, sampled from the print CMYK fills) for
+headings/names/links/dividers, white ground `#FFFFFF`, charcoal body text `#2A2A2A`, blush hairlines
+`#F0DDE4`. Typography (all via Google Fonts, matching <https://www.jakubmares.cz>): **Playfair Display**
+for titles and all headings, **Source Sans 3** for body text, a plain Playfair `&` in the title. The
+Program timeline's **times** are charcoal, not the accent pink &mdash; the pink measures ~2.07:1 on
+white and fails WCAG AA even at large text, so the pink stays for decorative display only (titles,
+headings, names, links) while functional schedule text takes the readable charcoal.
 
-### D-PAGES - Multi-page, English filenames, Czech content
+**Why:** The print faces (`Agraham-PersonalUse`, `terranika`, `Didot`) are not available as usable
+`@font-face` files and `Agraham` cannot set Czech diacritics at all; the Google Fonts equivalents avoid
+self-hosting and licensing work and already cover Czech. An earlier Bodoni Moda + Tangerine pairing
+(closer to the print faces) shipped briefly on 2026-06-07 before the owner chose to match
+jakubmares.cz's Playfair Display + Source Sans 3 pairing instead; the sampled palette was unchanged by
+that switch.
 
-- Date: 2026-05 (inception)
-- Decision: Multi-page architecture (seven pages) with a shared header/footer kept in sync manually (with AI assist). Page filenames are English (`location.html`, `about-us.html`); content is Czech (vykání, warm but proper). An English mirror under `/en/` is a possible later phase.
-- Why: English filenames keep paths stable if an English mirror is ever added; Czech content matches the audience.
+**Revisit when:** -
 
-### D-HOST - GitHub Pages + custom domain
+### D-IA4 &mdash; Site reduced to four pages
 
-- Date: 2026-05 (inception)
-- Decision: Hosted free on GitHub Pages, fronted by the custom domain `tereza-jakub.cz` (registered at Wedos), bound via a `CNAME` file. Email `info@tereza-jakub.cz` forwards via Seznam Email Profi (free tier). Total cost ~165 CZK + VAT / year (domain only).
-- Why: free, reliable static hosting; the owner already controls the domain and email.
-- See [../docs/deployment.md](../docs/deployment.md). Superseded in part by [D-DEPLOY](#d-deploy--deploy-via-github-actions-serving-the-site-directory) (the deploy _mechanism_; the host and domain are unchanged).
+**State:** ✅ DECIDED · 2026-06-07
 
-### D-PRIVACY - Public but unlisted
+**Decision:** The seven-page structure is reduced to four navigated pages &mdash; `index.html` (Úvod),
+`program.html` (Program), `practical-info.html` (Praktické informace), `photoshooting.html` (Focení)
+&mdash; plus one page kept out of the nav, `gift.html` (Dar + bank QR + IBAN), reachable only directly
+at `/gift`. `location.html`, `transit.html`, `contact.html` and `about-us.html` (O nás) are removed;
+their content relocates into the four remaining pages (maps + calendar → Program; transport, dress code,
+menus, children, Dar thank-you, Různé, Kontakt → Praktické informace; photo-shoot groups →
+Photoshooting). Accommodation (ubytování) is dropped; O nás is dropped entirely.
 
-- Date: 2026-05 (inception)
-- Decision: The site is public but unlisted &mdash; discoverable only via the URL given to guests. `robots.txt` disallows all crawlers and every page carries `<meta name="robots" content="noindex,nofollow">`. No true secrets live in tracked files (the whole repo is technically reachable).
-- Why: a wedding site should not be search-indexed, but needs no authentication.
+**Why:** Simpler navigation for guests, payment details kept off the public nav, and the supplied
+content fit cleanly into four pages. Partially supersedes D-PAGES (the page count only &mdash; the
+multi-page architecture, English filenames and Czech content all stand).
 
-### D-NOSERVICES - No third-party services
+**Revisit when:** -
 
-- Date: 2026-05 (inception)
-- Decision: No third-party runtime services &mdash; no analytics, no form backends (e.g. Formspree), no CDN beyond Google Fonts. Map embeds use `mapy.com` iframes; the bank QR is a static SPAYD SVG generated offline; contact is `mailto:` only; the calendar is a static `.ics` file.
-- Why: privacy, simplicity, zero ongoing cost and zero runtime dependencies. Any new service requires an explicit decision logged here.
+### D-DEPLOY &mdash; Deploy via GitHub Actions, serving the `site/` directory
 
-### D-STRUCT - Repository restructured to the tyre-model architecture
+**State:** ✅ DECIDED · 2026-06-06
 
-- Date: 2026-06-06
-- Decision: The repository was reorganised to separate **the deliverable** from **the meta-layer**, mirroring the `tyre-model` reference project. The website (all HTML, `assets/`, `favicon.svg`, `CNAME`, `robots.txt`) now lives in a dedicated **`site/`** directory; `dev/` holds steering documents (this log, `plan.md`, `roadmap.md`, `worklog.md`, `workflow-tracking.md`, `workflow-emojis-reference.md`, and `archive-*/`); `docs/` holds reference documentation; `tools/` holds the offline generator scripts; `tmp/` (renamed from `temp/`) is gitignored scratch.
-- Why: navigability and ease of development &mdash; a clean mental model of "what is served" versus "the process around it", and a consistent steering/reference convention.
-- See [../README.md](../README.md) and [../docs/architecture.md](../docs/architecture.md). (The restructure prompt that drove this decision was retired 2026-09-24 - finished work, content already captured here.)
+**Decision:** GitHub Pages publishes via a GitHub Actions static-upload workflow
+(`.github/workflows/deploy.yml`) that uploads the `site/` directory as the Pages artifact, replacing the
+previous legacy "deploy from a branch (root)" source. `site/` is served as the site root, so the Open
+Graph absolute URLs stay correct and `CNAME` / `robots.txt` ship inside `site/`. The site stays
+build-less &mdash; the workflow only uploads static files.
 
-### D-DEPLOY - Deploy via GitHub Actions, serving the `site/` directory
+**Why:** A dedicated `site/` directory (D-STRUCT) is incompatible with legacy branch-deploy, which
+serves only `/` or `/docs`; the Actions path serves an arbitrary folder as root with no build step. Full
+procedure: [docs/deployment.md](../docs/deployment.md).
 
-- Date: 2026-06-06
-- Decision: GitHub Pages publishes via a **GitHub Actions** static-upload workflow ([../.github/workflows/deploy.yml](../.github/workflows/deploy.yml)) that uploads the `site/` directory as the Pages artifact, replacing the previous legacy "deploy from a branch (root)" source. The `site/` folder is served _as the site root_, so the Open Graph absolute URLs (`https://tereza-jakub.cz/...`) are unchanged and `CNAME` / `robots.txt` ship inside `site/`. The site stays build-less &mdash; the workflow only uploads static files.
-- Why: a dedicated `site/` directory ([D-STRUCT](#d-struct--repository-restructured-to-the-tyre-model-architecture)) is incompatible with legacy branch-deploy, which serves only `/` or `/docs`; the Actions path serves an arbitrary folder as root with no build step.
-- See [../docs/deployment.md](../docs/deployment.md).
+**Revisit when:** -
 
-### D-DESIGN - Visual identity refreshed to the blush-pink print identity
+### D-STRUCT &mdash; Repository restructured to the tyre-model architecture
 
-- Date: 2026-06-07
-- Decision: The site adopts the blush-pink identity of the printed wedding materials (`tmp/style/svatebni-oznameni.pdf`, `jmenovky-design.pdf`), replacing the inception ivory/charcoal/sage scheme. Resolves the former O-DESIGN open question.
-  - **Palette** (sampled precisely from the print PDFs' CMYK fills, converted to sRGB &mdash; supersedes the eyeballed provisional values):
-    - Accent &mdash; headings, the names, the `&`, links, dividers: **`#ED9DBC`** (rose pink)
-    - Background / ground: **`#FFFFFF`** (white)
-    - Body text: **`#2A2A2A`** (the existing charcoal, kept for readability &mdash; pink on white fails WCAG contrast for body copy)
-    - Hairlines / rules: a light blush tint (`#F0DDE4`)
-    - A very light blush (`#EBD3DC`, the jmenovky page field) is on hand as an optional future background tint.
-  - **Typography** (all via Google Fonts; the print fonts themselves are NOT used &mdash; see below):
-    - **Title + all headings: Bodoni Moda** &mdash; high-contrast didone, the closest Google-Fonts match to the print headline face (Agraham), which it replaces in both the title and the heading roles (in the print materials a single face served both).
-    - **The `&` in the title: Tangerine** &mdash; calligraphic script replacing the print ampersand (terranika); set at ~0.92em of the names (`48px` against `52px` in the calibration render).
-    - **Body: Bodoni Moda** (the same family as the headings) &mdash; at body sizes its `opsz` axis (`font-optical-sizing: auto`) serves a lower-contrast, readable cut, so it honours the print "Didot for body" intent (Bodoni and Didot are sibling didones) with a guaranteed, Czech-capable face. The original pick, Theano Didot, was dropped: it is no longer served by Google Fonts (returns "400: Font family not found"), so it would silently fall back to Georgia.
-  - **Update 2026-06-07 (supersedes the three typography lines above):** the owner chose to match the typography of <https://www.jakubmares.cz> instead &mdash; **Playfair Display** (titles + headings) + **Source Sans 3** (sans-serif body), with a **plain Playfair `&`** in the title (Tangerine dropped). The palette above is unchanged. Bodoni Moda + Tangerine shipped only briefly. (The restructure plan behind this update was retired 2026-09-24 - finished work, content already captured here.)
-- Why the print fonts are not used directly: the print faces are `Agraham-PersonalUse` (no Czech diacritics &mdash; the announcement stamped the carons from a separate demo font), `terranika`, and `Didot` &mdash; none are available as the full font files an `@font-face` setup needs, and Agraham cannot set Czech text at all. The Google-Fonts equivalents avoid self-hosting, licensing, and `.woff2` work, and already cover Czech. This does not affect O-FONTS (CDN vs self-host) &mdash; the site still loads fonts from the Google Fonts CDN.
-- See [./SPEC.md](./SPEC.md) (Design section); analysis renders were produced 2026-06-07.
-- **Update 2026-07-03 (QA pass):** the Program timeline **times** moved from the accent pink to charcoal (`#2A2A2A`). The pink measures ~2.07:1 on white (fails WCAG AA even for large text); the times carry functional schedule information at ~18&nbsp;px, so they take the readable charcoal while pink stays for decorative display (titles, headings, names, links). Extends the palette's existing "pink is decorative, charcoal for readable copy" principle; the accent token itself is unchanged.
+**State:** ✅ DECIDED · 2026-06-06
 
-### D-IA4 - Site reduced to four pages
+**Decision:** The repository separates the deliverable from the meta-layer, mirroring the `tyre-model`
+reference project. The website (all HTML, `assets/`, `favicon.svg`, `CNAME`, `robots.txt`) lives in
+`site/`; `dev/` holds steering documents; `docs/` holds reference documentation; `tools/` holds the
+offline generator scripts; `tmp/` is gitignored scratch.
 
-- Date: 2026-06-07
-- Decision: The seven-page structure is reduced to **four navigated pages** &mdash; `index.html` (Úvod), `program.html` (Program), `practical-info.html` (Praktické informace), `photoshooting.html` (Focení) &mdash; plus one page kept **out of the nav**, `gift.html` (Dar + bank QR + IBAN), linked only from the Dar section of Praktické informace (and reachable directly at `/gift`). The old `location.html`, `transit.html`, `contact.html`, and `about-us.html` (O nás) are removed. Content relocates: maps + add-to-calendar &rarr; Program; transport/parking, dress code, menus, children, Dar (thank-you), Různé, Kontakt &rarr; Praktické informace; the bank QR + IBAN live only on the unlisted `gift.html`; the photo-shoot groups go to `photoshooting.html`. Accommodation (ubytování) is dropped; O nás is dropped entirely.
-- Why: simpler navigation for guests; payment details kept off the public nav; the supplied content fits cleanly. (Finalised over 2026-06-07: an initial pass kept O nás and Dar-in-Praktické-informace; then O nás was removed, Dar split out to the unlisted gift page, and Focení added to the nav.)
-- Partially supersedes [D-PAGES](#d-pages--multi-page-english-filenames-czech-content) (the page _count_ only &mdash; the multi-page architecture, English filenames, and Czech content all stand).
+**Why:** Navigability and ease of development &mdash; a clean mental model of "what is served" versus
+"the process around it". See [docs/architecture.md](../docs/architecture.md).
 
-## Proposed - pending owner sign-off
+**Revisit when:** -
 
-NOT decided. None may be implemented as a fixed choice until the owner signs off.
+### D-NOSERVICES &mdash; No third-party services
 
-_None at present._
+**State:** ✅ DECIDED · 2026-05 (inception)
 
-## Open questions
+**Decision:** No third-party runtime services &mdash; no analytics, no form backends (e.g. Formspree),
+no CDN beyond Google Fonts. Map embeds use Google Maps iframes; the bank QR is a static SPAYD SVG
+generated offline; contact is `mailto:` only; the calendar is a static `.ics` file.
 
-No decision yet. Tracked alongside the live plan in [./plan.md](./plan.md).
+**Why:** Privacy, simplicity, zero ongoing cost and zero runtime dependencies.
 
-### O-FONTS - Self-host fonts versus Google Fonts CDN
+**Revisit when:** Adding a new integration that would need one &mdash; log the new decision here first.
 
-- Decision needed: keep loading the web fonts (Playfair Display + Source Sans 3, per [D-DESIGN](#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity)) from the Google Fonts CDN, or self-host them in `site/assets/`.
-- Trade-off: the CDN is simplest but lets Google see a request on each page load (privacy / GDPR) and adds a third-party dependency ([D-NOSERVICES](#d-noservices--no-third-party-services) carves out the font CDN as the one exception); self-hosting removes that at the cost of bundling and updating the font files.
-- Status: open. Default is the CDN; revisit if privacy becomes a concern. (The design refresh itself is now settled &mdash; see [D-DESIGN](#d-design--visual-identity-refreshed-to-the-blush-pink-print-identity).)
+### D-PRIVACY &mdash; Public but unlisted
+
+**State:** ✅ DECIDED · 2026-05 (inception)
+
+**Decision:** The site is public but unlisted &mdash; discoverable only via the URL given to guests.
+`robots.txt` disallows all crawlers and every page carries
+`<meta name="robots" content="noindex,nofollow">`. No true secrets live in tracked files, since the
+whole repository is technically reachable.
+
+**Why:** A wedding site should not be search-indexed, but needs no authentication.
+
+**Revisit when:** -
+
+### D-HOST &mdash; GitHub Pages + custom domain
+
+**State:** ✅ DECIDED · 2026-05 (inception)
+
+**Decision:** Hosted free on GitHub Pages, fronted by the custom domain `tereza-jakub.cz` (registered at
+Wedos), bound via the repo's Pages settings. Email `info@tereza-jakub.cz` forwards via Seznam Email
+Profi (free tier). Total cost ~165 CZK + VAT / year (domain only).
+
+**Why:** Free, reliable static hosting; the owner already controls the domain and email. The deploy
+_mechanism_ is superseded by D-DEPLOY; the host and domain are unchanged. See
+[docs/deployment.md](../docs/deployment.md).
+
+**Revisit when:** -
+
+### D-PAGES &mdash; Multi-page, English filenames, Czech content
+
+**State:** ✅ DECIDED · 2026-05 (inception)
+
+**Decision:** Multi-page architecture with a shared header/footer kept in sync manually (with AI
+assistance). Page filenames are English; content is Czech (vykání, warm but proper). An English mirror
+under `/en/` is a possible later phase.
+
+**Why:** English filenames keep paths stable if an English mirror is ever added; Czech content matches
+the audience. The page _count_ was later reduced by D-IA4; the architecture, filenames and content
+language stand.
+
+**Revisit when:** -
+
+### D-STACK &mdash; Vanilla static site, no build step
+
+**State:** ✅ DECIDED · 2026-05 (inception)
+
+**Decision:** The site is vanilla HTML / CSS / JavaScript with no framework, no build step, and no Node
+toolchain. A single stylesheet (`site/assets/css/main.css`), mobile-first.
+
+**Why:** Lowest maintenance and lowest hosting cost for a small, ~12-month-lifecycle informational site;
+nothing to break in a build pipeline.
+
+**Revisit when:** -
+
+## Open
+
+### D-FONTS &mdash; Self-host fonts versus Google Fonts CDN
+
+**State:** ❓ OPEN · 2026-06-07
+
+**Question:** Keep loading Playfair Display + Source Sans 3 (D-DESIGN) from the Google Fonts CDN, or
+self-host them in `site/assets/`?
+
+**Blocks:** Nothing &mdash; can wait.
+
+**Options:** a) Keep the Google Fonts CDN (current default) &mdash; simplest, but Google sees a request
+on each page load (privacy/GDPR), and it is the one exception D-NOSERVICES carves out for a third-party
+dependency. b) Self-host the two font families in `site/assets/` &mdash; removes that dependency, at the
+cost of bundling and updating the font files by hand.
