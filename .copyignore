@@ -1,9 +1,12 @@
 # .copyignore - what copy-project never copies from this project. Every exclusion lives here;
 # copy-project ships no list of its own.
 #
+# List ballast only: environments, caches, git internals, editor and OS files. Never list data,
+# not even data with a source of its own or data a script regenerates - a backup carries it.
+#
 # One pattern per line; '#' comments; blank lines ignored.
 #   - a trailing '/' names a directory, matched at any depth:   node_modules/
-#   - a '/' elsewhere anchors a path to this file's directory:   data/raw/
+#   - a '/' elsewhere anchors a path to this file's directory:   code/.venv-windows/
 #   - otherwise a basename glob for files and directories:       *.pyc
 # 'tmp/' is not listed: project scratch travels.
 
