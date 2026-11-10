@@ -57,12 +57,12 @@ Wedding website: static site under `site/`, meta-layer (`dev/`, `docs/`, `tools/
 
 ## Related / sibling repos
 
-Full portfolio register -> core/jakub-hq/.claude/SIGNPOST.md (§ Portfolio). Paths below are
+Full portfolio register -> core/jakub-hq/docs/portfolio-register.md (§ Project map & routing). Paths below are
 ROOT-relative (ROOT = /mnt/d/projects).
 
 Claude infrastructure:
 
 - core/jakub-hq - portfolio HQ: map, side-task routing, status dashboard (full register in its
-  .claude/SIGNPOST.md).
+  docs/portfolio-register.md).
 - core/jd-plugins - jd / pers plugins (the skills + hooks this repo's workflow uses).
 - core/claude-code-config - global CLAUDE.md + settings.json source (symlink-deployed).
