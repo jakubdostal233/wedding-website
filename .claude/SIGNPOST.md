@@ -15,7 +15,7 @@ Wedding website: static site under `site/`, meta-layer (`dev/`, `docs/`, `tools/
 ## Working directories (`dev/`, `docs/`)
 
 - `dev/audits/`, `dev/figures/`, `dev/plans/`, `dev/prompts/`, `dev/reviews/`, `dev/specs/` - empty,
-  scaffolded for the canonical structure; populate as `pers:*` skills produce dated artefacts.
+  scaffolded for the canonical structure; populate as `jd:*` skills produce dated artefacts.
 - `docs/figures/`, `docs/research/` - empty, same reason.
 - `docs/evidence/D-DESIGN/` - checksum manifest for the two printed-material PDFs `DECISIONS.md`
   D-DESIGN cites (the PDFs themselves stay in `tmp/style/`, gitignored).
@@ -64,5 +64,5 @@ Claude infrastructure:
 
 - core/jakub-hq - portfolio HQ: map, side-task routing, status dashboard (full register in its
   docs/portfolio-register.md).
-- core/jd-plugins - jd / pers plugins (the skills + hooks this repo's workflow uses).
+- core/cc-marketplace/plugins/jd - the jd plugin (the skills + hooks this repo's workflow uses).
 - core/claude-code-config - global CLAUDE.md + settings.json source (symlink-deployed).
