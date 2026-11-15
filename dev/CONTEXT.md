@@ -41,5 +41,5 @@ no other contributors.
 
 ## Relation to other work
 
-Standalone. The deliverable/meta-layer split mirrors the `personal/tyre-model` reference project
+Standalone. The deliverable/meta-layer split mirrors the `tyre-model` reference project
 (D-STRUCT); no other repo depends on this one.
