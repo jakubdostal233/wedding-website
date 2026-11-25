@@ -65,4 +65,4 @@ Claude infrastructure:
 - core-personal/headquarters - portfolio HQ: the whole map, side-task routing, status dashboard (this
   repository's register line in its docs/portfolio-register.md); its tools are in core/headquarters-work/bin/.
 - core/cc-marketplace/plugins/jd - the jd plugin (the skills + hooks this repo's workflow uses).
-- core/claude-code-config - global CLAUDE.md + settings.json source (symlink-deployed).
+- core/agent-config - global CLAUDE.md + settings.json source (symlink-deployed).
